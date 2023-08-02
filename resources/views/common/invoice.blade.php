@@ -1,27 +1,26 @@
 
 <div class="row invoice-info">
     <div class="col-sm-12">
-        <h4 class="text-right">Invoice #INV007612</h4>
+        <h4 class="text-right">Invoice {{ '#'.$detail_in['invoice_code'] }}</h4>
     </div>
     <div class="col-sm-3  invoice-col">
         From
         <address>
-            <strong>Themicly,</strong><br>Rajshahi <br>Bangladesh <br>Phone: (088) 016-1707 5540<br>Email: info@themicly.com
+            <strong> Bussiness : </strong> {{ $bussiness->name }} Phone: {{ $bussiness->phone }}<br>Email: {{ $bussiness->email }}
         </address>
     </div>
     <div class="col-sm-3 invoice-col">
         To
         <address>
-            <strong>John Doe</strong><br>795 Folsom Ave, Suite 600<br>San Francisco, CA 94107<br>Phone: (555) 123-7654<br>Email: john.doe@example.com
+            <strong>{{ $detail_in['customer_name'] }}</strong><br>Table : {{ $detail_in['table_name'] }}<br>Note: {{ $detail_in['note'] }}
         </address>
     </div>
     <div class="col-sm-3 invoice-col text-right">
-        <b>Issue Date:</b> Feb 12, 2023<br>
-        <b>Due Date:</b> Apr 12, 2023<br>
-        <b>Account:</b> 968-34567-1234
+        <b>Issue Date:</b> {{ now()->format('Y-m-d H:i:s') }}<br>
+        <b>Bussiness Address:</b> {{ $bussiness->address }}
     </div>
     <div class="col-sm-3 invoice-col text-right">
-        <img height="100" src="{{asset('img/qr.png')}}" alt="">
+        {!! \DNS2D::getBarcodeHTML(strtoupper($detail_in['invoice_code']), 'QRCODE', 3.5, 3.5) !!}
     </div>
 </div>
 
@@ -34,31 +33,35 @@
                     <th class="wp-40">Product</th>
                     <th class="wp-20">Unit Price</th>
                     <th class="wp-15">Qty</th>
-                    <th class="wp-15">Discount</th>
                     <th class="wp-15 text-right">Sub Total</th>
                 </tr>
             </thead>
             <tbody>
                 @php
-                $invoiceItems = config('mockdata.invoice_items');
-                $grandTotal = 0;
-                $grandDiscount = 0;
-
+                    $grandTotal = 0;
+                    $grandDiscount = 0;
                 @endphp
-                @foreach($invoiceItems as $key => $product)
+                @foreach($invoice_items as $key => $product)
                 @php
 
-                $subtotal = $product['qty'] * ($product['unit_price'] - $product['discount']);
+                $subtotal = $product['quantity'] * ($product['subtotal']);
                 $grandTotal += $subtotal;
                 @endphp
                 <tr>
                     <td>{{($key +  1)}}</td>
                     <td>{{$product['name']}}</td>
-                    <td>{{$product['unit_price']}}</td>
-                    <td>{{$product['qty']}}</td>
-                    <td>{{number_format($product['discount'], 2, '.', '')}}</td>
-                    <td class="text-right">{{number_format($subtotal, 2, '.', '')}}</td>
+                    <td>{{$product['subtotal']}}</td>
+                    <td>{{$product['quantity']}}</td>
+                    <td class="text-right">{{number_format($subtotal)}}</td>
                 </tr>
+
+                {{-- FORM CREATE --}}
+                <input type="hidden" name="invoice_items_name[]" value="{{ $product['name'] }}">
+                <input type="hidden" name="invoice_items_qty[]" value="{{ $product['quantity'] }}">
+                <input type="hidden" name="invoice_items_unit_price[]" value="{{ $product['subtotal'] }}">
+                {{-- <input type="hidden" name="invoice_items_discount[]" value="{{ $product['discount'] }}"> --}}
+                <input type="hidden" name="invoice_items_product_id[]" value="{{ $product['product_id'] }}">
+
                 @endforeach
             </tbody>
         </table>
@@ -67,15 +70,27 @@
 
 <div class="row">
     <div class="col-6">
-        <p class="lead">Payment Methods:</p>
-        <img src="{{asset('/img/credit/visa.png')}}" alt="Visa">
-        <img src="{{asset('/img/credit/mastercard.png')}}" alt="Mastercard">
-        <img src="{{asset('/img/credit/american-express.png')}}" alt="American Express">
-        <img src="{{asset('/img/credit/paypal2.png')}}" alt="Paypal">
-
-        <div class="alert alert-secondary mt-20">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <div class="form-group">
+            <label class="lead">Payment Methods:</label>
+            <select name="payment_id" id="" class="form-control">
+                @foreach($payments as $payment)
+                    <option value="{{ $payment->id }}">{{ $payment->name }}</option>
+                @endforeach
+            </select>
         </div>
+
+        <div class="form-group">
+            <label class="lead">Type:</label>
+            <select name="type" id="" class="form-control">
+                <option value="1">Dine In</option>
+                <option value="2">Reservation</option>
+                <option value="3">Take Away</option>
+                <option value="4">Delivery</option>
+            </select>
+        </div>
+        {{-- <div class="alert alert-secondary mt-20">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </div> --}}
     </div>
     <div class="col-2"></div>
     <div class="col-4">
@@ -89,18 +104,32 @@
                 <tbody>
                     <tr>
                         <th class="th-50">Subtotal:</th>
-                        <td class="text-right">{{number_format($grandTotal, 2, '.', '')}}</td>
+                        <td class="text-right">{{number_format($grandTotal)}}</td>
+                    </tr>
+                    <tr>
+                        <th class="th-50">Discount:</th>
+                        <td class="text-right">{{number_format($detail_in['discount'])}}</td>
                     </tr>
                     <tr>
                         <th>Tax (10%)</th>
-                        <td class="text-right">{{number_format($taxAmount, 2, '.', '')}}</td>
+                        <td class="text-right">{{number_format($taxAmount)}}</td>
                     </tr>
                     <tr>
                         <th>Total:</th>
-                        <td class="text-right">{{number_format($grandTotalWithTax, 2, '.', '')}}</td>
+                        <td class="text-right">{{number_format($grandTotalWithTax)}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+{{-- FORM CREATE --}}
+<input type="hidden" name="discount" value="{{ $detail_in['discount'] }}">
+<input type="hidden" name="total" value="{{ $grandTotal }}">
+<input type="hidden" name="grand_total" value="{{ $grandTotalWithTax }}">
+<input type="hidden" name="tax" value="{{ $taxAmount }}">
+<input type="hidden" name="customer_name" value="{{ $detail_in['customer_name'] }}">
+<input type="hidden" name="table_id" value="{{ $detail_in['table_id'] }}">
+<input type="hidden" name="note" value="{{ $detail_in['note'] }}">
+<input type="hidden" name="invoice_code" value="{{ $detail_in['invoice_code'] }}">

@@ -109,18 +109,36 @@
 							<label class="d-block">Customer Information</label>
 							<div class="d-block">
 								<div class="form-group">
-									<input type="text" name="name" class="form-control" placeholder="Enter Customer Name">
+									<input type="text" name="customer_name" id="customer_name" class="form-control" placeholder="Enter Customer Name">
 								</div>
 								<div class="form-group">
-									<input type="text" name="phone" class="form-control" placeholder="Enter Phone">
+									{{-- SELECT TABLE --}}
+									<select class="form-control select2" id="table_id" name="table_id">
+										<option selected="selected" value="">Select Table</option>
+										@foreach ($tables as $item)
+											<option value="{{ $item->id }}" {{ ($item->qty_available == 0 || $item->status == 3 || $item->status == 4) ? 'disabled' : '' }}>
+												{{ $item->number }}
+
+												@if ($item->status == 1)
+													<span class="badge badge-success">{{ "(Available $item->qty_available)" }}</span>
+												@elseif ($item->status == 2)
+													<span class="badge badge-warning">{{ "(Reserved $item->qty_available)" }}</span>
+												@elseif ($item->status == 3)
+													<span class="badge badge-danger">Occupied</span>
+												@else
+													<span class="badge badge-danger">Not Available</span>
+												@endif
+											</option>
+										@endforeach
+									</select>
 								</div>
 								<div class="form-group">
-									<textarea type="text" name="name" class="form-control h-82px" placeholder="Enter Address"></textarea>
+									<textarea type="text" id="note" name="note" class="form-control h-82px" placeholder="Note"></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="box-shadow p-3">
-							<button class="btn btn-danger btn-checkout btn-pos-checkout " data-toggle="modal" data-target="#InvoiceModal">PLACE ORDER</button>
+							<button class="btn btn-danger btn-checkout btn-pos-checkout" onclick="updateInvoice()">PLACE ORDER</button>
 						</div>
 					</div>
 
@@ -140,18 +158,21 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 				</div>
 				<div class="modal-body">
-					<div class="card-header">
-						<h3 class="d-block w-100">Radmin<small class="float-right">07/10/2021</small></h3>
-					</div>
-					<div class="card-body">
-						@include('common.invoice')
-						<div class="row no-print">
-							<div class="col-12">
-								<button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-								<button type="button" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Generate PDF</button>
+					<form action="{{ route('invoice.store') }}" method="POST" enctype="multipart/form-data">
+						@csrf
+						<div class="card-header">
+							<h3 class="d-block w-100">{{ \Auth::user()->bussiness->first()->name }}<small class="float-right">{{ \Auth::user()->name }}</small></h3>
+						</div>
+						<div class="card-body">
+							<div id="detailInvoice"></div>
+							<div class="row no-print">
+								<div class="col-12">
+									<button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+									<button type="button" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Generate PDF</button>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -181,7 +202,7 @@
 					image: 'storage/'+product.image,
 					price: price,
 					quantity: 1,
-					subtotal: price
+					subtotal: price,
 				};
 			}
 			// Update cart table
@@ -260,6 +281,49 @@
 			// Update cart total
 			$cartTotal.text(cartTotal_format);
 			$totalText.text((total_format));
+		}
+
+		function updateInvoice(){
+			// GET DATA ITEM FROM CART
+			var items = [];
+			for (var id in cart) {
+				if (cart.hasOwnProperty(id)) {
+					var item = cart[id];
+					items.push({
+						name: item.name,
+						price: item.price,
+						quantity: item.quantity,
+						subtotal: item.subtotal,
+						product_id: parseInt(id),
+					});
+				}
+			}
+			
+			var discount = $('#discount').val();
+			var customer_name = $('#customer_name').val();
+			var table_id = $('#table_id').val();
+			var note = $('#note').val();
+			
+			// POST WITH AJAX
+			$.ajax({
+				url: "{{ route('pos.updateInvoice') }}",
+				type: "POST",
+				data: {
+					_token: "{{ csrf_token() }}",
+					items: items,
+					discount: discount,
+					customer_name : customer_name,
+					table_id : table_id,
+					note : note,
+				},
+				success: function(data) {
+					$('#detailInvoice').html(data);
+					// OPEN TOGGLE AND MODAL in ID InvoiceModal
+					$('#InvoiceModal').toggleClass('show');
+					$('#InvoiceModal').modal('show');
+
+				}
+			});
 		}
 	</script>
 </body>

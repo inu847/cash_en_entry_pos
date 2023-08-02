@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
+use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Table;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class POSController extends Controller
 {
@@ -21,8 +25,13 @@ class POSController extends Controller
             $value['category_name'] = $value->category->name ?? null;
         }
         $warehouse = Warehouse::orderBy('name', 'desc')->get();
-        
-        return view('inventory.pos', compact('products', 'warehouse'));
+        $tables = Table::orderBy('number', 'asc')->get();
+        foreach ($tables as $key => $value) {
+            // SUM TABLE IS QTY AVAILABLE
+            $table_use = Invoice::where('table_id', $value->id)->whereNull('check_out')->count();
+            $value['qty_available'] = $value->capacity - $table_use;
+        }
+        return view('inventory.pos', compact('products', 'warehouse', 'tables'));
     }
 
     /**
@@ -119,5 +128,22 @@ class POSController extends Controller
     {
         $destroy = Product::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Berhasil hapus data!');
+    }
+
+    public function updateInvoice(Request $request)
+    {
+        $data = $request->all();
+        $invoice_items = $data['items'];
+        $detail_in['discount'] = $data['discount'];
+        $detail_in['customer_name'] = $data['customer_name'];
+        $detail_in['table_id'] = $data['table_id'];
+        $table = Table::find($data['table_id']);
+        $detail_in['table_name'] = $table->number ?? null;
+        $detail_in['note'] = $data['note'];
+        $detail_in['invoice_code'] = 'INV' . now()->format('YmdHis').rand(10, 99);
+        $bussiness = Auth::user()->bussiness->first();
+        $payments = Payment::orderBy('created_at', 'asc')->get();
+
+        return view('common.invoice', compact('invoice_items', 'detail_in', 'bussiness', 'payments'));
     }
 }

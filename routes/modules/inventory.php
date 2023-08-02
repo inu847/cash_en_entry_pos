@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\POSController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\WarehoseController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 // new inventory routes
@@ -19,3 +20,5 @@ Route::get('/suppliers', function () { return view('inventory.people.suppliers')
 Route::resource('products', ProductController::class);
 Route::resource('warehouse', WarehoseController::class);
 Route::resource('pos', POSController::class);
+Route::post('pos/update-invoice', [POSController::class, 'updateInvoice'])->name('pos.updateInvoice');
+Route::resource('invoice', InvoiceController::class);
