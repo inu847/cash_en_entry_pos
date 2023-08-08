@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" href="{{url('public/logo', generalSetting()->site_logo)}}" />
-    <title>{{generalSetting()->site_title1}}</title>
+    <link rel="icon" type="image/png" href="{{url('public/logo', userBussiness()->image)}}" />
+    <title>{{userBussiness()->name}}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,8 +105,8 @@
     <div class="hidden-print">
         <table>
             <tr>
-                <td><a href="{{$url}}" class="btn btn-info"><i class="fa fa-arrow-left"></i> {{trans('file.Back')}}</a> </td>
-                <td><button onclick="window.print();" class="btn btn-primary"><i class="dripicons-print"></i> {{trans('file.Print')}}</button></td>
+                <td><a href="{{$url}}" class="btn btn-info"><i class="fa fa-arrow-left"></i> Back</a> </td>
+                <td><button onclick="window.print();" class="btn btn-primary"><i class="dripicons-print"></i> Print</button></td>
             </tr>
         </table>
         <br>
@@ -114,23 +114,23 @@
 
     <div id="receipt-data">
         <div class="centered" style="margin-bottom: 30px;">
-            @if(generalSetting()->site_logo)
-                <img src="{{asset('storage/'.generalSetting()->site_logo)}}" height="80" width="90">
+            @if(userBussiness()->image)
+                <img src="{{asset('storage/'.userBussiness()->image)}}" height="80" width="90">
             @endif
             {{-- <img src="{{ asset('logoblack.png') }}" height="45" width="120" style="filter: brightness(0);"> --}}
 
-            <h2 style="margin-top: 0px;">{{generalSetting()->site_title1}}</h2>
+            <h2 style="margin-top: 0px;">{{userBussiness()->name}}</h2>
 
-            <p>{{generalSetting()->address}}<br> Kode Pos {{generalSetting()->kode_pos}}
-                <br>{{generalSetting()->phone}}
+            <p>{{userBussiness()->address}}<br> Email {{userBussiness()->email}}
+                <br>{{userBussiness()->phone}}
             </p>
         </div>
 
-        <p>{{trans('file.Date')}}: {{$invoice->created_at->format('Y-m-d')}}<br>
-            {{trans('file.Time')}}: {{$invoice->created_at->format("H:i:s")}}<br>
-            {{trans('file.No inv')}} : {{$invoice->no_inv}}<br>
+        <p>Date: {{$invoice->created_at->format('Y-m-d')}}<br>
+            Time: {{$invoice->created_at->format("H:i:s")}}<br>
+            No inv : {{$invoice->invoice_code}}<br>
             @if ($invoice->customer_name)
-            {{trans('file.Customer Name')}} : {{$invoice->customer_name}}<br>
+            Customer Name : {{$invoice->customer_name}}<br>
             @endif
         </p>
         <hr style="border-bottom:1px dotted #ddd;">
@@ -138,10 +138,10 @@
             <tbody>
                 @foreach($invoice_details as $key => $product_sale_data)
                     <tr>
-                        <td>{{ $product_sale_data->product->product_name ?? null }}({{$product_sale_data->varian->name ?? null }})</td>
-                        <td style="width: 30%;">{{ number_format($product_sale_data->price/$product_sale_data->qty) }}</td>
+                        <td>{{ $product_sale_data->product->title ?? null }}</td>
+                        <td style="width: 30%;">{{ number_format($product_sale_data->unit_price/$product_sale_data->qty) }}</td>
                         <td>x{{ $product_sale_data->qty }}</td>
-                        <td>{{ number_format($product_sale_data->price) }}</td>
+                        <td>{{ number_format($product_sale_data->unit_price) }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -150,7 +150,7 @@
         <table>
             <tr style="border-top:1px dotted #ddd;">
                     <th colspan="2" style="text-align:left">Total</th>
-                    <th style="text-align:right">{{number_format($invoice->amount)}}</th>
+                    <th style="text-align:right">{{number_format($invoice->total)}}</th>
                 </tr>
 
                 {{-- @if($invoice->tax)
@@ -183,20 +183,20 @@
                 
                 @php
                     if ($invoice->discount) {
-                        $prefix = substr($invoice->amount, 0, -3);
-                        $sufix = substr($invoice->amount, -3);
+                        $prefix = substr($invoice->grand_total, 0, -3);
+                        $sufix = substr($invoice->grand_total, -3);
                         if($sufix <= 500 && $sufix != 000){
                             $sufix = 500;
-                            $invoice->amount = $prefix."".$sufix;
+                            $invoice->grand_total = $prefix."".$sufix;
                         }elseif($sufix > 500 && $sufix <= 999){
-                            $invoice->amount =  round($invoice->amount, -3);
+                            $invoice->grand_total =  round($invoice->grand_total, -3);
                         }
-                        $invoice->change = $invoice->pay - $invoice->amount;
+                        $invoice->change = $invoice->pay - $invoice->grand_total;
                     }
                 @endphp
                 <tr>
-                    <th colspan="2" style="text-align:left; padding-bottom: 10px;">{{trans('file.grand total')}}</th>
-                    <th style="text-align:right">{{number_format($invoice->amount)}}</th>
+                    <th colspan="2" style="text-align:left; padding-bottom: 10px;">Grand Total</th>
+                    <th style="text-align:right">{{number_format($invoice->grand_total)}}</th>
                 </tr>
 
                 {{-- <tr>
@@ -211,29 +211,47 @@
         <table>
             <tbody>
                 <tr style="background-color:#ddd;">
-                    <!-- <td style="padding: 5px;width:30%">{{trans('file.Paid By')}}: {{$invoice->payment_method}}</td> -->
-                    <td style="padding: 5px;width:50%">{{trans('file.Pay')}}: {{number_format($invoice->pay)}}</td>
-                    <td style="padding: 5px;width:50%; text-align:right;">{{trans('file.Change')}}: {{number_format($invoice->change)}}</td>
+                    {{-- <td style="padding: 5px;">Payment: {{$invoice->payment->name}}</td> --}}
+                    <td style="padding: 5px;">Pay: {{number_format($invoice->pay)}}</td>
+                    <td colspan="2" style="padding: 5px;text-align: right;">Change: {{number_format($invoice->change)}}</td>
                 </tr>
 
-                <!-- <tr><td class="centered" colspan="3">All price inclusive Tax 10%</td></tr> -->
-                <tr style="border-bottom:0px;"><td class="centered" style="padding-bottom:0px;" colspan="3">Terimakasih sudah berbelanja <br> di {{ generalSetting()->site_title1 }}</td></tr>
+                <tr><td class="centered" colspan="3">All price inclusive Tax 10%</td></tr>
+                <tr style="border-bottom:0px;"><td class="centered" style="padding-bottom:0px;" colspan="3">Terimakasih sudah berbelanja <br> di {{ userBussiness()->name }}</td></tr>
                 <tr><td class="centered" colspan="3" style="padding-top:0px;">Silahkan Datang Kembali</td></tr>
-                <tr style="border-bottom:0px;"><td class="centered" colspan="3" style="text-transform:none;">
-                    <i class="fa-brands fa-instagram"></i> {{generalSetting()->site_title1}} 
-                    </td>
-                <tr>
-                    {{-- <td class="centered" colspan="3">
+                
+                {{-- @for ($i = 0; $i < attributeBussiness()->count(); $i++)
+                    @if ($i % 2 == 0)
+                        <tr style="border-bottom:0px;">
+                    @endif
+
+                    @if ($i % 2 == 1)
+                        <td style="padding: 5px;width:50%">{{attributeBussiness()[$i]->name}}: {{attributeBussiness()[$i]->value}}</td>
                         @php
-                            echo DNS1D::getBarcodeHTML('RHC001', 'EAN13');
+                            $i++;
                         @endphp
-                    </td> --}}
-                </tr>
+                    @else
+                        <td style="padding: 5px;width:50%">{{attributeBussiness()[$i]->name}}: {{attributeBussiness()[$i]->value}}</td>
+                        @php
+                            $i++;
+                        @endphp
+                    @endif
+
+                    @if ($i % 2 == 0)
+                        </tr>
+                    @endif
+                @endfor --}}
+                
+                {{-- <td class="centered" colspan="3">
+                    @php
+                        echo DNS1D::getBarcodeHTML('RHC001', 'EAN13');
+                    @endphp
+                </td> --}}
             </tbody>
         </table>
 
         <!-- <div class="centered" style="margin:30px 0 50px">
-            <small>{{trans('file.Invoice Generated By')}} {{generalSetting()->site_title1}}.
+            <small>{{trans('file.Invoice Generated By')}} {{userBussiness()->name}}.
             {{trans('file.Developed By')}} LionCoders</strong></small>
         </div> -->
     </div>

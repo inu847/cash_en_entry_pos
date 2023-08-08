@@ -97,12 +97,20 @@
 							</div>
 							<div class="d-flex justify-content-between font-15 align-items-center">
 								<span>Discount</span>
-								<input class="form-control w-90 font-15 text-right" id="discount">
+								<input class="form-control font-15 text-right" style="width: 150px;" id="discount">
+							</div>
+							<div class="d-flex justify-content-between font-15 align-items-center">
+								<span>Pay</span>
+								<input class="form-control font-15 text-right" style="width: 150px;" id="pay">
 							</div>
 							<hr>
 							<div class="d-flex justify-content-between font-20 align-items-center">
 								<b>Total</b>
 								<b id="total-bill">0.00</b>
+							</div>
+							<div class="d-flex justify-content-between font-20 align-items-center">
+								<b>Change</b>
+								<b id="change">0.00</b>
 							</div>
 						</div>
 						<div class="box-shadow p-3 mb-3">
@@ -213,6 +221,10 @@
 			updateCartTable();
 		});
 
+		$(document).on('keyup', '#pay', function() {
+			updateCartTable();
+		});
+
 		function removeCartItem(id) {
 			delete cart[id];
 			updateCartTable();
@@ -231,9 +243,12 @@
 			var $cartTable = $('#product-cart'),
 				$cartTotal = $('#subtotal-products'),
 				$totalText = $('#total-bill');
+				$change = $('#change');
 
 			var cartTotal = 0,
 				discount = $('#discount').val();
+				pay = $('#pay').val();
+				change = $('#change').val();
 
 			// Empty cart table
 			$cartTable.empty();
@@ -273,14 +288,21 @@
 			});
 
 			var total = cartTotal - discount;
+			var change = pay - total;
 			// CONVERT TO CURENCY FORMAT IDR
 			total_format = total.toLocaleString('id-ID', {
+				style: 'currency',
+				currency: 'IDR'
+			});
+			// CONVERT TO CURENCY FORMAT IDR
+			change_format = change.toLocaleString('id-ID', {
 				style: 'currency',
 				currency: 'IDR'
 			});
 			// Update cart total
 			$cartTotal.text(cartTotal_format);
 			$totalText.text((total_format));
+			$change.text((change_format));
 		}
 
 		function updateInvoice(){
@@ -303,6 +325,7 @@
 			var customer_name = $('#customer_name').val();
 			var table_id = $('#table_id').val();
 			var note = $('#note').val();
+			var pay = $('#pay').val();
 			
 			// POST WITH AJAX
 			$.ajax({
@@ -315,6 +338,7 @@
 					customer_name : customer_name,
 					table_id : table_id,
 					note : note,
+					pay : pay,
 				},
 				success: function(data) {
 					$('#detailInvoice').html(data);

@@ -44,13 +44,13 @@
                 @foreach($invoice_items as $key => $product)
                 @php
 
-                $subtotal = $product['quantity'] * ($product['subtotal']);
+                $subtotal = $product['quantity'] * ($product['price']);
                 $grandTotal += $subtotal;
                 @endphp
                 <tr>
                     <td>{{($key +  1)}}</td>
                     <td>{{$product['name']}}</td>
-                    <td>{{$product['subtotal']}}</td>
+                    <td>{{$product['price']}}</td>
                     <td>{{$product['quantity']}}</td>
                     <td class="text-right">{{number_format($subtotal)}}</td>
                 </tr>
@@ -58,10 +58,9 @@
                 {{-- FORM CREATE --}}
                 <input type="hidden" name="invoice_items_name[]" value="{{ $product['name'] }}">
                 <input type="hidden" name="invoice_items_qty[]" value="{{ $product['quantity'] }}">
-                <input type="hidden" name="invoice_items_unit_price[]" value="{{ $product['subtotal'] }}">
+                <input type="hidden" name="invoice_items_unit_price[]" value="{{ $product['price'] }}">
                 {{-- <input type="hidden" name="invoice_items_discount[]" value="{{ $product['discount'] }}"> --}}
                 <input type="hidden" name="invoice_items_product_id[]" value="{{ $product['product_id'] }}">
-
                 @endforeach
             </tbody>
         </table>
@@ -96,9 +95,9 @@
     <div class="col-4">
         <div class="table-responsive">
             @php
-            $taxAmount = $grandTotal * 0.1;
-            $grandTotalWithTax = $grandTotal + $taxAmount;
-
+                $taxAmount = $grandTotal * 0.1;
+                $grandTotalWithTax = $grandTotal + $taxAmount;
+                $change = $detail_in['pay'] - $grandTotalWithTax;
             @endphp
             <table class="table">
                 <tbody>
@@ -118,6 +117,14 @@
                         <th>Total:</th>
                         <td class="text-right">{{number_format($grandTotalWithTax)}}</td>
                     </tr>
+                    <tr>
+                        <th>Pay:</th>
+                        <td class="text-right">{{ number_format($detail_in['pay']) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Change:</th>
+                        <td class="text-right">{{ number_format($change) }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -133,3 +140,4 @@
 <input type="hidden" name="table_id" value="{{ $detail_in['table_id'] }}">
 <input type="hidden" name="note" value="{{ $detail_in['note'] }}">
 <input type="hidden" name="invoice_code" value="{{ $detail_in['invoice_code'] }}">
+<input type="hidden" name="pay" value="{{ $detail_in['pay'] }}">

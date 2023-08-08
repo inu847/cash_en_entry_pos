@@ -39,6 +39,7 @@ class InvoiceController extends Controller
         $data = $request->all();
 
         return $this->atomic(function () use ($data) {
+            $invoice['invoice_code'] = $data['invoice_code'];
             $invoice['discount'] = $data['discount'];
             $invoice['total'] = $data['total'];
             $invoice['grand_total'] = $data['total'];
@@ -46,13 +47,13 @@ class InvoiceController extends Controller
             $invoice['customer_name'] = $data['customer_name'];
             $invoice['table_id'] = $data['table_id'];
             $invoice['note'] = $data['note'];
-            $invoice['invoice_code'] = $data['invoice_code'];
             $invoice['user_id'] = auth()->user()->id;
             $invoice['payment_id'] = $data['payment_id'];
             $invoice['check_in'] = ($data['payment_id'] == 1) ? now() : null;
             $invoice['bussiness_id'] = Auth::user()->bussiness->first()->id;
             $invoice['paid'] = ($data['payment_id'] == 1) ? now() : 2;
             $invoice['type'] = $data['type'];
+            $invoice['pay'] = $data['pay'];
 
             $crateInvoice = Invoice::create($invoice);
 
@@ -67,9 +68,17 @@ class InvoiceController extends Controller
 
                 $crateInvoiceItem = InvoiceItem::create($invoice_items);
             }
+            
+            return redirect()->route('invoice.cetak', [$crateInvoice->invoice_code])->with('success', 'Invoice Berhasil di Buat');
         });
+    }
 
-        return redirect()->back()->with('success', 'Data berhasil di Tambahkan');
+    public function cetakInvoice($invoce_id)
+    {
+        $invoice = Invoice::where('invoice_code', $invoce_id)->first();
+        $invoice_details = $invoice->invoiceItems;
+
+        return view('inventory.invoice.standart', compact('invoice', 'invoice_details'));
     }
 
     /**

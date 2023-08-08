@@ -22,3 +22,4 @@ Route::resource('warehouse', WarehoseController::class);
 Route::resource('pos', POSController::class);
 Route::post('pos/update-invoice', [POSController::class, 'updateInvoice'])->name('pos.updateInvoice');
 Route::resource('invoice', InvoiceController::class);
+Route::get('inv/{invoice_code}', [InvoiceController::class, 'cetakInvoice'])->name('invoice.cetak');

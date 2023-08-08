@@ -140,6 +140,7 @@ class POSController extends Controller
         $table = Table::find($data['table_id']);
         $detail_in['table_name'] = $table->number ?? null;
         $detail_in['note'] = $data['note'];
+        $detail_in['pay'] = $data['pay'];
         $detail_in['invoice_code'] = 'INV' . now()->format('YmdHis').rand(10, 99);
         $bussiness = Auth::user()->bussiness->first();
         $payments = Payment::orderBy('created_at', 'asc')->get();

@@ -29,10 +29,21 @@ class Invoice extends Model
         'bussiness_id',
         'table_id',
         'payment_id',
+        'pay',
     ];
 
     public function table()
     {
         return $this->hasMany(Table::class, 'table_id', 'id');
+    }
+
+    public function invoiceItems()
+    {
+        return $this->hasMany(InvoiceItem::class, 'invoice_id', 'id');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id', 'id');
     }
 }

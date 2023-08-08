@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('discount')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('grand_total');
+            $table->integer('pay')->nullable();
             // PAID STATUS: 1=unpaid, 2=paid, 3=partial
             $table->dateTime('paid');
             $table->dateTime('due')->nullable();

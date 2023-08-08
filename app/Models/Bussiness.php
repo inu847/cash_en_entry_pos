@@ -17,4 +17,9 @@ class Bussiness extends Model
         'status',
         'user_id',
     ];
+
+    public function attribute()
+    {
+        return $this->hasMany(AttributeBussiness::class);
+    }
 }
