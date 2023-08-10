@@ -92,8 +92,12 @@
 						</div>
 						<div class="box-shadow p-3">
 							<div class="d-flex justify-content-between font-15 align-items-center">
-								<span>Subtotal</span>
-								<strong id="subtotal-products">0.00</strong>
+								<span>Total</span>
+								<strong id="total-products">0.00</strong>
+							</div>
+							<div class="d-flex justify-content-between font-15 align-items-center">
+								<span>Tax</span>
+								<strong id="tax-products">0.00</strong>
 							</div>
 							<div class="d-flex justify-content-between font-15 align-items-center">
 								<span>Discount</span>
@@ -244,6 +248,8 @@
 				$cartTotal = $('#subtotal-products'),
 				$totalText = $('#total-bill');
 				$change = $('#change');
+				$total = $('#total-products');
+				$tax = $('#tax-products');
 
 			var cartTotal = 0,
 				discount = $('#discount').val();
@@ -272,7 +278,9 @@
 								<div class="w-100 p-2">
 									<h5 class="mb-2 cart-item-title">${item.name}</h5>
 									<div class="d-flex justify-content-between">
-										<span class="text-muted">${item.quantity}x</span>
+										<button type="button" class="btn btn-sm btn-outline-primary" onclick="decrease(${id})">-</button>
+										<span class="text-muted" style="line-height: 30px;">${item.quantity}x</span>
+										<button type="button" class="btn btn-sm btn-outline-primary" onclick="increase(${id})">+</button>
 										<span class="text-success font-weight-bold cart-item-price">${item.subtotal_format}</span>
 									</div>
 								</div>
@@ -288,7 +296,9 @@
 			});
 
 			var total = cartTotal - discount;
-			var change = pay - total;
+			tax = total * 0.1;
+			grandtotal = total + tax;
+			var change = pay - grandtotal;
 			// CONVERT TO CURENCY FORMAT IDR
 			total_format = total.toLocaleString('id-ID', {
 				style: 'currency',
@@ -299,10 +309,38 @@
 				style: 'currency',
 				currency: 'IDR'
 			});
+			// CONVERT TO CURENCY FORMAT IDR
+			tax_format = tax.toLocaleString('id-ID', {
+				style: 'currency',
+				currency: 'IDR'
+			});
+			// CONVERT TO CURENCY FORMAT IDR
+			grandtotal_format = grandtotal.toLocaleString('id-ID', {
+				style: 'currency',
+				currency: 'IDR'
+			});
+
 			// Update cart total
-			$cartTotal.text(cartTotal_format);
-			$totalText.text((total_format));
+			$totalText.text((grandtotal_format));
 			$change.text((change_format));
+			$total.text((cartTotal_format));
+			$cartTotal.text(grandtotal_format);
+			$tax.text((tax_format));
+		}
+
+		function decrease(id){
+			if (cart[id].quantity == 1) {
+				removeCartItem(id);
+			}
+			cart[id].quantity--;
+			cart[id].subtotal = cart[id].price * cart[id].quantity;
+			updateCartTable();
+		}
+
+		function increase(id){
+			cart[id].quantity++;
+			cart[id].subtotal = cart[id].price * cart[id].quantity;
+			updateCartTable();
 		}
 
 		function updateInvoice(){

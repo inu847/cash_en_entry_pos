@@ -32,7 +32,7 @@
 		/* STICKY TOP WHEN SCROLL */
 		.sticky-top{
 			padding: 15px 50px !important;
-			background-color: rgba(255, 255, 255, 0.801);
+			background-color: rgba(255, 255, 255, 0.801) !important;
 		}
 		.btn-success{
 			background-color: #fb9800;
@@ -52,31 +52,46 @@
 	</style>
 
     <body class="home-gradient-bg">
-		<div class="sticky-top">
-			<div class="d-flex justify-content-between">
-				<div>
-					<a href="/">
-		            	<img height="40" src="{{ asset('img/logo_horizontal.png') }}">
-		            </a>
-				</div>
-				<div>
-					<a class="topbar_menu" href="">Beranda</a>
-					<a class="topbar_menu" href="">Tentang Kami</a>
-					<a class="topbar_menu" href="">Fitur</a>
-					<a class="topbar_menu" href="">Our Team</a>
-					<a class="topbar_menu" href="">Contact Us</a>
-					<a href="" style="margin: 0px 20px;">
-						<select class="p-2" id="language" name="language" onchange="location = this.value;">
-							<option value="EN">EN</option>
-							<option value="ID">ID</option>
-						</select>
-					</a>
-					<a style="margin-left: 20px;" class="btn btn-success btn-rounded mr-3" href="">Pesan Sekarang</a>
-				</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+			<a class="navbar-brand" href="/">
+				<img height="40" src="{{ asset('img/logo_horizontal.png') }}">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+			  <ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="topbar_menu" href="#beranda">Beranda</a>
+				</li>
+				<li class="nav-item">
+					<a class="topbar_menu" href="#beranda">Tentang Kami</a>
+				</li>
+				<li class="nav-item">
+					<a class="topbar_menu" href="#feature">Fitur</a>
+				</li>
+				<li class="nav-item">
+					<a class="topbar_menu" href="#client">Client</a>
+				</li>
+				<li class="nav-item">
+					<a class="topbar_menu" target="_blank" href="https://wa.me/6283113190652?text=Halo%20Admin%20Cash%20N%20Entry">Contact Us</a>
+				</li>
+				<li class="nav-item">
+					<select class="topbar_menu p-2" id="language" name="language" onchange="location = this.value;">
+						<option value="EN">EN</option>
+						<option value="ID">ID</option>
+					</select>
+				</li>
+				<li class="nav-item">
+					<button style="margin-left: 20px;" type="button" class="mt-2 btn btn-success btn-rounded mr-3" data-toggle="modal" data-target="#exampleModal">
+						Pesan Sekarang
+					</button>
+				</li>
+			  </ul>
 			</div>
-		</div>
+		  </nav>
 
-		<div class="radmin-bannner text-center">
+		<div id="beranda" class="radmin-bannner text-center">
 			<img  src="{{asset('/img/banner.gif')}}">
 		</div>
 
@@ -87,7 +102,7 @@
 				<p style="font-size: 15px; font-weight: 600;">Bagaimana Cash n Entry Mendukung Bisnis Anda secara End-to-End</p>
 			</div>
 
-			<div class="row">
+			<div class="row" id="feature">
 				<div class="col-md-4 mb-3">
 					<img src="{{ asset('img/qrcode_code_lp.png') }}" width="100%" alt="">
 				</div>
@@ -149,7 +164,42 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<img src="{{ asset('img/foo_lp.png') }}" alt="">
+					<img src="{{ asset('img/foo_lp.png') }}" width="100%" alt="">
+				</div>
+			</div>
+		</div>
+
+		{{-- CLIENT --}}
+		<div id="client">
+			<div class="text-center" style="margin-bottom: 50px;">
+				<div style="color: blue; font-size: 40px; font-weight: 600;">Kenapa Harus Kami?</div>
+				<p style="font-size: 15px; font-weight: 600;">Bagaimana Cash n Entry Mendukung Bisnis Anda secara End-to-End</p>
+			</div>
+
+			<div class="row" id="feature">
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/qrcode_code_lp.png') }}" width="100%" alt="">
+				</div>
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/menu_digital_lp.png') }}" width="100%" alt="">
+				</div>
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/tracking_order_lp.png') }}" width="100%" alt="">
+				</div>
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/image_vidio_lp.png') }}" width="100%" alt="">
+				</div>
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/online_payment_lp.png') }}" width="100%" alt="">
+				</div>
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/pos_lp.png') }}" width="100%" alt="">
+				</div>
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/custom_design_lp.png') }}" width="100%" alt="">
+				</div>
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('img/so_lp.png') }}" width="100%" alt="">
 				</div>
 			</div>
 		</div>
@@ -166,6 +216,50 @@
 			</div>
 		</div>
 
+
+		{{-- MODALS PESAN SEKARANG --}}
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">Form Pesan</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<form action='' method='' enctype='multipart/form-data'>
+					<div class="modal-body">
+						@csrf
+						<div class='form-group'>
+							<label for=''>Nama</label>
+							<input type='text' class='form-control' name='' id='' placeholder=''>
+						</div>
+						<div class='form-group'>
+							<label for=''>Email</label>
+							<input type='text' class='form-control' name='' id='' placeholder=''>
+						</div>
+						<div class='form-group'>
+							<label for=''>Phone</label>
+							<input type='text' class='form-control' name='' id='' placeholder=''>
+						</div>
+						<div class='form-group'>
+							<label for=''>Paket</label>
+							<select name="" class='form-control' id="">
+								<option value="">Standart</option>
+								<option value="">Medium</option>
+								<option value="">Premium</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Submit</button>
+					</div>
+				</form>
+			  </div>
+			</div>
+		</div>
+		  
 		<script src="{{ asset('all.js') }}"></script>
         
     </body>

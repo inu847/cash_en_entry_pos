@@ -95,6 +95,7 @@
     <div class="col-4">
         <div class="table-responsive">
             @php
+                $grandTotal = $grandTotal - $detail_in['discount'];
                 $taxAmount = $grandTotal * 0.1;
                 $grandTotalWithTax = $grandTotal + $taxAmount;
                 $change = $detail_in['pay'] - $grandTotalWithTax;
