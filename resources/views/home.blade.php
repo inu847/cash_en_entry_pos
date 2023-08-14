@@ -170,7 +170,7 @@
 		</div>
 
 		{{-- CLIENT --}}
-		<div id="client">
+		{{-- <div id="client">
 			<div class="text-center" style="margin-bottom: 50px;">
 				<div style="color: blue; font-size: 40px; font-weight: 600;">Client</div>
 				<p style="font-size: 15px; font-weight: 600;">
@@ -189,7 +189,7 @@
 					<img src="{{ asset('storage/'. $item->image) }}" alt="{{ $item->name }}">
 				@endforeach
 			</div>
-		</div>
+		</div> --}}
 
 		<div class="row justify-content-center">
 			<div class="my-5">
