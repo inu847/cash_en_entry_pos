@@ -84,7 +84,7 @@
 				</li>
 				<li class="nav-item">
 					<button style="margin-left: 20px;" type="button" class="mt-2 btn btn-success btn-rounded mr-3" data-toggle="modal" data-target="#exampleModal">
-						Pesan Sekarang
+						Ajukan Demo
 					</button>
 				</li>
 			  </ul>
@@ -172,35 +172,22 @@
 		{{-- CLIENT --}}
 		<div id="client">
 			<div class="text-center" style="margin-bottom: 50px;">
-				<div style="color: blue; font-size: 40px; font-weight: 600;">Kenapa Harus Kami?</div>
-				<p style="font-size: 15px; font-weight: 600;">Bagaimana Cash n Entry Mendukung Bisnis Anda secara End-to-End</p>
+				<div style="color: blue; font-size: 40px; font-weight: 600;">Client</div>
+				<p style="font-size: 15px; font-weight: 600;">
+					Berkolaborasi dengan mitra Garuda Technology Nusantara kami adalah
+					 seperti memiliki seorang maestro kreatif di sisi Anda, 
+					 yang dengan gesitnya menggubah harmoni visual dan teknologi, 
+					 menciptakan undangan digital yang mempesona dan memukau secara maksimal.
+					  Bersama-sama, kami akan menghadirkan pengalaman undangan yang tak terlupakan, 
+					  menggugah perasaan, dan memberikan sentuhan personal yang unik kepada setiap
+					   tamu, menjadikan acara Anda sebagai perbincangan yang tak terlupakan
+				</p>
 			</div>
 
 			<div class="row" id="feature">
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/qrcode_code_lp.png') }}" width="100%" alt="">
-				</div>
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/menu_digital_lp.png') }}" width="100%" alt="">
-				</div>
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/tracking_order_lp.png') }}" width="100%" alt="">
-				</div>
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/image_vidio_lp.png') }}" width="100%" alt="">
-				</div>
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/online_payment_lp.png') }}" width="100%" alt="">
-				</div>
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/pos_lp.png') }}" width="100%" alt="">
-				</div>
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/custom_design_lp.png') }}" width="100%" alt="">
-				</div>
-				<div class="col-md-4 mb-3">
-					<img src="{{ asset('img/so_lp.png') }}" width="100%" alt="">
-				</div>
+				@foreach (bussiness() as $item)
+					<img src="{{ asset('storage/'. $item->image) }}" alt="{{ $item->name }}">
+				@endforeach
 			</div>
 		</div>
 

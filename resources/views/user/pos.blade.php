@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-	<title>POS | Radmin - Laravel Admin Starter</title>
+	<title>POS | Cash N Entry</title>
 	<!-- initiate head with meta tags, css and script -->
 	@include('include.head')
 </head>
@@ -144,7 +144,7 @@ shuffle($products);
 				</div>
 				<div class="modal-body">
 					<div class="card-header">
-						<h3 class="d-block w-100">Radmin<small class="float-right">07/10/2021</small></h3>
+						<h3 class="d-block w-100">Cash N Entry<small class="float-right">07/10/2021</small></h3>
 					</div>
 					<div class="card-body">
 						@include('common.invoice')

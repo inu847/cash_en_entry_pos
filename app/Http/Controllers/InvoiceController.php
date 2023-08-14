@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
+use App\Models\Payment;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,9 +13,12 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $data = Invoice::orderBy('created_at', 'desc')->get();
+        $bussiness = Auth::user()->bussiness->first();
+        $data = Invoice::where('bussiness_id', $bussiness->id)->orderBy('created_at', 'desc')->get();
+        $warehouse = Warehouse::where('bussiness_id', $bussiness->id)->orderBy('name', 'asc')->get();
+        $payment = Payment::orderBy('name', 'asc')->get();
 
-        return view('inventory.warehouse.index', ['data' => $data]);
+        return view('inventory.sale.list', compact('data', 'warehouse', 'payment'));
     }
 
     /**
@@ -89,7 +94,9 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $sale = Invoice::find($id);
+        
+        return view('inventory.sale', compact('sale'));
     }
 
     /**

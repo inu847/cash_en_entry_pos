@@ -30,6 +30,8 @@ class Invoice extends Model
         'table_id',
         'payment_id',
         'pay',
+        'status',
+        'warehouse_id',
     ];
 
     public function table()
@@ -45,5 +47,10 @@ class Invoice extends Model
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'payment_id', 'id');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
     }
 }

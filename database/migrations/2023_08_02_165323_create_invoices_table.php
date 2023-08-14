@@ -28,8 +28,10 @@ return new class extends Migration
             // PAID STATUS: 1=unpaid, 2=paid, 3=partial
             $table->dateTime('paid');
             $table->dateTime('due')->nullable();
-            // TYPE: 1=dine in, 2=reservation, 3=take away, 4=delivery
+            // TYPE: 1=dine in, 2=reservation, 3=take away, 4=delivery, 5=online
             $table->integer('type');
+            // STATUS: 1=active, 2=cancel, 3=complete
+            $table->integer('status');
             $table->text('note')->nullable();
             $table->dateTime('check_in')->nullable();
             $table->dateTime('check_out')->nullable();
@@ -37,6 +39,7 @@ return new class extends Migration
             $table->unsignedBigInteger('bussiness_id')->index()->nullable();
             $table->unsignedBigInteger('table_id')->index()->nullable();
             $table->unsignedBigInteger('payment_id')->index()->nullable();
+            $table->unsignedBigInteger('warehouse_id')->index()->nullable();
             $table->timestamps();
         });
     }
