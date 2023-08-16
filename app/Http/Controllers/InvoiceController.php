@@ -6,19 +6,63 @@ use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Payment;
 use App\Models\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $bussiness = Auth::user()->bussiness->first();
-        $data = Invoice::where('bussiness_id', $bussiness->id)->orderBy('created_at', 'desc')->get();
         $warehouse = Warehouse::where('bussiness_id', $bussiness->id)->orderBy('name', 'asc')->get();
         $payment = Payment::orderBy('name', 'asc')->get();
 
-        return view('inventory.sale.list', compact('data', 'warehouse', 'payment'));
+        if ($request->has('start_date')) {
+            $start_date = Carbon::parse($request->get('start_date'))->toDateString();
+        }else{
+            $start_date = Carbon::now()->subDays(7)->toDateString();
+        }
+        if ($request->has('end_date')) {
+            $end_date = Carbon::parse($request->get('end_date'))->toDateString();
+        }else{
+            $end_date = Carbon::now()->toDateString();
+        }
+
+        $detail_in['start_date'] = Carbon::parse($start_date)->format('d-M-Y');
+        $detail_in['end_date'] = Carbon::parse($end_date)->format('d-M-Y');
+
+        $data = Invoice::where('bussiness_id', $bussiness->id)
+                        ->where(function($query) use($request, $start_date, $end_date){
+                            $query->whereBetween('created_at', [$start_date, $end_date]);
+                            
+                            if ($request->has('customer_name') && $request->get('customer_name') != null) {
+                                $query->where('customer_name', 'like', '%'.$request->get('customer_name').'%');
+                            }
+
+                            if ($request->has('warehouse_id') && $request->get('warehouse_id') != null) {
+                                $query->where('warehouse_id', $request->get('warehouse_id'));
+                            }
+
+                            if ($request->has('payment_id') && $request->get('payment_id') != null) {
+                                $query->where('payment_id', $request->get('payment_id'));
+                            }
+
+                            if ($request->has('status') && $request->get('status') != null) {
+                                $query->where('status', $request->get('status'));
+                            }
+
+                            if ($request->has('payment_id') && $request->get('payment_id') != null) {
+                                $query->where('payment_id', $request->get('payment_id'));
+                            }
+
+                            if ($request->has('invoice_code') && $request->get('invoice_code') != null) {
+                                $query->where('invoice_code', $request->get('invoice_code'));
+                            }
+                        })
+                        ->orderBy('created_at', 'desc')->get();
+        
+        return view('inventory.sale.list', compact('data', 'warehouse', 'payment', 'detail_in'));
     }
 
     /**
@@ -96,7 +140,7 @@ class InvoiceController extends Controller
     {
         $sale = Invoice::find($id);
         
-        return view('inventory.sale', compact('sale'));
+        return view('inventory.sale.detail', compact('sale'));
     }
 
     /**

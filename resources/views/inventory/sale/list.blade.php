@@ -8,7 +8,7 @@
 				<div class="page-header-title">
 					<i class="ik ik-shopping-cart bg-green"></i>
 					<div class="d-inline">
-						<h5>Invoces</h5>
+						<h5>Invoces {{ $detail_in['start_date'].' - '.$detail_in['end_date'] }}</h5>
 						<span>View, delete and update Invoces</span>
 					</div>
 				</div>
@@ -49,7 +49,7 @@
 					<div class="col col-sm-6">
 						<div class="card-search with-adv-search dropdown">
 							<form action="{{ route('invoice.index') }}" method="GET" enctype="multipart/form-data">
-								<input type="text" class="form-control global_filter" id="global_filter" placeholder="Search.." required="">
+								<input type="text" class="form-control global_filter" id="global_filter" placeholder="Search..">
 								<button type="submit" class="btn btn-icon"><i class="ik ik-search"></i></button>
 								<button type="button" id="adv_wrap_toggler" class="adv-btn ik ik-chevron-down dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 								<div class="adv-search-wrap dropdown-menu dropdown-menu-right" aria-labelledby="adv_wrap_toggler">
@@ -62,51 +62,46 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<select class="form-control" name="warehouse_id">
-													<option selected="">Select Warehouse</option>
+													<option value="" selected="">Select Warehouse</option>
 													@foreach ($warehouse as $item)
-														<option value="{{ $item->id }}">{{ $item->name }}</option>
+														<option value="{{ $item->id }}" {{ (\Request::get('warehouse_id') == $item->id) ? 'selected' : '' }} >{{ $item->name }}</option>
 													@endforeach
 												</select>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="text" name="customer_name" class="form-control column_filter" id="col2_filter" placeholder="Customer" data-column="2">
+												<input type="text" name="customer_name" value="{{ \Request::get('customer_name') }}" class="form-control column_filter" id="col2_filter" placeholder="Customer" data-column="2">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<select class="form-control" name="status">
-													<option selected="">Select Status</option>
-													<option value="1">Process</option>
-													<option value="2">Cancel</option>
-													<option value="3">Complete</option>
+													<option value="" selected="">Select Status</option>
+													<option value="1" {{ (\Request::get('status') == 1) ? 'selected' : '' }}>Process</option>
+													<option value="2" {{ (\Request::get('status') == 2) ? 'selected' : '' }}>Cancel</option>
+													<option value="3" {{ (\Request::get('status') == 3) ? 'selected' : '' }}>Complete</option>
 												</select>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<select class="form-control" name="sale_status">
-													<option selected="">Select Payment Method</option>
+												<select class="form-control" name="payment_id">
+													<option value="" selected="">Select Payment Method</option>
 													@foreach ($payment as $item)
-														<option value="{{ $item->id }}">{{ $item->name }}</option>
+														<option value="{{ $item->id }}" {{ (\Request::get('payment_id') == $item->id) ? 'selected' : '' }}>{{ $item->name }}</option>
 													@endforeach
 												</select>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="text" name="customer_name" class="form-control column_filter" id="col2_filter" placeholder="Customer" data-column="2">
+												<input type="date" name="start_date" value="{{ \Request::get('start_date') }}" class="form-control column_filter" id="col2_filter" placeholder="Start Date" data-column="2">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="datetime-local" name="start_date" class="form-control column_filter" id="col2_filter" placeholder="Start Date" data-column="2">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="datetime-local" name="end_date" class="form-control column_filter" id="col2_filter" placeholder="End Date" data-column="2">
+												<input type="date" name="end_date" value="{{ \Request::get('end_date') }}" class="form-control column_filter" id="col2_filter" placeholder="End Date" data-column="2">
 											</div>
 										</div>
 									</div>
@@ -155,15 +150,32 @@
 										</label>
 									</td>
 									<td>
-										<button data-toggle="modal" data-target="#InvoiceModal" onclick="detail({{$item->item}})" class="font-weight-bold">
-											{{ $item->invoice_code }}
+										<button onclick="detail({{$item->id}})" class="font-weight-bold btn btn-primary">
+											#{{ $item->invoice_code }}
 										</button>
 									</td>
 									<td>{{ ucfirst($item->customer_name) }}</td>
 									<td>{{ $item->warehouse->name ?? '' }}</td>
-									<td><span class="badge badge-pill badge-success mb-1">{{ statusInvoice($item->status) }}</span></td>
+									<td>
+										@if ($item->status == 1)
+											<span class="badge badge-pill badge-warning mb-1">{{ statusInvoice($item->status) }}</span>
+										@elseif($item->status == 2)
+											<span class="badge badge-pill badge-danger mb-1">{{ statusInvoice($item->status) }}</span>
+										@elseif($item->status == 3)
+											<span class="badge badge-pill badge-success mb-1">{{ statusInvoice($item->status) }}</span>
+										@endif
+									</td>
 									<td>{{ number_format($item->grand_total) }}</td>
-									<td>{{ number_format($item->pay) }}  <span class="badge {{ ($item->pay != 3) ? 'badge-danger' : 'badge-success' }}">{{ paidInvoice($item->paid) }}</span></td>
+									<td>
+										{{ number_format($item->pay) }}
+										@if ($item->paid == 1)
+											<span class="badge badge-pill badge-danger mb-1">{{ paidInvoice($item->paid) }}</span>
+										@elseif ($item->paid == 2)
+											<span class="badge badge-pill badge-success mb-1">{{ paidInvoice($item->paid) }}</span>
+											@elseif ($item->paid == 3)
+											<span class="badge badge-pill badge-warning mb-1">{{ paidInvoice($item->paid) }}</span>
+										@endif
+									</td>
 									<td>{{ typeInvoice($item->type) }}</td>
 									<td>{{ $item->payment->name ?? '' }}</td>
 									<td>{{ $item->created_at->format('Y-m-d H:i:s') }}</td>
@@ -173,22 +185,24 @@
 												<i class="ik ik-more-vertical"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="/Invoces/1/edit"><i class="ik ik-edit"></i> Edit </a>
-												<a class="dropdown-item" href="#InvoiceModal" data-toggle="modal" data-target="#InvoiceModal">
+												<a class="dropdown-item" href="/invoces/1/edit"><i class="ik ik-edit"></i> Edit </a>
+												<a class="dropdown-item" href="#javascript:void(0)" onclick="detail({{$item->id}})">
 													<i class="ik ik-file-text"></i>
 													Preveiw Invoice
 												</a>
-												<a class="dropdown-item">
+												<a class="dropdown-item" href="{{ route('invoice.cetak', [$item->invoice_code]) }}">
 													<i class="ik ik-printer"></i>
 													Invoice POS
 												</a>
-												<a class="dropdown-item">
-													<i class="ik ik-mail"></i>
-													Send on Email
+
+												<a class="dropdown-item" href="javascript:void(0)" onclick="$('#delete{{$item->id}}').submit()">
+													<i class="ik ik-trash"></i> Delete 
 												</a>
 
-												<a class="dropdown-item" href="#">
-													<i class="ik ik-trash"></i> Delete </a>
+												<form id="delete{{$item->id}}" action="{{ route('invoice.destroy', [$item->id]) }}" method="POST" enctype="multipart/form-data">
+													@csrf
+													@method('DELETE')
+												</form>
 											</div>
 										</div>
 									</td>
@@ -204,20 +218,10 @@
 
 
 {{-- MODALS DETAIL SALE --}}
-<div class="modal fade" id="InvoiceModal" tabindex="-1" role="dialog" aria-labelledby="InvoiceModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade full-window-modal" id="InvoiceModal" tabindex="-1" role="dialog" aria-labelledby="InvoiceModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="InvoiceModalLabel">Detail Invoice</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<div class="modal-body">
-			...
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close')}}</button>
-				<button type="button" class="btn btn-primary">{{ __('Save changes')}}</button>
-			</div>
+			
 		</div>
 	</div>
 </div>
@@ -225,22 +229,13 @@
 {{-- JS --}}
 <script>
 	function detail(id) {
-		var postForm = {
-			'_token': '{{ csrf_token() }}',
-			'name'     : $('input[name=name]').val()
-		};
 		$.ajax({
-			url: '/invoice/'+id,', 
-			type: 'GET', 
-			data : postForm,
-			dataType  : 'json',
-		})
-		.success(function(data) {
-			$('#InvoiceModal').modal('show');
-			$('#InvoiceModal .modal-body').html(data);
-		})
-		.fail(function() {
-			alert('Load data failed.');
+			url: '/invoice/'+id,
+			type: 'GET',
+			success: function(data) {
+				$('#InvoiceModal').modal('show');
+				$('#InvoiceModal .modal-content').html(data);
+			}
 		});
 	}
 </script>
