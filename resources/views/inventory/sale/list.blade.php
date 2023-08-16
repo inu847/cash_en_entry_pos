@@ -185,7 +185,7 @@
 												<i class="ik ik-more-vertical"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="/invoces/1/edit"><i class="ik ik-edit"></i> Edit </a>
+												{{-- <a class="dropdown-item" href="/invoces/1/edit"><i class="ik ik-edit"></i> Edit </a> --}}
 												<a class="dropdown-item" href="#javascript:void(0)" onclick="detail({{$item->id}})">
 													<i class="ik ik-file-text"></i>
 													Preveiw Invoice
