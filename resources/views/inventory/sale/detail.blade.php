@@ -75,12 +75,12 @@
                 <tr>
                     <th width="150px">Warehouse</th>
                     <td width="20px">:</td>
-                    <td>{{ $sale->warehouse->name }}</td>
+                    <td>{{ $sale->warehouse->name ?? '-' }}</td>
                 </tr>
                 <tr>
                     <th width="150px">Payment Method</th>
                     <td width="20px">:</td>
-                    <td>{{ $sale->payment->name }}</td>
+                    <td>{{ $sale->payment->name ?? '-' }}</td>
                 </tr>
             </table>
         </div>
