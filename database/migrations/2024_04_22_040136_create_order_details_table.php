@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            // PAYMENT METHOD
             $table->string('name');
-            $table->integer('status')->comment('1 = active, 2 = inactive');
-            $table->integer('type')->comment('1 = cash, 2 = transfer');
-            $table->string('image')->nullable();
-            $table->string('no_rekening')->nullable();
-            $table->string('description')->nullable();
+            $table->integer('price');
+            // BISA DARI VOUCHER MAUPUN DISKON LANGSUNG DARI ADMIN
+            $table->integer('discount')->nullable();
+            $table->integer('total');
+            $table->integer('qty');
+            $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('order_id')->index();
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('order_details');
     }
 };
