@@ -103,6 +103,7 @@ class InvoiceController extends Controller
             $invoice['paid'] = ($data['payment_id'] == 1) ? now() : 2;
             $invoice['type'] = $data['type'];
             $invoice['pay'] = $data['pay'];
+            $invoice['status'] = $data['status'];
 
             $crateInvoice = Invoice::create($invoice);
 

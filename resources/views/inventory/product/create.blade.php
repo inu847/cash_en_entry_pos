@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="input">Product Tag</label>
-                                        <input type="text" id="tags" class="form-control h-100" value="">
+                                        <input type="text" id="tags" class="form-control h-100" value="" name="tags">
                                     </div>
                                     <div class="form-group text-right">
                                         <button type="submit" class="btn btn-primary">Save</button>

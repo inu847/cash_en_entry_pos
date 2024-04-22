@@ -17,9 +17,19 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("image");
+            $table->string("email");
+            $table->string("phone");
+            $table->string("website")->nullable();
+            $table->string("facebook")->nullable();
+            $table->string("instagram")->nullable();
             $table->text("description")->nullable();
             $table->text("address")->nullable();
             $table->integer("status");
+            $table->string("wifi_password")->nullable();
+            
+            // TAX STATUS
+            $table->boolean("tax_status")->default(0)->comment('0 = non tax, 1 = tax');
+            $table->integer("tax")->nullable()->comment('10 = 10%');
             $table->unsignedBigInteger('user_id')->index()->nullable();
             $table->timestamps();
         });
