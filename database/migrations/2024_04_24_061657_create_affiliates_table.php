@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('why_should_wes', function (Blueprint $table) {
+        Schema::create('affiliates', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->string('image');
-            $table->integer('status')->comment('1 = active, 2 = inactive');
-            $table->integer('type')->comment('1 = about us, 2 = service');
-            // ROUTE
-            $table->string('route')->nullable();
+            $table->unsignedBigInteger('user_id')->index()->unique();
+            $table->string('affiliate_code')->unique();
+            $table->string('attachment')->nullable();
+            $table->integer('status')->default(1)->comment('1 = active, 2 = inactive');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('why_should_wes');
+        Schema::dropIfExists('affiliates');
     }
 };

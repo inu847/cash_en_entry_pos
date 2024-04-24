@@ -94,5 +94,5 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 
-Route::get('/register', function () { return view('pages.register'); });
+Route::get('/register', function () { return view('auth.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
