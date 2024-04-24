@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('why_should_wes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('file');
-            $table->integer('status')->comment('1=active, 2=inactive');
-            $table->integer('type')->comment('1 = Banner Promosi, 2 = Banner Event, 3 Banner Fixed 1');
-            $table->string('url')->nullable();
-            $table->text('description')->nullable();
+            $table->text('description');
+            $table->string('image');
+            $table->integer('status')->comment('1 = active, 2 = inactive');
+            // ROUTE
+            $table->string('route')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banners');
+        Schema::dropIfExists('why_should_wes');
     }
 };

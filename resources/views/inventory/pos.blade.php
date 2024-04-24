@@ -173,7 +173,7 @@
 					<form action="{{ route('invoice.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 						<div class="card-header">
-							<h3 class="d-block w-100">{{ \Auth::user()->bussiness->first()->name }}<small class="float-right">{{ \Auth::user()->name }}</small></h3>
+							<h3 class="d-block w-100">{{ \Auth::user()->bussiness->first()->name ?? '-' }}<small class="float-right">{{ \Auth::user()->name }}</small></h3>
 						</div>
 						<div class="card-body">
 							<div id="detailInvoice"></div>

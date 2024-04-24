@@ -32,6 +32,7 @@ return new class extends Migration
             $table->unsignedBigInteger('warehouse_id')->index()->nullable();
             $table->unsignedBigInteger('category_id')->index()->nullable();
             $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->unsignedBigInteger('ingredient_id')->index()->nullable();
             $table->timestamps();
         });
     }
