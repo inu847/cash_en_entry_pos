@@ -23,6 +23,10 @@ return new class extends Migration
             $table->integer('qty');
             $table->unsignedBigInteger('katalog_id')->index();
             $table->unsignedBigInteger('order_id')->index();
+
+            // WITH AFFILIATE
+            $table->unsignedBigInteger('affiliate_id')->index()->nullable();
+            $table->text('affiliate_link')->nullable();
             $table->timestamps();
         });
     }
