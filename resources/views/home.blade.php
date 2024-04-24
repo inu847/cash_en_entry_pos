@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="{{ asset('plugins/icon-kit/dist/css/iconkit.min.css') }}">
         <link rel="stylesheet" href="{{ asset('plugins/ionicons/dist/css/ionicons.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+		<link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
     </head>
 
 	<style>
@@ -49,12 +50,33 @@
 			font-size: 40px;
 			font-weight: 600;
 		}
+
+		/* custom */
+		.navbar-brand{
+			margin: 0px 100px;
+		}
+
+		.p1{
+			height: 500px;
+  			width: 100%;
+ 			background-image: linear-gradient(#31245C, #674CC2);
+			padding-top: 50px;
+			padding-right: 200px;
+			padding-bottom: 50px;
+			padding-left: 200px;
+		}
+
+
+		.f1{
+			font-family: "Russo One";
+			font-size: 40px;
+		}
 	</style>
 
     <body class="home-gradient-bg">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 			<a class="navbar-brand" href="/">
-				<img height="40" src="{{ asset('img/logo_horizontal.png') }}">
+				<img height="20" src="{{ asset('img/logo_horizontal_new.png') }}">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 			  <span class="navbar-toggler-icon"></span>
@@ -63,9 +85,6 @@
 			  <ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
 					<a class="topbar_menu" href="#beranda">Beranda</a>
-				</li>
-				<li class="nav-item">
-					<a class="topbar_menu" href="#beranda">Tentang Kami</a>
 				</li>
 				<li class="nav-item">
 					<a class="topbar_menu" href="#feature">Fitur</a>
@@ -90,12 +109,13 @@
 			  </ul>
 			</div>
 		  </nav>
-
-		<div id="beranda" class="radmin-bannner text-center">
-			<img  src="{{asset('/img/banner.gif')}}">
+		{{-- CONTENT --}}
+		<div class="p1">
+				<h1 class="f1 text-light">
+				Kemudahan Kasir <br>Kinerja Usaha Meningkat
+				</h1>
 		</div>
 
-		{{-- CONTENT --}}
 		<div class="container mb-3">
 			<div class="text-center" style="margin-bottom: 50px;">
 				<div style="color: blue; font-size: 40px; font-weight: 600;">Kenapa Harus Kami?</div>

@@ -79,7 +79,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 	// get permissions
 	Route::get('get-role-permissions-badge', [PermissionController::class,'getPermissionBadgeByRole']);
-
 	// Basic demo routes
 	include('modules/demo.php');
 	// Inventory routes
@@ -88,6 +87,8 @@ Route::group(['middleware' => 'auth'], function(){
 	include('modules/accounting.php');
 	// User Management routes
 	include('modules/user.php');
+	// Banner routes
+	include('modules/masterData.php');
 
 	// ROUTE RESOURCE
 	Route::resource('product-category', ProductCategoryController::class);
@@ -96,3 +97,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::get('/register', function () { return view('pages.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
+
+
+
