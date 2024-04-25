@@ -26,9 +26,10 @@
 
 	<style>
 		.topbar_menu{
+			top: 5px;
 			margin: 0px 20px;
 			font-size: 20px;
-			font-weight: 600;
+			
 		}
 		/* STICKY TOP WHEN SCROLL */
 		.sticky-top{
@@ -52,70 +53,76 @@
 		}
 
 		/* custom */
+		.f1{
+			font-family: "Russo One";
+		}
+		
+		.f2{
+			font-family: "Poppins", Arial, Sans-serif;
+			font-weight: 600;
+		}
+
 		.navbar-brand{
-			margin: 0px 100px;
+			top: 5px;
+			margin: 0px 118px;
 		}
 
 		.p1{
 			height: 500px;
-  			width: 100%;
- 			background-image: linear-gradient(#31245C, #674CC2);
-			padding-top: 50px;
-			padding-right: 200px;
-			padding-bottom: 50px;
-			padding-left: 200px;
+			width: 100%;
+			background-image: linear-gradient(#31245C);
+			padding: 65px 190px 30px 185px;
+			margin: 10% 10% 10% 10%; 
 		}
 
 
-		.f1{
-			font-family: "Russo One";
-			font-size: 40px;
-		}
+		
 	</style>
 
     <body class="home-gradient-bg">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 			<a class="navbar-brand" href="/">
-				<img height="20" src="{{ asset('img/logo_horizontal_new.png') }}">
+				<img height="22" src="{{ asset('img/logo_horizontal_new.png') }}">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 			  <span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
-			  <ul class="navbar-nav ml-auto">
+			  <ul class="navbar-nav navbar-brand ml-auto">
 				<li class="nav-item active">
-					<a class="topbar_menu" href="#beranda">Beranda</a>
+					<a class="topbar_menu f2" href="#beranda">Beranda</a>
+				</li>
+				<li class="nav-item mx-4">
+					<a class="topbar_menu f2" href="#feature">Fitur</a>
 				</li>
 				<li class="nav-item">
-					<a class="topbar_menu" href="#feature">Fitur</a>
+					<a class="topbar_menu f2" href="#">Percing</a>
+				</li>
+				<li class="nav-item mx-5">
+					<button type="button" class="btn btn-seccondary f2">LOGIN</button>
 				</li>
 				<li class="nav-item">
-					<a class="topbar_menu" href="#client">Client</a>
-				</li>
-				<li class="nav-item">
-					<a class="topbar_menu" target="_blank" href="https://wa.me/6283113190652?text=Halo%20Admin%20Cash%20N%20Entry">Contact Us</a>
-				</li>
-				<li class="nav-item">
-					<select class="topbar_menu p-2" id="language" name="language" onchange="location = this.value;">
-						<option value="EN">EN</option>
-						<option value="ID">ID</option>
-					</select>
-				</li>
-				<li class="nav-item">
-					<button style="margin-left: 20px;" type="button" class="mt-2 btn btn-success btn-rounded mr-3" data-toggle="modal" data-target="#exampleModal">
-						Ajukan Demo
-					</button>
+					<button type="button" class="btn btn-success f2">SIGN UP</button>
 				</li>
 			  </ul>
 			</div>
 		  </nav>
 		{{-- CONTENT --}}
-		<div class="p1">
-				<h1 class="f1 text-light">
-				Kemudahan Kasir <br>Kinerja Usaha Meningkat
-				</h1>
+		<div style="height: 500px;width: 100%;background-image: linear-gradient(#31245C, #674CC2);padding-top: 65px;padding-right: 190px;padding-bottom: 30px;padding-left: 185px;">
+			<h1 class="f1 text-light" style="font-size: 45px;">
+			Kemudahan Kasir <br>Kinerja Usaha Meningkat
+			</h1>
+			<p class="text-light f2" style="padding-right: 414px;font-size: 14px;">Satu-satunya partner POS yang membantu Anda untuk bisa <br>berjualan online secara mandiri. Gunakan aplikasi kasir Cash n Entry, dan terima pesanan offline dan online sekaligus, saling terintegrasi.</p>
+			<button type="button" class="btn btn-success"></button>
 		</div>
 
+		<div class="p1">
+		<div id="collapseOne" style="background-color: #b78dc2;" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+							<div class="card-body text-white">
+								Tidak Cash n Entry Berbasis website jadi konsumen hanya perlu melakukan scan barcode yang nantinya akan terhubung ke website restoran tanpa perlu install aplikasi
+							</div>
+						  </div>
+		</div>
 		<div class="container mb-3">
 			<div class="text-center" style="margin-bottom: 50px;">
 				<div style="color: blue; font-size: 40px; font-weight: 600;">Kenapa Harus Kami?</div>
