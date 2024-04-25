@@ -24,9 +24,16 @@
                 <div class="nav-item {{ ($segment1 == 'banner' || $segment1 == 'banners') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Banner')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('banner.index')}}" class="menu-item {{ ($segment1 == 'banner') ? 'active' : '' }}">{{ __('List Banner')}}</a>
                     <a href="{{route('banner.create')}}" class="menu-item {{ ($segment1 == 'banners') ? 'active' : '' }}">{{ __('Add Banner')}}</a>
+                    <a href="{{route('banner.index')}}" class="menu-item {{ ($segment1 == 'banner') ? 'active' : '' }}">{{ __('List Banner')}}</a>
                 </div>
+                <div class="nav-item {{ ($segment1 == 'askedQuestions' || $segment1 == 'banners') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Frequently Asked Questions')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('askedQuestions.create')}}" class="menu-item {{ ($segment1 == 'banners') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('askedQuestions.index')}}" class="menu-item {{ ($segment1 == 'askedQuestions') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+
                 <div class="nav-lavel">{{ __('Layouts')}} </div>
                 <div class="nav-item {{ ($segment1 == 'pos') ? 'active' : '' }}">
                     <a href="{{url('inventory')}}"><i class="ik ik-shopping-cart"></i><span>{{ __('Inventory')}}</span> </a>
