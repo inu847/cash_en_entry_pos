@@ -50,7 +50,7 @@
                 <tr>
                     <td>{{($key +  1)}}</td>
                     <td>{{$product['name']}}</td>
-                    <td>{{$product['price']}}</td>
+                    <td>{{number_format($product['price'])}}</td>
                     <td>{{$product['quantity']}}</td>
                     <td class="text-right">{{number_format($subtotal)}}</td>
                 </tr>
@@ -87,6 +87,16 @@
                 <option value="4">Delivery</option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label class="lead">Status:</label>
+            <select name="status" id="" class="form-control">
+                <option value="1">Pending</option>
+                <option value="2">Confirmed</option>
+                <option value="3">Cancelled</option>
+            </select>
+        </div>
+
         {{-- <div class="alert alert-secondary mt-20">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </div> --}}
