@@ -34,10 +34,6 @@
 			padding: 15px 50px !important;
 			background-color: rgba(255, 255, 255, 0.801) !important;
 		}
-		.btn-success{
-			background-color: #fb9800;
-			border-color: #fb9800;
-		}
 		.down-lp{
 			background-image: url('{{asset("/img/down_lp.jpg")}}');
 			height: 358px;
@@ -50,15 +46,14 @@
 			font-weight: 600;
 		}
 
-    .bg-banner{
-			height: 450px;
-			background: linear-gradient(135deg, rgba(49, 36, 92, 1), rgba(103, 76, 194, 1));
-			margin-bottom: 50px;
-    }
+        .bg-banner{
+            height: 450px;
+            background: linear-gradient(135deg, rgba(49, 36, 92, 1), rgba(103, 76, 194, 1));
+            margin-bottom: 50px;
+        }
 	</style>
 
     <body class="home-gradient-bg">
-		@include('components.front_nav')
 
         @yield('content')
 		  
