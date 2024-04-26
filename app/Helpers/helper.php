@@ -82,4 +82,29 @@ use Illuminate\Support\Facades\Bus;
                 break;
         }
     }
+
+    function typeBanner($type)
+    {
+        switch ($type) {
+            case 1:
+                return 'Banner Promosi';
+                break;
+            case 2:
+                return 'Banner Event';
+                break;
+            case 3:
+                return 'Banner Fixed';
+                break;        }
+    }
+
+    function statusBanner($status)
+    {
+        switch ($status) {
+            case 1:
+                return 'active';
+                break;
+            case 2:
+                return 'inactive';
+                break;     }
+}
 ?>

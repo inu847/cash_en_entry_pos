@@ -21,16 +21,13 @@
         <link rel="stylesheet" href="{{ asset('plugins/icon-kit/dist/css/iconkit.min.css') }}">
         <link rel="stylesheet" href="{{ asset('plugins/ionicons/dist/css/ionicons.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-		<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
         @stack('css')
     </head>
 	<style>
 		.topbar_menu{
 			margin: 0px 20px;
-			font-size: 18px;
+			font-size: 20px;
 			font-weight: 600;
-			color: #31245C;
-			font-family: 'Poppins', sans-serif;
 		}
 		/* STICKY TOP WHEN SCROLL */
 		.sticky-top{
@@ -49,15 +46,14 @@
 			font-weight: 600;
 		}
 
-    .bg-banner{
-			height: 450px;
-			background: linear-gradient(135deg, rgba(49, 36, 92, 1), rgba(103, 76, 194, 1));
-			margin-bottom: 50px;
-    }
+        .bg-banner{
+            height: 450px;
+            background: linear-gradient(135deg, rgba(49, 36, 92, 1), rgba(103, 76, 194, 1));
+            margin-bottom: 50px;
+        }
 	</style>
 
     <body class="home-gradient-bg">
-		@include('components.front_nav')
 
         @yield('content')
 		  
