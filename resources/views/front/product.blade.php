@@ -6,7 +6,6 @@
 
 @push('css')
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" >
     <style>
         .title1{
@@ -31,7 +30,7 @@
             font-family: 'Russo One', sans-serif;
             font-size: 40px;
         }
-        .btn-success{
+        .btn-success2{
             border-radius: 20px;
             padding: 20px 30px;
             line-height: 0.2;
@@ -105,7 +104,7 @@
 
                 <div class="row">
                     <div class="col-md-5 text-right" style="margin-left: -42px;">
-                        <a href="" class="btn btn-success">Coba Sekarang</a>
+                        <a href="" class="btn btn-success2">Coba Sekarang</a>
                     </div>
                     <div class="col-md-7 text-left">
                         <a href="" class="btn btn-outline-light">Konsultasi Dulu</a>
