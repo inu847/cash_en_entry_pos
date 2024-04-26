@@ -8,23 +8,16 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-            <a class="topbar_menu" href="#beranda">Fitur</a>
+            <a class="topbar_menu" href="/#beranda">Fitur</a>
         </li>
-        <li class="nav-item">
-            <a class="topbar_menu" href="">
+        <li class="nav-item dropdown">
+            <a class="topbar_menu" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                 Pricing
                 <span><i class="fa fa-angle-down"></i></span>
             </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">Software</a>
+              <a class="dropdown-item" href="{{ route('front.product') }}">Software + Perangkat</a>
             </div>
           </li>
         <li class="nav-item ">
@@ -37,9 +30,11 @@
             </select>
         </li> --}}
         <li class="nav-item">
-            <a href="{{ route('login') }}" class="topbar_menu">
-                Login
-            </a>
+            <div class="topbar_menu">
+                <a href="{{ route('login') }}" class="btn btn-seccondary">
+                    Login
+                </a>
+            </div>
         </li>
         <li class="nav-item">
             <div class="topbar_menu">

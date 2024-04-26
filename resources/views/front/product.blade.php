@@ -103,10 +103,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5 text-right" style="margin-left: -42px;">
+                    <div class="col-md-3 text-right" style="margin-left: 40px;">
                         <a href="" class="btn btn-success2">Coba Sekarang</a>
                     </div>
-                    <div class="col-md-7 text-left">
+                    <div class="col-md-8 text-left">
                         <a href="" class="btn btn-outline-light">Konsultasi Dulu</a>
                     </div>
                 </div>
