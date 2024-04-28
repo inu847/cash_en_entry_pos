@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
@@ -95,8 +96,7 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 
-Route::get('/register', function () { return view('pages.register'); });
+Route::get('/register', function () { return view('auth.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
 
-
-
+Route::get('/product', [LandingPageController::class,'product'])->name('front.product');

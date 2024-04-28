@@ -185,7 +185,7 @@
                             </select>
                         </div>
                     @else
-                        <input type="hidden" name="bussiness_id" value="{{\Auth::user()->bussiness->first()->id}}">
+                        <input type="hidden" name="bussiness_id" value="{{\Auth::user()->bussiness->first()->id ?? '-'}}">
                     @endif
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" name="Save" value="Save">

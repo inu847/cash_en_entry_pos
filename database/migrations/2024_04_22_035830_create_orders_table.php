@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('total_qty');
             $table->integer('total_price');
             $table->integer('total_discount')->nullable();
-            $table->integer('status')->default('pending')->comment('1 = pending,2 = process,3 = success, 4 = cancel');
-            $table->integer('payment')->default('pending')->comment('1 = pending,2 = process,3 = success, 4 = cancel');
+            $table->integer('status')->default(1)->comment('1 = pending,2 = process,3 = success, 4 = cancel');
+            $table->integer('payment')->default(1)->comment('1 = pending,2 = process,3 = success, 4 = cancel');
             $table->integer('type')->comment('1 = dine in, 2 = reservation, 3 = take away, 4 = delivery, 5 = online');
             $table->text('note')->nullable();
             $table->text('address')->nullable();

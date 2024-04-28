@@ -21,8 +21,12 @@ return new class extends Migration
             $table->integer('discount')->nullable();
             $table->integer('total');
             $table->integer('qty');
-            $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('katalog_id')->index();
             $table->unsignedBigInteger('order_id')->index();
+
+            // WITH AFFILIATE
+            $table->unsignedBigInteger('affiliate_id')->index()->nullable();
+            $table->text('affiliate_link')->nullable();
             $table->timestamps();
         });
     }
