@@ -17,7 +17,7 @@ class BannerController extends Controller
     {
         $data = banner::all();
 
-        return view('admin.banner.list',compact('data'));
+        return view('masterdata.banner.list',compact('data'));
 
     }
 
@@ -28,7 +28,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('admin.banner.create');
+        return view('masterdata.banner.create');
     }
 
     /**
@@ -58,8 +58,9 @@ class BannerController extends Controller
      */
     public function edit(string $id)
     {
-        $siswa = Siswa::find($id);
-        return view('edit',compact('siswa'));
+        $data = banner::findOrFail($id);
+
+        return view('masterdata.banner.edit', compact('data'));
     }
 
     /**
@@ -67,37 +68,64 @@ class BannerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nama' => 'required',
-            'jk' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'agama' => 'required',
-            'alamat' => 'required',
-            'jarak_rumah' => 'required',
-            'kelas' => 'required',
-        ]);
+        $this->updateValidate($request);
 
-        Siswa::where('id', $id)->update([
-            'nama' => $request->input('nama'),
-            'jk' => $request->input('jk'),
-            'tempat_lahir' => $request->input('tempat_lahir'),
-            'tanggal_lahir' => $request->input('tanggal_lahir'),
-            'agama' => $request->input('agama'),
-            'alamat' => $request->input('alamat'),
-            'jarak_rumah' => $request->input('jarak_rumah'),
-            'kelas' => $request->input('kelas')   
-        ]);
+        $data = $request->all();
+        if ($request->file('file')) {
+            $file = $request->file('file');
+            $path = $file->store('banner', 'public');
+            $data['file'] = $path;
+        }
 
-        return redirect('/datasiswa')->with('succes','peserta didik berhasil diedit');
+        return $this->atomic(function () use ($data, $id) {
+            $update = banner::findOrFail($id)->update($data);
+            
+            return redirect()->route('banner.index')->with('success', 'Data Berhasil di Ubah');
+        });
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $destroy = Banner::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Berhasil hapus data!');
+        try {
+            return $this->atomic(function () use ($id) {
+                $delete = Banner::find($id)->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data Berhasil Dihapus!',
+                ]);
+            });
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Gagal Dihapus!',
+            ]);
+        }
+    }
+    public function storeValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'title'     => 'required',
+            'status'   => 'required',
+            'type'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
+        ]);
+
+        return $validate;
+    }
+
+    public function updateValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'title'     => 'required',
+            'status'   => 'required',
+            'type'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
+        ]);
+
+        return $validate;
     }
 }

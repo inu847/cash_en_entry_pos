@@ -21,16 +21,16 @@
                     <a href="{{route('dashboard')}}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span></a>
                 </div>
                 <div class="nav-lavel">{{ __('Master Data')}} </div>
-                <div class="nav-item {{ ($segment1 == 'banner' || $segment1 == 'banners') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'banner' || $segment1 == 'Add banner') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Banner')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('banner.create')}}" class="menu-item {{ ($segment1 == 'banners') ? 'active' : '' }}">{{ __('Add Banner')}}</a>
+                    <a href="{{route('banner.create')}}" class="menu-item {{ ($segment1 == 'Add banner') ? 'active' : '' }}">{{ __('Add Banner')}}</a>
                     <a href="{{route('banner.index')}}" class="menu-item {{ ($segment1 == 'banner') ? 'active' : '' }}">{{ __('List Banner')}}</a>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'askedQuestions' || $segment1 == 'banners') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'askedQuestions' || $segment1 == '') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Frequently Asked Questions')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('askedQuestions.create')}}" class="menu-item {{ ($segment1 == 'banners') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('askedQuestions.create')}}" class="menu-item {{ ($segment1 == 'askedQuestions') ? 'active' : '' }}">{{ __('Add')}}</a>
                     <a href="{{route('askedQuestions.index')}}" class="menu-item {{ ($segment1 == 'askedQuestions') ? 'active' : '' }}">{{ __('List')}}</a>
                 </div>
 

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'banner')
+@section('title', 'askedQuestions')
 @section('content')
 
 <div class="container-fluid">
@@ -109,12 +109,10 @@
 										<span class="custom-control-label">&nbsp;</span>
 									</label>
 								</th>
-								<th>Tittle</th>
-								<th>File</th>
+								<th>Question</th>
 								<th>Status</th>
 								<th>Type</th>
-								<th>URL</th>
-								<th>Description</th>
+								<th>answer</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -127,18 +125,14 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
-									<td>{{ $item->title }}</td>
+									<td>{{ $item->question }}</td>
+									<td>{{ status($item->status) }}</td>
+									<td>{{ typeFAQ($item->type) }}</td>
+									<td>{{ $item->answer }}</td>
 									<td>
-										<img src="{{ asset('storage/'.$item->file) }}" class="table-user-thumb" alt="">
-									</td>									
-									<td>{{ statusBanner($item->status) }}</td>
-									<td>{{ typeBanner($item->type) }}</td>
-									<td>{{ $item->url }}</td>
-									<td>{{ $item->description }}</td>
-									<td>
-										<a href="#productView" data-toggle="modal" data-target="#productView"><i class="ik ik-eye f-16 mr-15"></i></a>
-										<a href="#"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
-										<a href="{{route('banner.destroy'/$item->id)}}"><i class="ik ik-trash-2 f-16 text-red"></i></a>
+										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
+										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
+										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
 								</tr>
 							@endforeach
@@ -196,16 +190,77 @@
 			</div>
 		</div>
 	</div>
+</div>
 
-	@push('script')
-	<script src="{{ asset('plugins/amcharts/amcharts.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/gauge.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/serial.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/themes/light.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/animate.min.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/pie.js') }}"></script>
-	<script src="{{ asset('plugins/ammap3/ammap/ammap.js') }}"></script>
-	<script src="{{ asset('plugins/ammap3/ammap/maps/js/usaLow.js') }}"></script>
-	<script src="{{ asset('js/product.js') }}"></script>
-	@endpush
-	@endsection
+<div class="modal fade" id="modal_update_data" tabindex="-1" role="dialog" aria-labelledby="modal_update_dataLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_update_dataLabel">Update FAQ</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body" id="formEdit">
+			...
+			</div>
+		</div>
+	</div>
+</div>	
+@endsection
+@push('script')
+<script src="{{ asset('plugins/amcharts/amcharts.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/gauge.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/serial.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/themes/light.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/animate.min.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/pie.js') }}"></script>
+<script src="{{ asset('plugins/ammap3/ammap/ammap.js') }}"></script>
+<script src="{{ asset('plugins/ammap3/ammap/maps/js/usaLow.js') }}"></script>
+<script src="{{ asset('js/product.js') }}"></script>
+
+<script>
+	function edit(id) {
+		$.ajax({
+			url: '/askedQuestions/'+id+'/edit',
+			type: 'GET',
+			success: function(data) {
+				$('#formEdit').html(data);
+				$('#modal_update_data').modal('show');
+				actionCloseModals();
+			}
+		})
+	}
+
+	function confirmDelete(event, id) {
+		event.preventDefault();
+		Swal.fire({
+			title: 'Are you sure?',
+			text: 'You will not be able to recover this record!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			cancelButtonText: 'No, cancel!',
+			reverseButtons: true
+		}).then((result) => {
+			if (result.isConfirmed) {
+				var postForm = {
+					'_token': '{{ csrf_token() }}',
+					'_method': 'DELETE',
+				};
+				$.ajax({
+					url: '/askedQuestions/'+id,
+					type: 'POST', 
+					data : postForm,
+					dataType  : 'json',
+				})
+				.done(function(data) {
+					Swal.fire('Deleted!', data['message'], 'success');
+					location.reload();
+				})
+				.fail(function() {
+					Swal.fire('Error!', 'An error occurred while deleting the record.', 'error');
+				});
+			}
+		});
+	}
+</script>
+@endpush

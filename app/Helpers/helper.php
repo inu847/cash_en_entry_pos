@@ -94,10 +94,11 @@ use Illuminate\Support\Facades\Bus;
                 break;
             case 3:
                 return 'Banner Fixed';
-                break;        }
+                break;        
+            }
     }
 
-    function statusBanner($status)
+    function status($status)
     {
         switch ($status) {
             case 1:
@@ -130,4 +131,16 @@ use Illuminate\Support\Facades\Bus;
                 break;
             }
     }
+
+    function typeFAQ($type)
+    {
+        switch ($type) {
+            case 1:
+                return 'General';
+                break;
+            case 2:
+                return 'Help';
+                break;     
+            }
+}
 ?>
