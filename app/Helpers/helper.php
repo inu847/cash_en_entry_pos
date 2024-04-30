@@ -106,5 +106,28 @@ use Illuminate\Support\Facades\Bus;
             case 2:
                 return 'inactive';
                 break;     }
-}
+    }
+
+    function statusPayment($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'active';
+                break;
+            case 2:
+                return 'inactive';
+                break;
+            }
+    }
+    
+    function typePayment($value) {
+        switch ($value) {
+            case 1:
+                return 'Cash';
+                break;
+            case 2:
+                return 'Transfer';
+                break;
+            }
+    }
 ?>

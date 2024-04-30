@@ -75,7 +75,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 my-auto p-0">
                         <div class="authentication-form mx-auto">
                             <div class="logo-centered">
-                                <a href=""><img width="150" src="{{ asset('img/logo.png') }}" alt=""></a>
+                                <a href=""><img width="150" src="{{ asset('img/logo_horizontal.png') }}" alt=""></a>
                             </div>
                             <p>{{ __('Join us today! It takes only few steps')}}</p>
                             <form action="{{url('register')}}" method="post">
@@ -130,10 +130,6 @@
                                 Bersama kita kuat, majukan UMKM untuk <br> ekonomi yang lebih baik.
                             </div>
                         </div>
-                        {{-- <div class="">
-                            <div class="lavalite-overlay">
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
