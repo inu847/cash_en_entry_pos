@@ -150,10 +150,8 @@
 								</td>
 								<td>{{ $item->no_rekening }}</td>
 								<td>
-									<a href="#detailView" data-toggle="modal" data-target="#detailView"><i
-											class="ik ik-eye f-16 mr-15"></i></a>
-									<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i
-											class="ik ik-edit f-16 mr-15 text-green"></i></a>
+									<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
+									<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
 									<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 								</td>
 							</tr>
