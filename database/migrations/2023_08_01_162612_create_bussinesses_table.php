@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('bussinesses', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("image");
+            $table->string("logo")->nullable();
             $table->string("email");
             $table->string("phone");
             $table->string("website")->nullable();
@@ -26,7 +26,9 @@ return new class extends Migration
             $table->text("address")->nullable();
             $table->integer("status");
             $table->string("wifi_password")->nullable();
-            
+            $table->string('custom_domain')->nullable();
+            $table->string('sub_domain')->nullable();
+            $table->integer('type')->default(1)->comment('1 = Standart, 2 = FoodCourt, 3 = Retail');
             // TAX STATUS
             $table->boolean("tax_status")->default(0)->comment('0 = non tax, 1 = tax');
             $table->integer("tax")->nullable()->comment('10 = 10%');

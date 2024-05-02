@@ -38,6 +38,7 @@ return new class extends Migration
             $table->dateTime('approved_at')->nullable();
             $table->unsignedBigInteger('created_by')->index()->nullable()->comment('relation users table');
             $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('bussiness_id')->index();
             $table->timestamps();
         });
     }

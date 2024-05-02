@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('image')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->unsignedBigInteger('employee_position_id')->index();
             $table->unsignedBigInteger('employee_status_id')->index();
             $table->unsignedBigInteger('user_id')->index()->nullable()->comment('optional field');

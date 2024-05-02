@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('is_paid')->default(0);
             $table->text('reason')->nullable();
             $table->integer('source')->comment('1 = Payroll, 2 = Others');
+            $table->unsignedBigInteger('bussiness_id')->index();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('status')->comment('1 = active, 2 = inactive');
             $table->string('image')->nullable();
+            $table->unsignedBigInteger('bussiness_id')->index();
             $table->timestamps();
         });
     }

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('reason')->nullable();
             $table->integer('loan_status')->default(1)->comment('1 = Waiting Approval, 2 = Approved, 3 = Rejected');
             $table->integer('repayment_status')->comment('1 = None, 2 = Ongoing, 3 = Paid, 4 = Canceled');
+            $table->unsignedBigInteger('bussiness_id')->index();
             $table->timestamps();
         });
     }

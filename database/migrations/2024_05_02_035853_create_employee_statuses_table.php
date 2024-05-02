@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->comment('Freelance, Part Time, Full Time, Contract, Dismissal');
             $table->text('description')->nullable();
             $table->integer('status')->comment('1 = active, 2 = inactive');
+            $table->unsignedBigInteger('bussiness_id')->index();
             $table->timestamps();
         });
     }
