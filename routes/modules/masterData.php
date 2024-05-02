@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\AskedQuestionsController;
+use App\Http\Controllers\Admin\WhyShouldWeController;
+use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,3 +12,6 @@ use Illuminate\Support\Facades\Route;
 Route::resource('banner', BannerController::class);
 Route::resource('askedQuestions', AskedQuestionsController::class);
 Route::resource('payment', PaymentController::class);
+Route::resource('whyShouldWe', WhyShouldWeController::class);
+Route::resource('voucher', VoucherController::class);
+Route::resource('generalSetting', GeneralSettingController::class);
