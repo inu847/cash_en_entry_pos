@@ -5,6 +5,71 @@
 	<title>POS | Cash N Entry</title>
 	<!-- initiate head with meta tags, css and script -->
 	@include('include.head')
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+	<style>
+		.list-thumbnail {
+			width: 100%;
+			height: 175px;
+			border-radius: 6px;
+		}
+		.badge-bestseller{
+			background-color: #68FE6E;
+			color: #fff;
+			font-size: 10px;
+			border-radius: 15px;
+			position: absolute;
+			margin: 10px;
+			font-family: 'Poppins', sans-serif;
+			font-weight: 900;
+		}
+		.badge-discount{
+			background-color: #FF3030;
+			color: #fff;
+			font-size: 10px;
+			border-radius: 15px;
+			position: absolute;
+			margin: 10px;
+			font-family: 'Poppins', sans-serif;
+			font-weight: 900;
+		}
+		.badge-add-product{
+			background-color: #000000;
+			color: #fff;
+			font-size: 23px;
+			position: absolute;
+			margin: 10px;
+			font-weight: 900;
+			top: 143px;
+			right: 3px;
+			padding: 1px;
+			border-radius: 3px;
+		}
+		.badge-add-favorite{
+			position: absolute;
+			right: 15px;
+			top: 7px;
+		}
+		.product-title{
+			font-family: 'Inter';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 22px;
+			color: #000000;
+		}
+		.product-price{
+			font-family: 'Inter';
+			font-style: normal;
+			font-weight: 600;
+			font-size: 16px;
+			line-height: 19px;
+		}
+		.badge-soldout{
+			padding: 10px 0px;
+			width: 90%;
+		}
+	</style>
 </head>
 
 <body id="app">
@@ -48,17 +113,47 @@
 							<!-- include product preview page -->
 							@foreach($products as $key => $product)
 							<div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-2 list-item list-item-grid p-2">
-								<div class="card mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}">
-									<div class="d-flex card-img">
+								<div class="mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}">
+								{{-- <div class="card mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}"> --}}
+									<div class="mb-2">
+									{{-- <div class="d-flex card-img"> --}}
+										@if ($key % 2 == 0)
+											<div class="badge badge-bestseller">
+												Best Seller
+											</div>
+
+											<img src="{{asset('img/fav.png')}}" class="badge-add-favorite" alt="">
+
+										@elseif ($key % 2 == 1)
+											<div class="badge badge-discount">
+												20%
+											</div>
+										@endif
+
+										<i class="ik ik-plus badge-add-product"></i>
+
 										<img src="{{asset('storage/'.$product['image'])}}" alt="{{$product['title']}}" class="list-thumbnail responsive border-0">
 									</div>
-									<div class="p-2">
-										<p>{{$product['title']}} <small class="text-muted">{{$product['category_name']}}</small> </p>
-										@if($product['offer_price'])
-										<span class="product-price"><span class="price-symbol">$</span>{{$product['offer_price']}}</span> <small class="text-red font-15"><s>{{$product['regular_price']}}</s></small>
-										@else
-										<span class="product-price"><span class="price-symbol">$</span>{{$product['regular_price']}}</span>
-										@endif
+									
+									<div class="row">
+										<div class="col-md-8">
+											<div class="product-title mb-2">
+												{{$product['title']}} 
+											</div>
+											@if($product['offer_price'])
+												<div class="product-price">
+													Rp.{{ number_format($product['offer_price'])}}
+												</div>
+												<div class="product-price text-muted">
+													<small>Rp.<s>{{number_format($product['regular_price'])}}</s></small>
+												</div>
+											@else
+												<span class="product-price"><span class="price-symbol">Rp.</span>{{ number_format($product['regular_price'])}}</span>
+											@endif
+										</div>
+										<div class="col-md-4">
+											<img src="{{asset('img/sold.png')}}" alt="" class="badge-soldout">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -173,7 +268,7 @@
 					<form action="{{ route('invoice.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 						<div class="card-header">
-							<h3 class="d-block w-100">{{ \Auth::user()->bussiness->first()->name }}<small class="float-right">{{ \Auth::user()->name }}</small></h3>
+							<h3 class="d-block w-100">{{ \Auth::user()->bussiness->first()->name ?? '-' }}<small class="float-right">{{ \Auth::user()->name }}</small></h3>
 						</div>
 						<div class="card-body">
 							<div id="detailInvoice"></div>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('file');
             $table->integer('status')->comment('1=active, 2=inactive');
-            $table->integer('type')->comment('1 =  Banner Promosi, Banner Event, 3 Banner Fixed 1');
+            $table->integer('type')->comment('1 = Banner Promosi, 2 = Banner Event, 3 Banner Fixed 1');
             $table->string('url')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

@@ -82,4 +82,65 @@ use Illuminate\Support\Facades\Bus;
                 break;
         }
     }
+
+    function typeBanner($type)
+    {
+        switch ($type) {
+            case 1:
+                return 'Banner Promosi';
+                break;
+            case 2:
+                return 'Banner Event';
+                break;
+            case 3:
+                return 'Banner Fixed';
+                break;        
+            }
+    }
+
+    function status($status)
+    {
+        switch ($status) {
+            case 1:
+                return 'active';
+                break;
+            case 2:
+                return 'inactive';
+                break;     }
+    }
+
+    function statusPayment($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'active';
+                break;
+            case 2:
+                return 'inactive';
+                break;
+            }
+    }
+    
+    function typePayment($value) {
+        switch ($value) {
+            case 1:
+                return 'Cash';
+                break;
+            case 2:
+                return 'Transfer';
+                break;
+            }
+    }
+
+    function typeFAQ($type)
+    {
+        switch ($type) {
+            case 1:
+                return 'General';
+                break;
+            case 2:
+                return 'Help';
+                break;     
+            }
+}
 ?>

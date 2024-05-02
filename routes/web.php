@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
@@ -79,7 +80,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 	// get permissions
 	Route::get('get-role-permissions-badge', [PermissionController::class,'getPermissionBadgeByRole']);
-
 	// Basic demo routes
 	include('modules/demo.php');
 	// Inventory routes
@@ -88,11 +88,15 @@ Route::group(['middleware' => 'auth'], function(){
 	include('modules/accounting.php');
 	// User Management routes
 	include('modules/user.php');
+	// Banner routes
+	include('modules/masterData.php');
 
 	// ROUTE RESOURCE
 	Route::resource('product-category', ProductCategoryController::class);
 });
 
 
-Route::get('/register', function () { return view('pages.register'); });
+Route::get('/register', function () { return view('auth.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
+
+Route::get('/product', [LandingPageController::class,'product'])->name('front.product');
