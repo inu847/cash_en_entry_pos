@@ -11,8 +11,13 @@ class Cart extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
+        'katalog_id',
         'price',
         'session_id',
     ];
+
+    public function katalog()
+    {
+        return $this->belongsTo(Katalog::class, 'katalog_id', 'id');
+    }
 }

@@ -1,428 +1,512 @@
 @extends('layouts.front')
 
 @section('title')
-    Product
+Product
 @endsection
 
 @push('css')
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" >
-    <!-- Include SweetAlert CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
-    <!-- Include SweetAlert JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+<!-- Include SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+<!-- Include SweetAlert JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
 
-    <style>
-        .title1{
-            color: #fff;
-            font-size: 40px;
-            font-weight: 400;
-            /* FONT Russo One */
-            font-family: 'Russo One', sans-serif;
-            line-height: 1.2;
-            margin: 80px 50px 30px;
-        }
 
-        .title2{
-            color: #fff;
-            font-size: 15px;
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.2;
-            margin: 0px 50px 30px 50px;
-        }
-        .title-desc{
-            color: rgba(49, 36, 92, 1);
-            font-family: 'Russo One', sans-serif;
-            font-size: 40px;
-        }
-        .btn-success2{
-            border-radius: 20px;
-            padding: 20px 30px;
-            line-height: 0.2;
-            background-color: rgba(35, 221, 31, 1);
-        }
-        .btn-outline-light{
-            border-radius: 20px;
-            padding: 20px 30px;
-            line-height: 0.2;
-        }
-        .card-product{
-            border-radius: 10px;
-            background-color: rgba(114, 61, 218, 1);
-            padding: 10px;
-            margin-top: -100px;
-            padding-top: 125px;
-            height: 300px;
-        }
-        .image-product{
-            width: 80%;
-            margin-left: 25px;
-            margin-right: 25px;
-        }
-        .title-product{
-            color: #fff;
-            font-family: 'Russo One', sans-serif;
-            font-size: 20px;
-        }
-        .price-product{
-            color: #fff;
-            font-family: 'Russo One', sans-serif;
-            font-size: 20px;
-        }
-        .feature-desc{
-            color: #FFFFFF;
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-        }
-        .mb-25{
-            margin-bottom: 25px;
-        }
-        .input-group .input-group-prepend .input-group-text{
-            background-color: #ffffff00;
-            border-radius: 5px;
-            border: 1px solid #bfbfbf;
-            border-right: none;
-            color: #575757;
-        }
-        .input-group input{
-            border-left: none;
-        }
-        .input-group-prepend{
-            margin-right: -10px;
-        }
-        .badge-custom{
-            background: linear-gradient(90deg, #674CC2 0%, rgba(49, 36, 92, 0.91) 100%);
-            border-radius: 15px;
-            
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 20px;
-            padding: 20px 40px;
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- jQuery Stepy CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-stepper/1.0.9/jquery.steps.css">
+<!-- jQuery Stepy JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-stepper/1.0.9/jquery.steps.min.js"></script>
+<style>
+    /*Background color*/
+    #grad1 {
+        background-color: : #9C27B0;
+        background-image: linear-gradient(120deg, #FF4081, #81D4FA);
+    }
 
-            color: #FFFFFF;
-        }
-        .title-detail{
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 600;
-            font-size: 20px;
-        }
-        .icon-bg{
-            background-color: rgba(255, 255, 255, 0.25);
-            border-radius: 50%;
-            padding: 5px;
-            font-size: 17px;
-        }
-        .btn-pcustom{
-            padding: 25px 40px;
-            line-height: 4px;
-            width: 180px;
-            font-size: 20px;
-            font-weight: 900;
-        }
-        .btn-primary{
-            background-color: #31245C;
-        }
-        .image-detail{
-            width: 90%;
-            margin: 25px;
-        }
-        .bg-detail-image{
-            background: linear-gradient(#723DDA, #31245C);
-            border-radius: 10px;
-        }
-        .des-product{
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 900;
-            font-size: 15px;
-            line-height: 25px;
-            margin-top: 20px;
-        }
-        .badge-cart{
-            right: -7px;
-            position: absolute;
-            top: -4px;
-            padding: 3px;
-            width: 17px;
-            font-size: 11px;
-            font-weight: 800;
-            color: #fff;
-            border-radius: 100px;
-            -webkit-border-radius: 100px;
-            background-color: red;
-        }
-        .icon-cart{
-            font-size: 25px;
-        }
-        .addtocart{
-            text-align: center;
-        }
-        .btn-addToCart{
-            border-radius: 50%;
-            padding: 7px 15px;
-            font-size: 20px;
-            background-color: #31245C;
-            color: white;
-            line-height: 0.1;
-        }
-        .btn-addToCart:hover, .btn-addToCart:focus, .btn-addToCart:active{
-            color: white;
-            background-color: #31245C;
-        }
-    </style>
+    /*form styles*/
+    #msform {
+        text-align: center;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    #msform fieldset .form-card {
+        background: white;
+        border: 0 none;
+        border-radius: 0px;
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        padding: 20px 40px 30px 40px;
+        box-sizing: border-box;
+        width: 94%;
+        margin: 0 3% 20px 3%;
+
+        /*stacking fieldsets above each other*/
+        position: relative;
+    }
+
+    #msform fieldset {
+        background: white;
+        border: 0 none;
+        border-radius: 0.5rem;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0;
+        padding-bottom: 20px;
+
+        /*stacking fieldsets above each other*/
+        position: relative;
+    }
+
+    /*Hide all except first fieldset*/
+    #msform fieldset:not(:first-of-type) {
+        display: none;
+    }
+
+    #msform fieldset .form-card {
+        text-align: left;
+        color: #9E9E9E;
+    }
+
+    #msform input,
+    #msform textarea {
+        padding: 0px 8px 4px 8px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0px;
+        margin-bottom: 25px;
+        margin-top: 2px;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: montserrat;
+        color: #2C3E50;
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    #msform input:focus,
+    #msform textarea:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        border: none;
+        font-weight: bold;
+        border-bottom: 2px solid skyblue;
+        outline-width: 0;
+    }
+
+    /*Blue Buttons*/
+    #msform .action-button {
+        width: 100px;
+        background: skyblue;
+        font-weight: bold;
+        color: white;
+        border: 0 none;
+        border-radius: 0px;
+        cursor: pointer;
+        padding: 10px 5px;
+        margin: 10px 5px;
+    }
+
+    #msform .action-button:hover,
+    #msform .action-button:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+    }
+
+    /*Previous Buttons*/
+    #msform .action-button-previous {
+        width: 100px;
+        background: #616161;
+        font-weight: bold;
+        color: white;
+        border: 0 none;
+        border-radius: 0px;
+        cursor: pointer;
+        padding: 10px 5px;
+        margin: 10px 5px;
+    }
+
+    #msform .action-button-previous:hover,
+    #msform .action-button-previous:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+    }
+
+    /*Dropdown List Exp Date*/
+    select.list-dt {
+        border: none;
+        outline: 0;
+        border-bottom: 1px solid #ccc;
+        padding: 2px 5px 3px 5px;
+        margin: 2px;
+    }
+
+    select.list-dt:focus {
+        border-bottom: 2px solid skyblue;
+    }
+
+    /*The background card*/
+    .card {
+        z-index: 0;
+        border: none;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+
+    /*FieldSet headings*/
+    .fs-title {
+        font-size: 25px;
+        color: #2C3E50;
+        margin-bottom: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    /*progressbar*/
+    #progressbar {
+        margin-bottom: 30px;
+        overflow: hidden;
+        color: lightgrey;
+    }
+
+    #progressbar .active {
+        color: #000000;
+    }
+
+    #progressbar li {
+        list-style-type: none;
+        font-size: 12px;
+        width: 25%;
+        float: left;
+        position: relative;
+    }
+
+    /*Icons in the ProgressBar*/
+    #progressbar #account:before {
+        font-family: FontAwesome;
+        content: "\f023";
+    }
+
+    #progressbar #personal:before {
+        font-family: FontAwesome;
+        content: "\f007";
+    }
+
+    #progressbar #payment:before {
+        font-family: FontAwesome;
+        content: "\f09d";
+    }
+
+    #progressbar #confirm:before {
+        font-family: FontAwesome;
+        content: "\f00c";
+    }
+
+    /*ProgressBar before any progress*/
+    #progressbar li:before {
+        width: 50px;
+        height: 50px;
+        line-height: 45px;
+        display: block;
+        font-size: 18px;
+        color: #ffffff;
+        background: lightgray;
+        border-radius: 50%;
+        margin: 0 auto 10px auto;
+        padding: 2px;
+    }
+
+    /*ProgressBar connectors*/
+    #progressbar li:after {
+        content: '';
+        width: 100%;
+        height: 2px;
+        background: lightgray;
+        position: absolute;
+        left: 0;
+        top: 25px;
+        z-index: -1;
+    }
+
+    /*Color number of the step and the connector before it*/
+    #progressbar li.active:before,
+    #progressbar li.active:after {
+        background: skyblue;
+    }
+
+    /*Imaged Radio Buttons*/
+    .radio-group {
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+    .radio {
+        display: inline-block;
+        width: 204;
+        height: 104;
+        border-radius: 0;
+        background: lightblue;
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        cursor: pointer;
+        margin: 8px 2px;
+    }
+
+    .radio:hover {
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .radio.selected {
+        box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /*Fit image in bootstrap div*/
+    .fit-image {
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
 @endpush
 
 @section('content')
-    <div id="beranda" class="bg-banner">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="title1">
-                    Temukan Solusi Praktis <br>
-                    Untuk Manajemen <br>
-                    Keuangan Anda
-                </div>
-
-                <div class="title2">
-                    Tingkatkan Efisiensi bisnis anda dengna mesin kasir canggih kami <br>
-                    yang dapat mengelola transaksi dengna mudha dna cepat.
-                </div>
-
+<!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>Sign Up Your User Account</strong></h2>
+                <p>Fill all form field to go to next step</p>
                 <div class="row">
-                    <div class="col-md-3 text-right" style="margin-left: 40px;">
-                        <a href="" class="btn btn-success2">Coba Sekarang</a>
-                    </div>
-                    <div class="col-md-8 text-left">
-                        <a href="" class="btn btn-outline-light">Konsultasi Dulu</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 text-center">
-                <img src="{{asset('/img/product.png')}}" width="450" style="margin-top: 60px;">
-            </div>
-        </div>
-    </div>
+                    <div class="col-md-12 mx-0">
+                        <form id="msform">
+                            <!-- fieldsets -->
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title">Cek Keranjang Belanja Kamu</h2>
+                                </div>
 
-    <div class="container mb-3">
-        <div class="row mb-25">
-            <div class="col-md-8">
-                <div class="title-desc">Daftar Perangkat</div>
-            </div>
-            <div class="col-md-4 mt-2">
-                <div class="row">
-                    <div class="col-md-1 text-right p-1 mr-2">
-                        <a href="{{ route('cart.index') }}">
-                            <i class="ik ik-shopping-cart icon-cart"></i>
-                            <span class="badge badge-cart" id="cartCount">{{ ($cartCount != 0) ? $cartCount : '+' }}</span>
-                        </a>
-                    </div>
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">
-                                    <i class="ik ik-search"></i>
-                                </span>
-                            </div>
-                            <input type="text" class="form-control global_filter" id="global_filter" placeholder="Cari Perangkat">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Harga</th>
+                                            <th>Jumlah</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data as $item)
+                                            <tr>
+                                                <td>{{ $item->product->title ?? null }}</td>
+                                                <td>{{ $item->product->price ?? null }}</td>
+                                                <td>
+                                                    <input type="number" class="form-control" value="1">
+                                                </td>
+                                                <td>
+                                                    {{ $item->product->price ?? null }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <input type="button" name="next" class="next action-button" value="Next Step" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title">Personal Information</h2>
+                                    <input type="text" name="fname" placeholder="First Name" />
+                                    <input type="text" name="lname" placeholder="Last Name" />
+                                    <input type="text" name="phno" placeholder="Contact No." />
+                                    <input type="text" name="phno_2" placeholder="Alternate Contact No." />
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous"
+                                    value="Previous" />
+                                <input type="button" name="next" class="next action-button" value="Next Step" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title">Payment Information</h2>
+                                    <div class="radio-group">
+                                        <div class='radio' data-value="credit"><img
+                                                src="https://i.imgur.com/XzOzVHZ.jpg" width="200px" height="100px">
+                                        </div>
+                                        <div class='radio' data-value="paypal"><img
+                                                src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px">
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <label class="pay">Card Holder Name*</label>
+                                    <input type="text" name="holdername" placeholder="" />
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <label class="pay">Card Number*</label>
+                                            <input type="text" name="cardno" placeholder="" />
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="pay">CVC*</label>
+                                            <input type="password" name="cvcpwd" placeholder="***" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label class="pay">Expiry Date*</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select class="list-dt" id="month" name="expmonth">
+                                                <option selected>Month</option>
+                                                <option>January</option>
+                                                <option>February</option>
+                                                <option>March</option>
+                                                <option>April</option>
+                                                <option>May</option>
+                                                <option>June</option>
+                                                <option>July</option>
+                                                <option>August</option>
+                                                <option>September</option>
+                                                <option>October</option>
+                                                <option>November</option>
+                                                <option>December</option>
+                                            </select>
+                                            <select class="list-dt" id="year" name="expyear">
+                                                <option selected>Year</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous"
+                                    value="Previous" />
+                                <input type="button" name="make_payment" class="next action-button" value="Confirm" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title text-center">Success !</h2>
+                                    <br><br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-3">
+                                            <img src="https://img.icons8.com/color/96/000000/ok--v2.png"
+                                                class="fit-image">
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-7 text-center">
+                                            <h5>You Have Successfully Signed Up</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
 
-        <div class="row">
-            @for ($i = 0; $i < 10; $i++)
-                {{-- BUTTON MODALS --}}
-                <div class="col-md-3 mb-25">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct">
-                        <img src="{{asset('/img/product.png')}}" class="image-product" alt="" width="100%">
-                        <div class="card-product">
-                            <div class="title-product text-center">
-                                Mesin Kasir
-                            </div>
-                            <div class="price-product text-center">
-                                Rp 5.988.000
-                            </div>
-                            <div class="desc-product mt-3">
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 feature-desc">
-                                        Android POS
-                                    </div>
+                            <!-- progressbar -->
+                            <div class="row">
+                                {{-- BUTTON BACK --}}
+                                <div class="col-md-2">
+                                    <button type="button" name="next" class="btn btn-info btn-rounded"
+                                        onclick="goBack()">Back</button>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 feature-desc">
-                                        High print speed (250mm/s)
-                                    </div>
+                                <div class="col-md-8">
+                                    <ul id="progressbar">
+                                        <li class="active" id="account"><strong>Account</strong></li>
+                                        <li id="personal"><strong>Personal</strong></li>
+                                        <li id="payment"><strong>Payment</strong></li>
+                                        <li id="confirm"><strong>Finish</strong></li>
+                                    </ul>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 feature-desc">
-                                        Portable screen
-                                    </div>
+                                {{-- BUTTON NEXT --}}
+                                <div class="col-md-2">
+                                    <button type="button" name="next" class="btn btn-info btn-rounded"
+                                        onclick="nextPrev(1)">Next</button>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    <div id="addToCart" class="addtocart" data-id="{{$i}}" data-price="{{$i}}">
-                        <a class="btn-addToCart" href="javascript:void(0)">+</a>
-                    </div>
-                </div>
-            @endfor
-        </div>
-    </div>
-
-    {{-- CHECKOUT MODAL --}}
-    <div class="modal fade edit-layout-modal pr-0 " id="cart" tabindex="-1" role="dialog" aria-labelledby="cartLabel" aria-hidden="true">
-        <div class="modal-dialog w-300" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cartLabel">{{ __('Add bussiness')}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- DETAIL PRODUCT --}}
-    <div class="modal fade " id="detailProduct" tabindex="-1" role="dialog" aria-labelledby="detailProductLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-                    <div class="row">
-                        <div class="col-md-6 bg-detail-image">
-                            <img src="{{asset('/img/product.png')}}" class="image-detail" alt="" width="100%">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="badge badge-custom mb-3">
-                                <span class="icon-bg">
-                                    <i class="fa fa-user"></i>
-                                </span>
-                                Premium
-                            </div>
-                            <div class="title-detail mb-3">Paket Bundling VX Lite (Advan Tab VX Lite) + POS */</div>
-                            <div class="title-detail mb-3">Rp 5.988.000</div>
-                            <div class="desc-product mt-3">
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10">
-                                        Android POS
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 ">
-                                        High print speed (250mm/s)
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 ">
-                                        Portable screen
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row mt-2 ml-3">
-                                <div class="col-md-4">
-                                    <div class="fw-900 font-bold"><i class="fa fa-star"></i> 4.6</div>
-                                    <div class="text-muted">Rating</div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="fw-900 font-bold">1rb+</div>
-                                    <div class="text-muted">Purchase</div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="fw-900 font-bold">3rb+</div>
-                                    <div class="text-muted">Sales</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">  
-                            <button class="btn btn-outline-secondary btn-rounded btn-pcustom">Add to cart</button>
-                            <button class="btn btn-primary btn-rounded btn-pcustom">Buy Now</button>
-                        </div>
-                    </div>
-
-                    <div class="des-product">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate temporibus ratione magni praesentium unde corporis hic deserunt ullam aspernatur reprehenderit! Explicabo iste dolorum quisquam soluta nihil quidem modi, quas quasi?
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @push('js')
-    <script src="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
-    <script src="{{ asset('js/alerts.js')}}"></script>
+<script>
+    var current_fs, next_fs, previous_fs; //fieldsets
+    var opacity;
 
-    <script>
-        $(document).on('click', '#addToCart', function(){
-            var id = $(this).data('id');
-
-            // CONFIRM WITH SWEET ALERT
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, add it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    addToCart(id);
-                }
-            })
-        });
-
-        function addToCart(id) {
-            $('.addToCart').attr('disabled', 'disabled');
-            $('.addToCart').html('<i class="fa fa-spinner fa-spin"></i>');
-
-            $.ajax({
-                url: "{{ route('cart.store') }}",
-                method: "POST",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    product_id: id,
-                },
-                success: function(data) {
-                    $('#addToCart').removeAttr('disabled');
-                    $('#cartCount').html(data.cartCount);
-
-                    showSuccessToast(data.message);
-                },
-                error: function(data) {
-                    $('#addToCart').removeAttr('disabled');
-                    showDangerToast(data.message);
-                }
+    $(document).ready(function(){
+        
+        $(".next").click(function(){
+            
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            
+            //show the next fieldset
+            next_fs.show(); 
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+        
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({'opacity': opacity});
+                }, 
+                duration: 600
             });
-        }
-    </script>
+        });
+        
+        $(".previous").click(function(){
+            
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+            
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+            
+            //show the previous fieldset
+            previous_fs.show();
+        
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+        
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({'opacity': opacity});
+                }, 
+                duration: 600
+            });
+        });
+        
+        $('.radio-group .radio').click(function(){
+            $(this).parent().find('.radio').removeClass('selected');
+            $(this).addClass('selected');
+        });
+        
+        $(".submit").click(function(){
+            return false;
+        })
+        
+    });
+
+    function nextPrev(n) {
+        // GET PARENT $(".next") + n
+        // $(".next").parent().next().show();
+    }
+
+    function goBack() {
+        // $(".previous").parent().prev().show();
+    }
+</script>
 @endpush
