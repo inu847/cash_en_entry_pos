@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('katalogs', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->integer('price');
-            $table->string('image');
-            $table->integer('status')->comment('1 = active, 2 = inactive');
-            $table->integer('type')->nullable()->comment('1 = product, 2 = service');
+            $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->unsignedBigInteger('product_id')->index();
+            $table->integer('price')->nullable();
+            // WITOUT LOGIN
+            $table->string('session_id')->index()->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('katalogs');
+        Schema::dropIfExists('carts');
     }
 };

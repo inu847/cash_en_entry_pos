@@ -143,4 +143,49 @@ use Illuminate\Support\Facades\Bus;
                 break;     
             }
 }
+    function statusWhyShouldWe($status)
+    {
+        switch ($status) {
+            case 1:
+                return 'active';
+                break;
+            case 2:
+                return 'inactive';
+                break;     
+            }
+}
+    function typeWhyShouldWe($type)
+    {
+        switch ($type) {
+            case 1:
+                return 'About Us';
+                break;
+            case 2:
+                return 'Service';
+                break;     
+            }
+}
+    function voucherType($type)
+    {
+        switch ($type) {
+            case 1:
+                return 'Product';
+                break;
+            case 2:
+                return 'Service';
+                break;     
+            }
+}
+    function voucherStatus($status)
+    {
+        switch ($type) {
+            case 1:
+                return 'active';
+                break;
+            case 2:
+                return 'inactive';
+                break;     
+            }
+}
+
 ?>
