@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('tax_type');
             $table->integer('free_shipping');
             $table->string('tags');
+            $table->string('discount')->nullable();
             $table->unsignedBigInteger('warehouse_id')->index()->nullable();
             $table->unsignedBigInteger('category_id')->index()->nullable();
             $table->unsignedBigInteger('user_id')->index()->nullable();

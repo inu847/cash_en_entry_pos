@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
@@ -22,7 +23,8 @@ use App\Http\Controllers\PermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */ 
-Route::get('/', function () { return view('home'); })->name('home');
+Route::get('/', [LandingPageController::class,'index'])->name('front.home');
+Route::resource('cart', CartController::class);
 
 
 Route::get('login', [LoginController::class,'showLoginForm'])->name('login');
