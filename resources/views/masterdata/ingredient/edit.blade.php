@@ -1,15 +1,15 @@
-<form class="forms-sample" method="POST" action="{{ route('voucher.update', [$data->id]) }}" enctype="multipart/form-data">
+<form class="forms-sample" method="POST" action="{{ route('ingredient.update', [$data->id]) }}" enctype="multipart/form-data">
     @method('PUT')
     @csrf
         <div class="row">
             <div class="col-sm-12">
 
                 <div class="form-group">
-                    <label for="code">Code<span class="text-red">*</span></label>
-                    <input id="code" type="text" class="form-control" name="code" value="{{ $data->code }}" placeholder="Enter Code" required="">
+                    <label for="name">Name<span class="text-red">*</span></label>
+                    <input id="name" type="text" class="form-control" name="name" value="{{ $data->name }}" placeholder="Enter product Name" required="">
                 <div class="help-block with-errors"></div>
-
                 </div>
+
                 <div class="form-group">
                     <label>Status</label>
                     <select class="form-control" name="status" >
@@ -18,6 +18,7 @@
                             <option value="2" {{ ($data->status == 2) ? 'selected' : '' }}>Inactive</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Type</label>
                     <select class="form-control" name="type" >
@@ -26,23 +27,7 @@
                             <option value="2" {{ ($data->type == 2) ? 'selected' : '' }}>Service</option>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="max_qty">Max Qty<span class="text-red">*</span></label>
-                    <input id="max_qty" type="number" class="form-control" name="max_qty" placeholder="Enter Answer" required="">
-                    <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group">
-                    <label for="discount">Discount<span class="text-red">*</span></label>
-                    <input id="discount" type="number" class="form-control" name="discount" value="{{ $data->discount }}" placeholder="Enter Discount" required="">
-                    <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description<span class="text-red">*</span></label>
-                    <input id="description" type="text" class="form-control" name="description" value="{{ $data->description }}" placeholder="Enter Description" required="">
-                    <div class="help-block with-errors"></div>
-                </div>
-
+                
                 <div class="form-group">
                     <label>Product image</label>
                     <img src="{{asset('storage/'.$data->image)}}" alt="" width="200">
@@ -50,18 +35,37 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="title">Title<span class="text-red">*</span></label>
-                    <input id="title" type="text" class="form-control" name="title" value="{{ $data->title }}" placeholder="Enter title" required="">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control html-editor h-205" rows="10">{{ $data->description }} </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="qty">Qty<span class="text-red">*</span></label>
+                    <input id="qty" type="text" class="form-control" name="qty" value="{{ $data->qty }}" placeholder="Enter Product qty" required="">
                     <div class="help-block with-errors"></div>
                 </div>
+
                 <div class="form-group">
-                    <label for="expired-at">Expired At<span class="text-red">*</span></label>
-                    <input id="expired-at" type="date" class="form-control" name="expired_at" value="{{ $data->expired_at }}" placeholder="Enter Expired Product" required="">
+                    <label for="price">Price<span class="text-red">*</span></label>
+                    <input id="price" type="text" class="form-control" name="price" value="{{ $data->price }}" placeholder="Enter Product price" required="">
                     <div class="help-block with-errors"></div>
                 </div>
+
                 <div class="form-group">
-                    <label for="start_at">Start At<span class="text-red">*</span></label>
-                    <input id="start_at" type="date" class="form-control" name="start_at" value="{{ $data->start_at }}" placeholder="Enter Started Date" required="">
+                    <label for="weight">Weight<span class="text-red">*</span></label>
+                    <input id="weight" type="text" class="form-control" name="weight" value="{{ $data->weight }}" placeholder="Enter Product weight" required="">
+                    <div class="help-block with-errors"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="uom">Uom<span class="text-red">*</span></label>
+                    <input id="uom" type="text" class="form-control" name="uom" value="{{ $data->uom }}" placeholder="Enter Product uom" required="">
+                    <div class="help-block with-errors"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="note">Note<span class="text-red">*</span></label>
+                    <input id="note" type="text" class="form-control" name="note" value="{{ $data->note }}" placeholder="Enter Product note" required="">
                     <div class="help-block with-errors"></div>
                 </div>
 

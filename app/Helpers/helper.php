@@ -178,7 +178,7 @@ use Illuminate\Support\Facades\Bus;
 }
     function voucherStatus($status)
     {
-        switch ($type) {
+        switch ($status) {
             case 1:
                 return 'active';
                 break;
@@ -187,5 +187,26 @@ use Illuminate\Support\Facades\Bus;
                 break;     
             }
 }
-
+    function IngredientStatus($status)
+    {
+        switch ($status) {
+            case 1:
+                return 'active';
+                break;
+            case 2:
+                return 'inactive';
+                break;     
+            }
+}
+    function IngredientType($type)
+    {
+        switch ($type) {
+            case 1:
+                return 'Product';
+                break;
+            case 2:
+                return 'Service';
+                break;     
+            }
+}
 ?>

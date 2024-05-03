@@ -61,6 +61,14 @@
                 </div>
                 </div>
 
+                <div class="nav-item {{ ($segment1 == 'ingredient' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Ingredient')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('ingredient.create')}}" class="menu-item {{ ($segment1 == 'ingredient') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('ingredient.index')}}" class="menu-item {{ ($segment1 == 'ingredient') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+                </div>
+
                 <div class="nav-lavel">{{ __('Layouts')}} </div>
                 <div class="nav-item {{ ($segment1 == 'pos') ? 'active' : '' }}">
                     <a href="{{url('inventory')}}"><i class="ik ik-shopping-cart"></i><span>{{ __('Inventory')}}</span> </a>
