@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('katalogs', function (Blueprint $table) {
+        Schema::create('product_instructions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->integer('price');
-            $table->string('image');
-            $table->integer('status')->comment('1 = active, 2 = inactive');
-            $table->integer('type')->nullable()->comment('1 = product, 2 = service');
+            $table->text('instruction');
+            $table->integer('type')->default(1)->comment('1 = required, 2 = optional');
+            $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('ingredient_id')->index()->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('katalogs');
+        Schema::dropIfExists('product_instructions');
     }
 };

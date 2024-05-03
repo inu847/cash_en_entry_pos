@@ -7,6 +7,12 @@
 @push('css')
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" >
+    <!-- Include SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <!-- Include SweetAlert JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
+
     <style>
         .title1{
             color: #fff;
@@ -47,6 +53,7 @@
             padding: 10px;
             margin-top: -100px;
             padding-top: 125px;
+            height: 300px;
         }
         .image-product{
             width: 80%;
@@ -134,6 +141,37 @@
             line-height: 25px;
             margin-top: 20px;
         }
+        .badge-cart{
+            right: -7px;
+            position: absolute;
+            top: -4px;
+            padding: 3px;
+            width: 17px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #fff;
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            background-color: red;
+        }
+        .icon-cart{
+            font-size: 25px;
+        }
+        .addtocart{
+            text-align: center;
+        }
+        .btn-addToCart{
+            border-radius: 50%;
+            padding: 7px 15px;
+            font-size: 20px;
+            background-color: #31245C;
+            color: white;
+            line-height: 0.1;
+        }
+        .btn-addToCart:hover, .btn-addToCart:focus, .btn-addToCart:active{
+            color: white;
+            background-color: #31245C;
+        }
     </style>
 @endpush
 
@@ -173,13 +211,23 @@
                 <div class="title-desc">Daftar Perangkat</div>
             </div>
             <div class="col-md-4 mt-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="ik ik-search"></i>
-                        </span>
+                <div class="row">
+                    <div class="col-md-1 text-right p-1 mr-2">
+                        <a href="{{ route('cart.index') }}">
+                            <i class="ik ik-shopping-cart icon-cart"></i>
+                            <span class="badge badge-cart" id="cartCount">{{ ($cartCount != 0) ? $cartCount : '+' }}</span>
+                        </a>
                     </div>
-                    <input type="text" class="form-control global_filter" id="global_filter" placeholder="Cari Perangkat">
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="ik ik-search"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control global_filter" id="global_filter" placeholder="Cari Perangkat">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,7 +236,7 @@
             @for ($i = 0; $i < 10; $i++)
                 {{-- BUTTON MODALS --}}
                 <div class="col-md-3 mb-25">
-                        <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct">
                         <img src="{{asset('/img/product.png')}}" class="image-product" alt="" width="100%">
                         <div class="card-product">
                             <div class="title-product text-center">
@@ -225,7 +273,10 @@
                             </div>
                         </div>
                     </a>
+                    <div id="addToCart" class="addtocart" data-id="{{$i}}" data-price="{{$i}}">
+                        <a class="btn-addToCart" href="javascript:void(0)">+</a>
                     </div>
+                </div>
             @endfor
         </div>
     </div>
@@ -325,3 +376,53 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script src="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
+    <script src="{{ asset('js/alerts.js')}}"></script>
+
+    <script>
+        $(document).on('click', '#addToCart', function(){
+            var id = $(this).data('id');
+
+            // CONFIRM WITH SWEET ALERT
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, add it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    addToCart(id);
+                }
+            })
+        });
+
+        function addToCart(id) {
+            $('.addToCart').attr('disabled', 'disabled');
+            $('.addToCart').html('<i class="fa fa-spinner fa-spin"></i>');
+
+            $.ajax({
+                url: "{{ route('cart.store') }}",
+                method: "POST",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: id,
+                },
+                success: function(data) {
+                    $('#addToCart').removeAttr('disabled');
+                    $('#cartCount').html(data.cartCount);
+
+                    showSuccessToast(data.message);
+                },
+                error: function(data) {
+                    $('#addToCart').removeAttr('disabled');
+                    showDangerToast(data.message);
+                }
+            });
+        }
+    </script>
+@endpush
