@@ -17,16 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
-            // BISA DARI VOUCHER MAUPUN DISKON LANGSUNG DARI ADMIN
-            $table->integer('discount')->nullable();
+            $table->integer('discount')->nullable()->comment('BISA DARI VOUCHER MAUPUN DISKON LANGSUNG DARI ADMIN');
             $table->integer('total');
             $table->integer('qty');
             $table->unsignedBigInteger('katalog_id')->index();
             $table->unsignedBigInteger('order_id')->index();
-
-            // WITH AFFILIATE
-            $table->unsignedBigInteger('affiliate_id')->index()->nullable();
-            $table->text('affiliate_link')->nullable();
+            $table->unsignedBigInteger('affiliate_id')->index()->nullable()->comment('JIKA ORDER DARI AFFILIASI');
+            $table->text('affiliate_link')->nullable()->comment('JIKA ORDER DARI AFFILIASI');
             $table->timestamps();
         });
     }
