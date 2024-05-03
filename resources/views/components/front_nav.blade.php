@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="{{ route('front.home') }}">
         <img  src="{{ asset('img/logo_horizontal.png') }}">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
                 <span><i class="fa fa-angle-down"></i></span>
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Software</a>
+              <a class="dropdown-item" href="/#software">Software</a>
               <a class="dropdown-item" href="{{ route('front.product') }}">Software + Perangkat</a>
             </div>
           </li>

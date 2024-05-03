@@ -1,4 +1,4 @@
-@extends('layouts.front2')
+@extends('layouts.front')
 
 @section('title')
     Product
@@ -318,35 +318,6 @@
 @endpush
 
 @section('content')
-
-		<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-			<a class="navbar-brand" href="/">
-				<img height="22" src="{{ asset('img/logo_horizontal_new.png') }}">
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarText">
-			  <ul class="navbar-nav navbar-brand ml-auto">
-				<li class="nav-item active">
-					<a class="topbar_menu f2" href="#beranda">Beranda</a>
-				</li>
-				<li class="nav-item mx-4">
-					<a class="topbar_menu f2" href="#feature">Fitur</a>
-				</li>
-				<li class="nav-item">
-					<a class="topbar_menu f2" href="#">Percing</a>
-				</li>
-				<li class="nav-item mx-5">
-					<button type="button" class="btn btn-seccondary f2">LOGIN</button>
-				</li>
-				<li class="nav-item">
-					<button type="button" class="btn btn-success f2">SIGN UP</button>
-				</li>
-			  </ul>
-			</div>
-		  </nav>
-		{{-- CONTENT --}}
 		<div class="bg1">
 			<div class="row mx1">
 		<div class="col-md-8">	
@@ -487,7 +458,7 @@
 			<p class="f6 bold">Super Hemat dengan Cash n Entry</p>
 			<p class="f7">Mulai dari 2000an per hari. Solusi Aplikasi Kasir Olsera diakui paling komplit secara fitur, sekaligus paling ekonomis dari sisi harga. Dipersembahkan oleh anak-anak bangsa, untuk UMKM Indonesia yang mengidamkan solusi kelas tertinggi dengan harga paling ramah.</p>
 		</div>
-		<div class="row mx3">
+		<div class="row mx3" id="software">
 			<div class="col-md-6">
 				<div class="bg5 color2">
 					<div class="w2">
