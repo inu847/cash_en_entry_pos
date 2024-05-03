@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Voucher;
+use App\Models\Ingredient;
 
-class VoucherController extends Controller
+class IngredientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $data = Voucher::all();
+        $data = Ingredient::all();
 
-        return view('masterdata.voucher.list',compact('data'));
+        return view('masterdata.ingredient.list',compact('data'));
     }
 
     /**
@@ -27,7 +27,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        return view('masterdata.voucher.create');
+        return view('masterdata.ingredient.create');
     }
 
     /**
@@ -39,7 +39,12 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $create = Voucher::create($data);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('ingredient', 'public');
+            $data['image'] = $path;
+        }
+        $create = Ingredient::create($data);
         return back()->with('success', 'Data berhasil ditambahkan');
 
     }
@@ -52,9 +57,9 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Voucher::findOrFail($id);
+        $data = Ingredient::findOrFail($id);
 
-        return view('masterdata.voucher.edit', compact('data'));
+        return view('masterdata.ingredient.edit', compact('data'));
     }
 
     /**
@@ -67,14 +72,14 @@ class VoucherController extends Controller
         $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('voucher', 'public');
+            $path = $file->store('ingredient', 'public');
             $data['image'] = $path;
         }
 
         return $this->atomic(function () use ($data, $id) {
-            $update = Voucher::findOrFail($id)->update($data);
+            $update = Ingredient::findOrFail($id)->update($data);
             
-            return redirect()->route('voucher.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('ingredient.index')->with('success', 'Data Berhasil di Ubah');
         });
     }
 
@@ -85,7 +90,7 @@ class VoucherController extends Controller
     {
         try {
             return $this->atomic(function () use ($id) {
-                $delete = Voucher::find($id)->delete();
+                $delete = Ingredient::find($id)->delete();
 
                 return response()->json([
                     'status' => true,
@@ -102,10 +107,10 @@ class VoucherController extends Controller
     public function storeValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
+            'name'     => 'required',
             'status'   => 'required',
             'type'   => 'required',
-            'discount'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
         return $validate;
@@ -114,10 +119,10 @@ class VoucherController extends Controller
     public function updateValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
+            'name'     => 'required',
             'status'   => 'required',
             'type'   => 'required',
-            'discount'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
         return $validate;

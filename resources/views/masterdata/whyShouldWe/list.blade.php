@@ -9,7 +9,7 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Products</h5>
+						<h5>Why Should We?</h5>
 						<span>View, delete and update products</span>
 					</div>
 				</div>
@@ -129,7 +129,7 @@
 									<td>{{ $item->title }}</td>
 									<td>{{ $item->description }}</td>
 									<td>
-										<img src="{{ asset('storage/'.$item->file) }}" class="table-user-thumb" alt="">
+										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
 
 									</td>
 									<td>{{ statusWhyShouldWe($item->status) }}</td>
