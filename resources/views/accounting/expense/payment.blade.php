@@ -157,7 +157,6 @@ $paymentList = [
                                 </td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
