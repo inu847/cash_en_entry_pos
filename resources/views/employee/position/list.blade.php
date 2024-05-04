@@ -1,5 +1,5 @@
 @extends('employee.layout')
-@section('title', 'Employee')
+@section('title', 'Employee Position')
 @section('content')
 
 <div class="container-fluid">
@@ -9,7 +9,7 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Employee</h5>
+						<h5>Employee Position</h5>
 						<span>View, delete and update products</span>
 					</div>
 				</div>
@@ -21,7 +21,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Employee</a>
+							<a href="#">Employee Position</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('employee.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Employee</a>
+						<a href="{{ route('emPosition.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Position</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -110,16 +110,10 @@
 									</label>
 								</th>
 								<th>Name</th>
-								<th>Email</th>
-								<th>User</th>
-								<th>Position</th>
-								<th>Status</th>
 								<th>Bussiness</th>
-								<th>No Tlpn</th>
-								<th>Addres</th>
+								<th>Status</th>
 								<th>image</th>
-								<th>Start Date</th>
-								<th>End Date</th>
+								<th>Description</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -133,18 +127,12 @@
 										</label>
 									</td>
 									<td>{{ $item->name }}</td>
-									<td>{{ ($item->email) }}</td>
-									<td>{{ $item->user->name }}</td>
-									<td>{{ $item->employee_position->name }}</td>
-									<td>{{ $item->employee_status->name }}</td>
 									<td>{{ $item->bussiness->name }}</td>
-									<td>{{ ($item->phone) }}</td>
-									<td>{{ ($item->address) }}</td>
+									<td>{{ status($item->status) }}</td>
 									<td>
 										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
 									</td>									
-									<td>{{ $item->start_date }}</td>
-									<td>{{ $item->end_date }}</td>
+									<td>{{ ($item->description) }}</td>
 									<td>
 										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
@@ -236,7 +224,7 @@
 	<script>
 		function edit(id) {
 			$.ajax({
-				url: '/employee/'+id+'/edit',
+				url: '/emPosition/'+id+'/edit',
 				type: 'GET',
 				success: function(data) {
 					$('#formEdit').html(data);
@@ -263,7 +251,7 @@
                         '_method': 'DELETE',
                     };
                     $.ajax({
-                        url: '/employee/'+id,
+                        url: '/emPosition/'+id,
                         type: 'POST', 
                         data : postForm,
                         dataType  : 'json',

@@ -1,5 +1,5 @@
 @extends('employee.layout')
-@section('title', 'Add employee')
+@section('title', 'Add Employee')
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">

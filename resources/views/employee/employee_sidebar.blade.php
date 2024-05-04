@@ -29,6 +29,13 @@
                         <a href="{{ route('employee.index') }}" class="menu-item {{ ($segment1 == 'employee' && $segment2 == '') ? 'active' : '' }}">{{ __('List Employee')}}</a>
                     </div>
                 </div>
+                <div class="nav-item {{ ($segment1 == 'emPosition') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Position')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emPosition.create') }}" class="menu-item {{ ($segment1 == 'emPosition' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Position')}}</a>
+                        <a href="{{ route('emPosition.index') }}" class="menu-item {{ ($segment1 == 'emPosition' && $segment2 == '') ? 'active' : '' }}">{{ __('List Position')}}</a>
+                    </div>
+                </div>
 
 
                 <!-- end employee pages -->

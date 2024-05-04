@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Employee;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\EmployeePosition;
+use App\Models\Bussiness;
 
 class EmPositionController extends Controller
 {
@@ -13,7 +16,10 @@ class EmPositionController extends Controller
      */
     public function index()
     {
-        //
+        $data = EmployeePosition::all();
+
+        return view('employee.position.list',compact('data'));
+
     }
 
     /**
@@ -23,7 +29,10 @@ class EmPositionController extends Controller
      */
     public function create()
     {
-        //
+        $data = view('employee.position.create',[
+            'bussiness' => Bussiness::all(),
+        ])->render();
+        return $data;
     }
 
     /**
@@ -34,7 +43,15 @@ class EmPositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('position', 'public');
+            $data['image'] = $path;
+        }
+        $create = EmployeePosition::create($data);
+        return back()->with('success', 'Data berhasil ditambahkan');
+
     }
 
     /**
@@ -43,42 +60,81 @@ class EmPositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $isi = EmployeePosition::findOrFail($id);
+        $data = view('employee.position.edit',[
+            'data' => $isi,
+            'bussiness' => Bussiness::all(),
+        ])->render();
+        return $data;
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-        //
+        $this->updateValidate($request);
+
+        $data = $request->all();
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('position', 'public');
+            $data['image'] = $path;
+        }
+
+        return $this->atomic(function () use ($data, $id) {
+            $update = EmployeePosition::findOrFail($id)->update($data);
+            
+            return redirect()->route('emPosition.index')->with('success', 'Data Berhasil di Ubah');
+        });
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            return $this->atomic(function () use ($id) {
+                $delete = EmployeePosition::find($id)->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data Berhasil Dihapus!',
+                ]);
+            });
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Gagal Dihapus!',
+            ]);
+        }
+    }
+    public function storeValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'name'     => 'required',
+            'status'   => 'required',
+            'bussiness_id'   => 'required',
+            'description'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
+        ]);
+
+        return $validate;
+    }
+
+    public function updateValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'name'     => 'required',
+            'status'   => 'required',
+            'bussiness_id'   => 'required',
+            'description'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
+        ]);
+
+        return $validate;
     }
 }
