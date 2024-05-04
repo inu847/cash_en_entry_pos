@@ -65,6 +65,9 @@
                 <div class="nav-item {{ ($segment1 == 'pos') ? 'active' : '' }}">
                     <a href="{{url('inventory')}}"><i class="ik ik-shopping-cart"></i><span>{{ __('Inventory')}}</span> </a>
                 </div>
+                <div class="nav-item {{ ($segment1 == 'employee') ? 'active' : '' }}">
+                    <a href="{{url('Employee')}}"><i class="ik ik-shopping-cart"></i><span>{{ __('Employee')}}</span> </a>
+                </div>
                 <div class="nav-item {{ ($segment1 == 'User') ? 'active' : '' }}">
                     <a href="{{url('user')}}"><i class="ik ik-users"></i><span>{{ __('User')}}</span> </a>
                 </div>

@@ -86,6 +86,8 @@ Route::group(['middleware' => 'auth'], function(){
 	include('modules/demo.php');
 	// Inventory routes
 	include('modules/inventory.php');
+	// Employee routes
+	include('modules/employee.php');
 	// Accounting routes
 	include('modules/accounting.php');
 	// User Management routes
