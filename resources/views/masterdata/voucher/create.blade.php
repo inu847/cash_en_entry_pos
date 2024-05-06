@@ -54,6 +54,16 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label>Bussiness Name</label>
+                                        <select class="form-control" name="bussiness_id" >
+                                            <option selected="selected" value="" >Select Bussiness</option>
+                                            @foreach($bussiness as $value)
+                                                <option value="{{$value->id}}">{{$value->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label>Status</label>
                                         <select class="form-control" name="status" >
                                             <option selected="selected" value="" >Select status</option>
