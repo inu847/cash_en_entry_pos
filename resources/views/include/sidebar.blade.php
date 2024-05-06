@@ -21,51 +21,59 @@
                     <a href="{{route('dashboard')}}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span></a>
                 </div>
                 <div class="nav-lavel">{{ __('Master Data')}} </div>
-                <div class="nav-item {{ ($segment1 == 'banner' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'banner') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Banner')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('banner.create')}}" class="menu-item {{ ($segment1 == 'banner') ? 'active' : 'create' }}">{{ __('Add Banner')}}</a>
-                    <a href="{{route('banner.index')}}" class="menu-item {{ ($segment1 == 'banner') ? 'active' : '' }}">{{ __('List Banner')}}</a>
+                    <a href="{{route('banner.create')}}" class="menu-item {{ ($segment1 == 'banner' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Banner')}}</a>
+                    <a href="{{route('banner.index')}}" class="menu-item {{ ($segment1 == 'banner' && $segment2 == '') ? 'active' : '' }}">{{ __('List Banner')}}</a>
                 </div>
                 </div>
 
-                <div class="nav-item {{ ($segment1 == 'askedQuestions' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'askedQuestions') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Frequently Asked Questions')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('askedQuestions.create')}}" class="menu-item {{ ($segment1 == 'askedQuestions') ? 'active' : '' }}">{{ __('Add Question')}}</a>
-                    <a href="{{route('askedQuestions.index')}}" class="menu-item {{ ($segment1 == 'askedQuestions') ? 'active' : '' }}">{{ __('Question List')}}</a>
+                    <a href="{{route('askedQuestions.create')}}" class="menu-item {{ ($segment1 == 'askedQuestions' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Question')}}</a>
+                    <a href="{{route('askedQuestions.index')}}" class="menu-item {{ ($segment1 == 'askedQuestions' && $segment2 == '') ? 'active' : '' }}">{{ __('Question List')}}</a>
                 </div>
                 </div>
 
                 <div class="nav-item {{ ($segment1 == 'whyShouldWe' || $segment1 == '') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Why Should We')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('whyShouldWe.create')}}" class="menu-item {{ ($segment1 == 'whyShouldWe') ? 'active' : '' }}">{{ __('Add')}}</a>
-                    <a href="{{route('whyShouldWe.index')}}" class="menu-item {{ ($segment1 == 'whyShouldWe') ? 'active' : '' }}">{{ __('List')}}</a>
+                    <a href="{{route('whyShouldWe.create')}}" class="menu-item {{ ($segment1 == 'whyShouldWe' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('whyShouldWe.index')}}" class="menu-item {{ ($segment1 == 'whyShouldWe' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
                 </div>
                 </div>
 
-                <div class="nav-item {{ ($segment1 == 'generalSetting' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'generalSetting') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('General Setting')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('generalSetting.create')}}" class="menu-item {{ ($segment1 == 'generalSetting') ? 'active' : '' }}">{{ __('Add')}}</a>
-                    <a href="{{route('generalSetting.index')}}" class="menu-item {{ ($segment1 == 'generalSetting') ? 'active' : '' }}">{{ __('List')}}</a>
+                    <a href="{{route('generalSetting.create')}}" class="menu-item {{ ($segment1 == 'generalSetting' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('generalSetting.index')}}" class="menu-item {{ ($segment1 == 'generalSetting' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
                 </div>
                 </div>
 
-                <div class="nav-item {{ ($segment1 == 'voucher' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'voucher') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Voucher')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('voucher.create')}}" class="menu-item {{ ($segment1 == 'voucher') ? 'active' : '' }}">{{ __('Add')}}</a>
-                    <a href="{{route('voucher.index')}}" class="menu-item {{ ($segment1 == 'voucher') ? 'active' : '' }}">{{ __('List')}}</a>
+                    <a href="{{route('voucher.create')}}" class="menu-item {{ ($segment1 == 'voucher' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('voucher.index')}}" class="menu-item {{ ($segment1 == 'voucher' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
                 </div>
                 </div>
 
-                <div class="nav-item {{ ($segment1 == 'ingredient' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'ingredient') ? 'active open' : '' }} has-sub">
                 <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Ingredient')}}</span></a>
                 <div class="submenu-content">
-                    <a href="{{route('ingredient.create')}}" class="menu-item {{ ($segment1 == 'ingredient') ? 'active' : '' }}">{{ __('Add')}}</a>
-                    <a href="{{route('ingredient.index')}}" class="menu-item {{ ($segment1 == 'ingredient') ? 'active' : '' }}">{{ __('List')}}</a>
+                    <a href="{{route('ingredient.create')}}" class="menu-item {{ ($segment1 == 'ingredient' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('ingredient.index')}}" class="menu-item {{ ($segment1 == 'ingredient' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+                </div>
+
+                <div class="nav-item {{ ($segment1 == 'manageTable') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Manage Table')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('manageTable.create')}}" class="menu-item {{ ($segment1 == 'manageTable' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('manageTable.index')}}" class="menu-item {{ ($segment1 == 'manageTable' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
                 </div>
                 </div>
 
