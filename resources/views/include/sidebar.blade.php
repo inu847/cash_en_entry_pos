@@ -77,6 +77,46 @@
                 </div>
                 </div>
 
+                <div class="nav-item {{ ($segment1 == 'masterHoliday' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Master Holiday')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('masterHoliday.create')}}" class="menu-item {{ ($segment1 == 'masterHoliday' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('masterHoliday.index')}}" class="menu-item {{ ($segment1 == 'masterHoliday' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+                </div>
+
+                {{-- <div class="nav-item {{ ($segment1 == 'stock' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Stok')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('stock.create')}}" class="menu-item {{ ($segment1 == 'stock' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('stock.index')}}" class="menu-item {{ ($segment1 == 'stock' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+                </div> --}}
+
+                <div class="nav-item {{ ($segment1 == 'productInstruction' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Product Instruction')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('productInstruction.create')}}" class="menu-item {{ ($segment1 == 'productInstruction' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('productInstruction.index')}}" class="menu-item {{ ($segment1 == 'productInstruction' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+                </div>
+
+                <div class="nav-item {{ ($segment1 == 'katalog' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Katalog')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('katalog.create')}}" class="menu-item {{ ($segment1 == 'katalog' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('katalog.index')}}" class="menu-item {{ ($segment1 == 'katalog' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+                </div>
+
+                <div class="nav-item {{ ($segment1 == 'katalogDetails' || $segment1 == '') ? 'active open' : '' }} has-sub">
+                <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Katalog Details')}}</span></a>
+                <div class="submenu-content">
+                    <a href="{{route('katalogDetails.create')}}" class="menu-item {{ ($segment1 == 'katalogDetails' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add')}}</a>
+                    <a href="{{route('katalogDetails.index')}}" class="menu-item {{ ($segment1 == 'katalogDetails' && $segment2 == '') ? 'active' : '' }}">{{ __('List')}}</a>
+                </div>
+                </div>
+
                 <div class="nav-lavel">{{ __('Layouts')}} </div>
                 <div class="nav-item {{ ($segment1 == 'pos') ? 'active' : '' }}">
                     <a href="{{url('inventory')}}"><i class="ik ik-shopping-cart"></i><span>{{ __('Inventory')}}</span> </a>

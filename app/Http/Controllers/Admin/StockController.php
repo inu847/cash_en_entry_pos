@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Stock;
+use App\Models\Bussiness;
+use App\Models\Product;
+use App\Models\Ingredient;
 
-class StokController extends Controller
+class StockController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +18,10 @@ class StokController extends Controller
      */
     public function index()
     {
-        //
+        $data = Stock::all();
+
+        return view('masterdata.stock.list',compact('data'));
+
     }
 
     /**
@@ -23,7 +31,12 @@ class StokController extends Controller
      */
     public function create()
     {
-        //
+        $data = view('masterdata.stock.create',[
+            'bussiness' => Bussiness::all(),
+            'bussiness' => Bussiness::all(),
+            'bussiness' => Bussiness::all(),
+        ])->render();
+        return $data;
     }
 
     /**
