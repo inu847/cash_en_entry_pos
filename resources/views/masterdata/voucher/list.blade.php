@@ -110,6 +110,7 @@
 									</label>
 								</th>
 								<th>Code</th>
+								<th>Bussiness</th>
 								<th>Status</th>
 								<th>Type</th>
 								<th>Max Qty</th>
@@ -132,6 +133,7 @@
 										</label>
 									</td>
 									<td>{{ $item->code }}</td>
+									<td>{{ $item->bussiness->name }}</td>
 									<td>{{ voucherStatus($item->status) }}</td>
 									<td>{{ voucherType($item->type) }}</td>
 									<td>{{ $item->max_qty }}</td>

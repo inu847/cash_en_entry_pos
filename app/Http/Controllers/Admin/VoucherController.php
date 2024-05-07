@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Voucher;
+use App\Models\Bussiness;
 
 class VoucherController extends Controller
 {
@@ -27,7 +28,10 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        return view('masterdata.voucher.create');
+        $data = view('masterdata.voucher.create',[
+            'bussiness' => Bussiness::all(),
+        ])->render();
+        return $data;
     }
 
     /**
@@ -52,9 +56,11 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Voucher::findOrFail($id);
-
-        return view('masterdata.voucher.edit', compact('data'));
+        $data = view('masterdata.voucher.edit',[
+            'data' => Voucher::findOrFail($id),
+            'bussiness' => Bussiness::all(),
+        ])->render();
+        return $data;
     }
 
     /**
