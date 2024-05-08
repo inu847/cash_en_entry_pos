@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Katalog;
+use App\Models\MasterHoliday;
+use App\Models\Bussiness;
 
-class KatalogController extends Controller
+class MasterHolidayController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,10 @@ class KatalogController extends Controller
      */
     public function index()
     {
-        $data = Katalog::all();
+        $data = MasterHoliday::all();
 
-        return view('masterdata.katalog.list',compact('data'));
+        return view('masterdata.masterHoliday.list',compact('data'));
+
     }
 
     /**
@@ -27,7 +29,10 @@ class KatalogController extends Controller
      */
     public function create()
     {
-        return view('masterdata.katalog.create');
+        $data = view('masterdata.masterHoliday.create',[
+            'bussiness' => Bussiness::all(),
+        ])->render();
+        return $data;
     }
 
     /**
@@ -41,10 +46,10 @@ class KatalogController extends Controller
         $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('katalog', 'public');
+            $path = $file->store('masterHoliday', 'public');
             $data['image'] = $path;
         }
-        $create = Katalog::create($data);
+        $create = MasterHoliday::create($data);
         return back()->with('success', 'Data berhasil ditambahkan');
 
     }
@@ -57,9 +62,11 @@ class KatalogController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Katalog::findOrFail($id);
-
-        return view('masterdata.katalog.edit', compact('data'));
+        $data = view('masterdata.voucher.edit',[
+            'data' => MasterHoliday::findOrFail($id),
+            'bussiness' => Bussiness::all(),
+            ])->render();
+        return $data;
     }
 
     /**
@@ -72,14 +79,14 @@ class KatalogController extends Controller
         $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('katalog', 'public');
+            $path = $file->store('masterHoliday', 'public');
             $data['image'] = $path;
         }
 
         return $this->atomic(function () use ($data, $id) {
-            $update = Katalog::findOrFail($id)->update($data);
+            $update = MasterHoliday::findOrFail($id)->update($data);
             
-            return redirect()->route('katalog.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('masterHoliday.index')->with('success', 'Data Berhasil di Ubah');
         });
     }
 
@@ -90,7 +97,7 @@ class KatalogController extends Controller
     {
         try {
             return $this->atomic(function () use ($id) {
-                $delete = Katalog::find($id)->delete();
+                $delete = MasterHoliday::find($id)->delete();
 
                 return response()->json([
                     'status' => true,
@@ -107,8 +114,11 @@ class KatalogController extends Controller
     public function storeValidate(Request $request)
     {
         $validate = $request->validate([
-            'title'     => 'required',
-            'type'   => 'required',
+            'name'     => 'required',
+            'date'     => 'required',
+            'bussiness_id' => 'required',
+            'status'   => 'required',
+            'notes'   => 'required',
             'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
@@ -118,11 +128,14 @@ class KatalogController extends Controller
     public function updateValidate(Request $request)
     {
         $validate = $request->validate([
-            'title'     => 'required',
-            'type'   => 'required',
+            'name'     => 'required',
+            'date'     => 'required',
+            'bussiness_id' => 'required',
+            'status'   => 'required',
+            'notes'   => 'required',
             'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
         return $validate;
     }
-}
+}    

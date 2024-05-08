@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\KatalogDetail;
+use App\Models\Katalog;
 
 class KatalogDetailsController extends Controller
 {
@@ -14,7 +16,9 @@ class KatalogDetailsController extends Controller
      */
     public function index()
     {
-        //
+        $data = KatalogDetail::all();
+
+        return view('masterdata.katalogDetails.list',compact('data'));
     }
 
     /**
@@ -24,7 +28,10 @@ class KatalogDetailsController extends Controller
      */
     public function create()
     {
-        //
+        $data = view('masterdata.katalogDetails.create',[
+            'katalog' => Katalog::all(),
+        ])->render();
+        return $data;
     }
 
     /**
@@ -35,7 +42,15 @@ class KatalogDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('katalog', 'public');
+            $data['image'] = $path;
+        }
+        $create = KatalogDetail::create($data);
+        return back()->with('success', 'Data berhasil ditambahkan');
+
     }
 
     /**
@@ -44,42 +59,76 @@ class KatalogDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $data = view('masterdata.katalogDetails.edit',[
+            'data' => KatalogDetail::findOrFail($id),
+            'katalog' => Katalog::all(),
+        ])->render();
+        return $data;
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-        //
+        $this->updateValidate($request);
+
+        $data = $request->all();
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('katalogDetails', 'public');
+            $data['image'] = $path;
+        }
+
+        return $this->atomic(function () use ($data, $id) {
+            $update = KatalogDetail::findOrFail($id)->update($data);
+            
+            return redirect()->route('katalogDetails.index')->with('success', 'Data Berhasil di Ubah');
+        });
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            return $this->atomic(function () use ($id) {
+                $delete = KatalogDetail::find($id)->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data Berhasil Dihapus!',
+                ]);
+            });
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Gagal Dihapus!',
+            ]);
+        }
+    }
+    public function storeValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'katalog_id'     => 'required',
+            'name'   => 'required',
+            'status' =>'required',
+        ]);
+
+        return $validate;
+    }
+
+    public function updateValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'katalog_id'     => 'required',
+            'name'   => 'required',
+            'status' =>'required',
+        ]);
+
+        return $validate;
     }
 }

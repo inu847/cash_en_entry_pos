@@ -18,7 +18,7 @@
                             <option value="{{$value->id}}" @if($value->id == $data->bussiness_id) selected @endif>{{$value->name}}</option>
                         @endforeach
                     </select>
-                </div>
+                </div>  
                 <div class="form-group">
                     <label>Status</label>
                     <select class="form-control" name="status" >
