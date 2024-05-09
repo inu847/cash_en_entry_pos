@@ -13,7 +13,7 @@ class KatalogDetail extends Model
 
     public function katalog()
     {
-        return $this->belongsTo(Katalog::class, 'katalog_id');
+        return $this->belongsTo(Katalog::class, 'katalog_id', 'id');
     }
 
 }

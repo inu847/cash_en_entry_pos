@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Katalog;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -12,12 +13,11 @@ class CartController extends Controller
     public function index()
     {
         if (auth()->check()) {
-            $data = Cart::where('user_id', auth()->user()->id)->orWhere('session_id', Session::getId())->get();
-            $cartCount = count($data);
+            $data = Cart::where('user_id', auth()->user()->id)->get();
         }else{
             $data = Cart::where('session_id', Session::getId())->get();
-            $cartCount = count($data);
         }
+        $cartCount = count($data);
 
         return view('front.cart', ['data' => $data, 'cartCount' => $cartCount]);
     }
@@ -45,20 +45,33 @@ class CartController extends Controller
         try {
             $data = $request->all();
 
-            $data['user_id'] = auth()->user()->id;
+            $data['user_id'] = auth()->user()->id ?? null;
             $data['session_id'] = Session::getId();
-            $data['price'] = 200000;
-            // $data['price'] = Product::findOrFail($data['product_id'])->price ?? $data['price'];
+
+            if (auth()->check()) {
+                $cartExist = Cart::where('katalog_id', $data['katalog_id'])->where('user_id', auth()->user()->id)->first();
+            }else{
+                $cartExist = Cart::where('katalog_id', $data['katalog_id'])->where('session_id', Session::getId())->first();
+            }
+
+            $qty = $cartExist->qty ?? 0;
+            $data['qty'] = $qty + 1;
+            $data['price'] = Katalog::findOrFail($data['katalog_id'])->price ?? $data['price'];
 
             Session::put('cart', $data);
 
-            return $this->atomic(function () use ($data) {
-                $create = Cart::create($data);
-                if (auth()->check()) {
-                    $cartCount = Cart::where('user_id', auth()->user()->id)->orWhere('session_id', Session::getId())->count();
+            return $this->atomic(function () use ($data, $cartExist) {
+                if ($cartExist) {
+                    $cartExist->update($data);
                 }else{
-                    $cartCount = Cart::where('session_id', Session::getId())->count();
+                    $create = Cart::create($data);
                 }
+                if (auth()->check()) {
+                    $cart = Cart::where('user_id', auth()->user()->id)->get();
+                }else{
+                    $cart = Cart::where('session_id', Session::getId())->get();
+                }
+                $cartCount = $cart->count();
 
                 return response()->json([
                     'status' => true,
@@ -150,8 +163,8 @@ class CartController extends Controller
 
     public function storeValidate(Request $request)
     {
+        // 'katalog_id'     => 'required',
         $validate = $request->validate([
-            'product_id'     => 'required',
         ]);
 
         return $validate;
@@ -159,8 +172,8 @@ class CartController extends Controller
 
     public function updateValidate(Request $request)
     {
+        // 'katalog_id'     => 'required',
         $validate = $request->validate([
-            'product_id'     => 'required',
         ]);
 
         return $validate;
