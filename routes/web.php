@@ -102,3 +102,4 @@ Route::get('/register', function () { return view('auth.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
 
 Route::get('/product', [LandingPageController::class,'product'])->name('front.product');
+Route::post('/product/detail', [LandingPageController::class,'productDetail'])->name('front.productDetail');

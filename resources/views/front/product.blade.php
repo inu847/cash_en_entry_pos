@@ -233,51 +233,37 @@
         </div>
 
         <div class="row">
-            @for ($i = 0; $i < 10; $i++)
+            @foreach ($data as $item)
                 {{-- BUTTON MODALS --}}
                 <div class="col-md-3 mb-25">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct">
-                        <img src="{{asset('/img/product.png')}}" class="image-product" alt="" width="100%">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" class="detailProduct" data-id="{{$item['id']}}">
+                        <img src="{{ asset('storage/'.$item['image']) }}" class="image-product" alt="" width="100%">
                         <div class="card-product">
                             <div class="title-product text-center">
-                                Mesin Kasir
+                                {{ $item['title'] }}
                             </div>
                             <div class="price-product text-center">
-                                Rp 5.988.000
+                                Rp {{ number_format($item['price']) }}
                             </div>
                             <div class="desc-product mt-3">
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
+                                @foreach ($item->katalogDetail as $detail)
+                                    <div class="row">
+                                        <div class="col-md-2 text-center">
+                                            <img src="{{asset('/img/check.svg')}}" alt="">
+                                        </div>
+                                        <div class="col-md-10 feature-desc">
+                                            {{ $detail->name }}
+                                        </div>
                                     </div>
-                                    <div class="col-md-10 feature-desc">
-                                        Android POS
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 feature-desc">
-                                        High print speed (250mm/s)
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 feature-desc">
-                                        Portable screen
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </a>
-                    <div id="addToCart" class="addtocart" data-id="{{$i}}" data-price="{{$i}}">
-                        <a class="btn-addToCart" href="javascript:void(0)">+</a>
+                    <div class="addtocart">
+                        <a class="btn-addToCart addCart" href="javascript:void(0)" data-id="{{$item['id']}}" data-price="{{$item['price']}}">+</a>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 
@@ -299,79 +285,8 @@
     {{-- DETAIL PRODUCT --}}
     <div class="modal fade " id="detailProduct" tabindex="-1" role="dialog" aria-labelledby="detailProductLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-                    <div class="row">
-                        <div class="col-md-6 bg-detail-image">
-                            <img src="{{asset('/img/product.png')}}" class="image-detail" alt="" width="100%">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="badge badge-custom mb-3">
-                                <span class="icon-bg">
-                                    <i class="fa fa-user"></i>
-                                </span>
-                                Premium
-                            </div>
-                            <div class="title-detail mb-3">Paket Bundling VX Lite (Advan Tab VX Lite) + POS */</div>
-                            <div class="title-detail mb-3">Rp 5.988.000</div>
-                            <div class="desc-product mt-3">
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10">
-                                        Android POS
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 ">
-                                        High print speed (250mm/s)
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        <img src="{{asset('/img/check.svg')}}" alt="">
-                                    </div>
-                                    <div class="col-md-10 ">
-                                        Portable screen
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row mt-2 ml-3">
-                                <div class="col-md-4">
-                                    <div class="fw-900 font-bold"><i class="fa fa-star"></i> 4.6</div>
-                                    <div class="text-muted">Rating</div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="fw-900 font-bold">1rb+</div>
-                                    <div class="text-muted">Purchase</div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="fw-900 font-bold">3rb+</div>
-                                    <div class="text-muted">Sales</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">  
-                            <button class="btn btn-outline-secondary btn-rounded btn-pcustom">Add to cart</button>
-                            <button class="btn btn-primary btn-rounded btn-pcustom">Buy Now</button>
-                        </div>
-                    </div>
-
-                    <div class="des-product">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate temporibus ratione magni praesentium unde corporis hic deserunt ullam aspernatur reprehenderit! Explicabo iste dolorum quisquam soluta nihil quidem modi, quas quasi?
-                    </div>
-                </div>
+            <div class="modal-content" id="bodyProduct">
+                
             </div>
         </div>
     </div>
@@ -382,13 +297,30 @@
     <script src="{{ asset('js/alerts.js')}}"></script>
 
     <script>
-        $(document).on('click', '#addToCart', function(){
+        $(document).on('click', '.detailProduct', function(){
             var id = $(this).data('id');
+
+            $.ajax({
+                url: "{{ route('front.productDetail') }}",
+                method: "POST",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                },
+                success: function(data) {
+                    $('#bodyProduct').html(data);
+                }
+            })
+        });
+        
+        $(document).on('click', '.addCart', function(){
+            var id = $(this).data('id');
+            console.log(id);
 
             // CONFIRM WITH SWEET ALERT
             Swal.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "Apakah ingin menambahkan produk ini ke keranjang?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -397,6 +329,30 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     addToCart(id);
+                }
+            })
+        });
+
+        $(document).on('click', '.buyNow', function(){
+            var id = $(this).data('id');
+            console.log(id);
+
+            // CONFIRM WITH SWEET ALERT
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Apakah ingin membeli produk ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, add it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    addToCart(id);
+                    // DELAY
+                    setTimeout(() => {
+                        window.location.href = "{{ route('cart.index') }}";
+                    }, 1000);
                 }
             })
         });
@@ -410,7 +366,7 @@
                 method: "POST",
                 data: {
                     _token: '{{ csrf_token() }}',
-                    product_id: id,
+                    katalog_id: id,
                 },
                 success: function(data) {
                     $('#addToCart').removeAttr('disabled');

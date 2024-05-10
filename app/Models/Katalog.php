@@ -10,4 +10,9 @@ class Katalog extends Model
     use HasFactory;
     protected $table = 'katalogs';
     protected $guarded =[];
+    
+    public function katalogDetail()
+    {
+        return $this->hasMany(KatalogDetail::class);
+    }
 }
