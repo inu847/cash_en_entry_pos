@@ -7,13 +7,28 @@
 	@include('include.head')
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 	<style>
+		.topbar_menu {
+			top: 5px;
+			margin: 0px 20px;
+			font-size: 20px;
+
+		}
+
+		/* STICKY TOP WHEN SCROLL */
+		.sticky-top {
+			padding: 15px 50px !important;
+			background-color: rgba(255, 255, 255, 0.801) !important;
+		}
+
 		.list-thumbnail {
 			width: 100%;
 			height: 175px;
 			border-radius: 6px;
 		}
-		.badge-bestseller{
+
+		.badge-bestseller {
 			background-color: #68FE6E;
 			color: #fff;
 			font-size: 10px;
@@ -23,7 +38,8 @@
 			font-family: 'Poppins', sans-serif;
 			font-weight: 900;
 		}
-		.badge-discount{
+
+		.badge-discount {
 			background-color: #FF3030;
 			color: #fff;
 			font-size: 10px;
@@ -33,7 +49,8 @@
 			font-family: 'Poppins', sans-serif;
 			font-weight: 900;
 		}
-		.badge-add-product{
+
+		.badge-add-product {
 			background-color: #000000;
 			color: #fff;
 			font-size: 23px;
@@ -45,12 +62,14 @@
 			padding: 1px;
 			border-radius: 3px;
 		}
-		.badge-add-favorite{
+
+		.badge-add-favorite {
 			position: absolute;
 			right: 15px;
 			top: 7px;
 		}
-		.product-title{
+
+		.product-title {
 			font-family: 'Inter';
 			font-style: normal;
 			font-weight: 700;
@@ -58,16 +77,33 @@
 			line-height: 22px;
 			color: #000000;
 		}
-		.product-price{
+
+		.product-price {
 			font-family: 'Inter';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 16px;
 			line-height: 19px;
 		}
-		.badge-soldout{
+
+		.badge-soldout {
 			padding: 10px 0px;
 			width: 90%;
+		}
+
+		.no-border{
+			border: none;
+			border-radius: 25px;
+		}
+
+		.border1{
+			border: 2px solid;
+			border-radius: 25px;
+		}
+
+		.f1{
+			font-family: "Poppins";
+			font-weight: bold;
 		}
 	</style>
 </head>
@@ -87,7 +123,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-sm-8 bg-white">
+				<div class="col-sm-7 bg-white">
 					<div class="customer-area">
 						<div class="row">
 							<div class="col-sm-3">
@@ -95,7 +131,7 @@
 									<select class="form-control select2" name="warehouse">
 										<option selected="selected" value="">Select Warehouse</option>
 										@foreach ($warehouse as $item)
-											<option value="{{ $item->id }}">{{ $item->name }}</option>
+										<option value="{{ $item->id }}">{{ $item->name }}</option>
 										@endforeach
 									</select>
 								</div>
@@ -114,41 +150,41 @@
 							@foreach($products as $key => $product)
 							<div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-2 list-item list-item-grid p-2">
 								<div class="mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}">
-								{{-- <div class="card mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}"> --}}
+									{{-- <div class="card mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}"> --}}
 									<div class="mb-2">
-									{{-- <div class="d-flex card-img"> --}}
+										{{-- <div class="d-flex card-img"> --}}
 										@if ($key % 2 == 0)
-											<div class="badge badge-bestseller">
-												Best Seller
-											</div>
+										<div class="badge badge-bestseller">
+											Best Seller
+										</div>
 
-											<img src="{{asset('img/fav.png')}}" class="badge-add-favorite" alt="">
+										<img src="{{asset('img/fav.png')}}" class="badge-add-favorite" alt="">
 
 										@elseif ($key % 2 == 1)
-											<div class="badge badge-discount">
-												20%
-											</div>
+										<div class="badge badge-discount">
+											20%
+										</div>
 										@endif
 
 										<i class="ik ik-plus badge-add-product"></i>
 
 										<img src="{{asset('storage/'.$product['image'])}}" alt="{{$product['title']}}" class="list-thumbnail responsive border-0">
 									</div>
-									
+
 									<div class="row">
 										<div class="col-md-8">
 											<div class="product-title mb-2">
-												{{$product['title']}} 
+												{{$product['title']}}
 											</div>
 											@if($product['offer_price'])
-												<div class="product-price">
-													Rp.{{ number_format($product['offer_price'])}}
-												</div>
-												<div class="product-price text-muted">
-													<small>Rp.<s>{{number_format($product['regular_price'])}}</s></small>
-												</div>
+											<div class="product-price">
+												Rp.{{ number_format($product['offer_price'])}}
+											</div>
+											<div class="product-price text-muted">
+												<small>Rp.<s>{{number_format($product['regular_price'])}}</s></small>
+											</div>
 											@else
-												<span class="product-price"><span class="price-symbol">Rp.</span>{{ number_format($product['regular_price'])}}</span>
+											<span class="product-price"><span class="price-symbol">Rp.</span>{{ number_format($product['regular_price'])}}</span>
 											@endif
 										</div>
 										<div class="col-md-4">
@@ -161,7 +197,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-3 bg-white product-cart-area">
+				<div class="col-sm-4 bg-white product-cart-area f1">
 					<div class="product-selection-area">
 						<div class="d-flex justify-content-between align-items-center">
 							<h5 class="mb-0"> Order Details</h6>
@@ -185,13 +221,12 @@
 								</div>
 							</div> -->
 						</div>
-						<div class="box-shadow p-3">
-							<div class="d-flex justify-content-between font-15 align-items-center">
+							<div class="d-flex justify-content-between font-15 align-items-center my-2">
 								<span>Total</span>
 								<strong id="total-products">0.00</strong>
 							</div>
-							<div class="d-flex justify-content-between font-15 align-items-center">
-								<span>Tax</span>
+							<div class="d-flex justify-content-between font-15 align-items-center my-2">
+								<span>Tax {{ \Auth::user()->bussiness->first()->tax}}%</span>
 								<strong id="tax-products">0.00</strong>
 							</div>
 							<div class="d-flex justify-content-between font-15 align-items-center">
@@ -202,8 +237,7 @@
 								<span>Pay</span>
 								<input class="form-control font-15 text-right" style="width: 150px;" id="pay">
 							</div>
-							<hr>
-							<div class="d-flex justify-content-between font-20 align-items-center">
+							<div class="d-flex justify-content-between font-20 align-items-center mt-2">
 								<b>Total</b>
 								<b id="total-bill">0.00</b>
 							</div>
@@ -211,8 +245,7 @@
 								<b>Change</b>
 								<b id="change">0.00</b>
 							</div>
-						</div>
-						<div class="box-shadow p-3 mb-3">
+							<hr>
 							<label class="d-block">Customer Information</label>
 							<div class="d-block">
 								<div class="form-group">
@@ -223,19 +256,19 @@
 									<select class="form-control select2" id="table_id" name="table_id">
 										<option selected="selected" value="">Select Table</option>
 										@foreach ($tables as $item)
-											<option value="{{ $item->id }}" {{ ($item->qty_available == 0 || $item->status == 3 || $item->status == 4) ? 'disabled' : '' }}>
-												{{ $item->number }}
+										<option value="{{ $item->id }}" {{ ($item->qty_available == 0 || $item->status == 3 || $item->status == 4) ? 'disabled' : '' }}>
+											{{ $item->number }}
 
-												@if ($item->status == 1)
-													<span class="badge badge-success">{{ "(Available $item->qty_available)" }}</span>
-												@elseif ($item->status == 2)
-													<span class="badge badge-warning">{{ "(Reserved $item->qty_available)" }}</span>
-												@elseif ($item->status == 3)
-													<span class="badge badge-danger">Occupied</span>
-												@else
-													<span class="badge badge-danger">Not Available</span>
-												@endif
-											</option>
+											@if ($item->status == 1)
+											<span class="badge badge-success">{{ "(Available $item->qty_available)" }}</span>
+											@elseif ($item->status == 2)
+											<span class="badge badge-warning">{{ "(Reserved $item->qty_available)" }}</span>
+											@elseif ($item->status == 3)
+											<span class="badge badge-danger">Occupied</span>
+											@else
+											<span class="badge badge-danger">Not Available</span>
+											@endif
+										</option>
 										@endforeach
 									</select>
 								</div>
@@ -243,8 +276,7 @@
 									<textarea type="text" id="note" name="note" class="form-control h-82px" placeholder="Note"></textarea>
 								</div>
 							</div>
-						</div>
-						<div class="box-shadow p-3">
+						<div class="box">
 							<button class="btn btn-danger btn-checkout btn-pos-checkout" onclick="updateInvoice()">PLACE ORDER</button>
 						</div>
 					</div>
@@ -306,7 +338,7 @@
 			} else {
 				cart[id] = {
 					name: product.title,
-					image: 'storage/'+product.image,
+					image: 'storage/' + product.image,
 					price: price,
 					quantity: 1,
 					subtotal: price,
@@ -342,14 +374,14 @@
 			var $cartTable = $('#product-cart'),
 				$cartTotal = $('#subtotal-products'),
 				$totalText = $('#total-bill');
-				$change = $('#change');
-				$total = $('#total-products');
-				$tax = $('#tax-products');
+			$change = $('#change');
+			$total = $('#total-products');
+			$tax = $('#tax-products');
 
 			var cartTotal = 0,
 				discount = $('#discount').val();
-				pay = $('#pay').val();
-				change = $('#change').val();
+			pay = $('#pay').val();
+			change = $('#change').val();
 
 			// Empty cart table
 			$cartTable.empty();
@@ -366,18 +398,21 @@
 						currency: 'IDR'
 					});
 					var $tr = `<div class="d-flex justify-content-between position-relative">
-								<i class="text-red ik ik-x-circle cart-remove cursor-pointer" onclick="removeCartItem(${id})"></i>
 								<div class="cart-image-holder">
 									<img src="${item.image}">
 								</div>
 								<div class="w-100 p-2">
-									<h5 class="mb-2 cart-item-title">${item.name}</h5>
-									<div class="d-flex justify-content-between">
-										<button type="button" class="btn btn-sm btn-outline-primary" onclick="decrease(${id})">-</button>
+								<div class="d-flex justify-content-between">
+								<h5 class="mt-3 cart-item-title">${item.name}</h5>
+								<div class="d-flex justify-content-between mt-2">
+									<div class="border1">
+										<button type="button" class="btn btn-sm btn-outline-primary no-border" onclick="decrease(${id})">-</button>
 										<span class="text-muted" style="line-height: 30px;">${item.quantity}x</span>
-										<button type="button" class="btn btn-sm btn-outline-primary" onclick="increase(${id})">+</button>
-										<span class="text-success font-weight-bold cart-item-price">${item.subtotal_format}</span>
-									</div>
+										<button type="button" class="btn btn-sm btn-outline-primary no-border" onclick="increase(${id})">+</button>
+									</div>           
+										<span class="text-black font-weight-bold cart-item-price mt-1">${item.subtotal_format}</span>
+									</div>           
+								</div>
 								</div>
 							</div>`;
 					$cartTable.append($tr);
@@ -391,7 +426,7 @@
 			});
 
 			var total = cartTotal - discount;
-			tax = total * 0.1;
+			tax = total * 0.{{ \Auth::user()->bussiness->first()->tax}};
 			grandtotal = total + tax;
 			var change = pay - grandtotal;
 			// CONVERT TO CURENCY FORMAT IDR
@@ -423,7 +458,7 @@
 			$tax.text((tax_format));
 		}
 
-		function decrease(id){
+		function decrease(id) {
 			if (cart[id].quantity == 1) {
 				removeCartItem(id);
 			}
@@ -432,13 +467,13 @@
 			updateCartTable();
 		}
 
-		function increase(id){
+		function increase(id) {
 			cart[id].quantity++;
 			cart[id].subtotal = cart[id].price * cart[id].quantity;
 			updateCartTable();
 		}
 
-		function updateInvoice(){
+		function updateInvoice() {
 			// GET DATA ITEM FROM CART
 			var items = [];
 			for (var id in cart) {
@@ -447,19 +482,20 @@
 					items.push({
 						name: item.name,
 						price: item.price,
+						tax: 0.{{ \Auth::user()->bussiness->first()->tax}},
 						quantity: item.quantity,
 						subtotal: item.subtotal,
 						product_id: parseInt(id),
 					});
 				}
 			}
-			
+
 			var discount = $('#discount').val();
 			var customer_name = $('#customer_name').val();
 			var table_id = $('#table_id').val();
 			var note = $('#note').val();
 			var pay = $('#pay').val();
-			
+
 			// POST WITH AJAX
 			$.ajax({
 				url: "{{ route('pos.updateInvoice') }}",
@@ -468,10 +504,10 @@
 					_token: "{{ csrf_token() }}",
 					items: items,
 					discount: discount,
-					customer_name : customer_name,
-					table_id : table_id,
-					note : note,
-					pay : pay,
+					customer_name: customer_name,
+					table_id: table_id,
+					note: note,
+					pay: pay,
 				},
 				success: function(data) {
 					$('#detailInvoice').html(data);
