@@ -11,6 +11,15 @@
 
                 </div>
                 <div class="form-group">
+                    <label>Bussiness Name</label>
+                    <select class="form-control" name="bussiness_id" >
+                        <option selected="selected" value="" >Select Bussiness</option>
+                        @foreach($bussiness as $value)
+                            <option value="{{$value->id}}" @if($value->id == $data->bussiness_id) selected @endif>{{$value->name}}</option>
+                        @endforeach
+                    </select>
+                </div>  
+                <div class="form-group">
                     <label>Status</label>
                     <select class="form-control" name="status" >
                         <option selected="selected" value="" >Select status</option>
@@ -28,8 +37,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="max-qty">Max-Qty<span class="text-red">*</span></label>
-                    <input id="max-qty" type="number" class="form-control" name="max-qty" placeholder="Enter Answer" required="">
+                    <label for="max_qty">Max Qty<span class="text-red">*</span></label>
+                    <input id="max_qty" type="number" class="form-control" name="max_qty" value="{{ $data->max_qty }}" placeholder="Enter Answer" required="">
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
@@ -38,23 +47,30 @@
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
-                    <label for="sku">Answer<span class="text-red">*</span></label>
-                    <input id="sku" type="text" class="form-control" name="answer" value="{{ $data->answer }}" placeholder="Enter Answer" required="">
+                    <label for="description">Description<span class="text-red">*</span></label>
+                    <input id="description" type="text" class="form-control" name="description" value="{{ $data->description }}" placeholder="Enter Description" required="">
+                    <div class="help-block with-errors"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Product image</label>
+                    <img src="{{asset('storage/'.$data->image)}}" alt="" width="200">
+                    <input type="file" class="form-control" name="image">
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Title<span class="text-red">*</span></label>
+                    <input id="title" type="text" class="form-control" name="title" value="{{ $data->title }}" placeholder="Enter title" required="">
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
-                    <label for="sku">Answer<span class="text-red">*</span></label>
-                    <input id="sku" type="text" class="form-control" name="answer" value="{{ $data->answer }}" placeholder="Enter Answer" required="">
+                    <label for="expired-at">Expired At<span class="text-red">*</span></label>
+                    <input id="expired-at" type="date" class="form-control" name="expired_at" value="{{ $data->expired_at }}" placeholder="Enter Expired Product" required="">
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
-                    <label for="sku">Answer<span class="text-red">*</span></label>
-                    <input id="sku" type="text" class="form-control" name="answer" value="{{ $data->answer }}" placeholder="Enter Answer" required="">
-                    <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group">
-                    <label for="sku">Answer<span class="text-red">*</span></label>
-                    <input id="sku" type="text" class="form-control" name="answer" value="{{ $data->answer }}" placeholder="Enter Answer" required="">
+                    <label for="start_at">Start At<span class="text-red">*</span></label>
+                    <input id="start_at" type="date" class="form-control" name="start_at" value="{{ $data->start_at }}" placeholder="Enter Started Date" required="">
                     <div class="help-block with-errors"></div>
                 </div>
 

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Voucher;
-use App\Models\Bussiness;
+use App\Models\KatalogDetail;
+use App\Models\Katalog;
 
-class VoucherController extends Controller
+class KatalogDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $data = Voucher::all();
+        $data = KatalogDetail::all();
 
-        return view('masterdata.voucher.list',compact('data'));
+        return view('masterdata.katalogDetails.list',compact('data'));
     }
 
     /**
@@ -28,8 +28,8 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        $data = view('masterdata.voucher.create',[
-            'bussiness' => Bussiness::all(),
+        $data = view('masterdata.katalogDetails.create',[
+            'katalog' => Katalog::all(),
         ])->render();
         return $data;
     }
@@ -43,7 +43,12 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $create = Voucher::create($data);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('katalog', 'public');
+            $data['image'] = $path;
+        }
+        $create = KatalogDetail::create($data);
         return back()->with('success', 'Data berhasil ditambahkan');
 
     }
@@ -56,9 +61,9 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
-        $data = view('masterdata.voucher.edit',[
-            'data' => Voucher::findOrFail($id),
-            'bussiness' => Bussiness::all(),
+        $data = view('masterdata.katalogDetails.edit',[
+            'data' => KatalogDetail::findOrFail($id),
+            'katalog' => Katalog::all(),
         ])->render();
         return $data;
     }
@@ -73,14 +78,14 @@ class VoucherController extends Controller
         $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('voucher', 'public');
+            $path = $file->store('katalogDetails', 'public');
             $data['image'] = $path;
         }
 
         return $this->atomic(function () use ($data, $id) {
-            $update = Voucher::findOrFail($id)->update($data);
+            $update = KatalogDetail::findOrFail($id)->update($data);
             
-            return redirect()->route('voucher.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('katalogDetails.index')->with('success', 'Data Berhasil di Ubah');
         });
     }
 
@@ -91,7 +96,7 @@ class VoucherController extends Controller
     {
         try {
             return $this->atomic(function () use ($id) {
-                $delete = Voucher::find($id)->delete();
+                $delete = KatalogDetail::find($id)->delete();
 
                 return response()->json([
                     'status' => true,
@@ -108,10 +113,9 @@ class VoucherController extends Controller
     public function storeValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
-            'type'   => 'required',
-            'discount'   => 'required',
+            'katalog_id'     => 'required',
+            'name'   => 'required',
+            'status' =>'required',
         ]);
 
         return $validate;
@@ -120,10 +124,9 @@ class VoucherController extends Controller
     public function updateValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
-            'type'   => 'required',
-            'discount'   => 'required',
+            'katalog_id'     => 'required',
+            'name'   => 'required',
+            'status' =>'required',
         ]);
 
         return $validate;

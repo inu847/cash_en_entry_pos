@@ -110,6 +110,7 @@
 									</label>
 								</th>
 								<th>Code</th>
+								<th>Bussiness</th>
 								<th>Status</th>
 								<th>Type</th>
 								<th>Max Qty</th>
@@ -119,6 +120,7 @@
 								<th>Title</th>
 								<th>Expired At</th>
 								<th>Started At</th>
+								<th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -131,10 +133,18 @@
 										</label>
 									</td>
 									<td>{{ $item->code }}</td>
+									<td>{{ $item->bussiness->name }}</td>
 									<td>{{ voucherStatus($item->status) }}</td>
 									<td>{{ voucherType($item->type) }}</td>
+									<td>{{ $item->max_qty }}</td>
 									<td>{{ $item->discount }}</td>
-									<td></td>
+									<td>{{ $item->description }}</td>
+									<td>
+										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
+									</td>
+									<td>{{ $item->title }}</td>
+									<td>{{ $item->expired_at }}</td>
+									<td>{{ $item->start_at }}</td>
 									<td>
 										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
@@ -202,7 +212,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_update_dataLabel">Update Why Should We</h5>
+				<h5 class="modal-title" id="modal_update_dataLabel">Update Voucher</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body" id="formEdit">

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Voucher;
+use App\Models\MasterHoliday;
 use App\Models\Bussiness;
 
-class VoucherController extends Controller
+class MasterHolidayController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,10 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $data = Voucher::all();
+        $data = MasterHoliday::all();
 
-        return view('masterdata.voucher.list',compact('data'));
+        return view('masterdata.masterHoliday.list',compact('data'));
+
     }
 
     /**
@@ -28,7 +29,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        $data = view('masterdata.voucher.create',[
+        $data = view('masterdata.masterHoliday.create',[
             'bussiness' => Bussiness::all(),
         ])->render();
         return $data;
@@ -43,7 +44,12 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $create = Voucher::create($data);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('masterHoliday', 'public');
+            $data['image'] = $path;
+        }
+        $create = MasterHoliday::create($data);
         return back()->with('success', 'Data berhasil ditambahkan');
 
     }
@@ -57,9 +63,9 @@ class VoucherController extends Controller
     public function edit(string $id)
     {
         $data = view('masterdata.voucher.edit',[
-            'data' => Voucher::findOrFail($id),
+            'data' => MasterHoliday::findOrFail($id),
             'bussiness' => Bussiness::all(),
-        ])->render();
+            ])->render();
         return $data;
     }
 
@@ -73,14 +79,14 @@ class VoucherController extends Controller
         $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('voucher', 'public');
+            $path = $file->store('masterHoliday', 'public');
             $data['image'] = $path;
         }
 
         return $this->atomic(function () use ($data, $id) {
-            $update = Voucher::findOrFail($id)->update($data);
+            $update = MasterHoliday::findOrFail($id)->update($data);
             
-            return redirect()->route('voucher.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('masterHoliday.index')->with('success', 'Data Berhasil di Ubah');
         });
     }
 
@@ -91,7 +97,7 @@ class VoucherController extends Controller
     {
         try {
             return $this->atomic(function () use ($id) {
-                $delete = Voucher::find($id)->delete();
+                $delete = MasterHoliday::find($id)->delete();
 
                 return response()->json([
                     'status' => true,
@@ -108,10 +114,12 @@ class VoucherController extends Controller
     public function storeValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
+            'name'     => 'required',
+            'date'     => 'required',
+            'bussiness_id' => 'required',
             'status'   => 'required',
-            'type'   => 'required',
-            'discount'   => 'required',
+            'notes'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
         return $validate;
@@ -120,12 +128,14 @@ class VoucherController extends Controller
     public function updateValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
+            'name'     => 'required',
+            'date'     => 'required',
+            'bussiness_id' => 'required',
             'status'   => 'required',
-            'type'   => 'required',
-            'discount'   => 'required',
+            'notes'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
         return $validate;
     }
-}
+}    

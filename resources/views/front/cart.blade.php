@@ -13,8 +13,6 @@ Product
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 <link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
 
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- jQuery Stepy CSS -->
@@ -70,33 +68,6 @@ Product
     #msform fieldset .form-card {
         text-align: left;
         color: #9E9E9E;
-    }
-
-    #msform input,
-    #msform textarea {
-        padding: 0px 8px 4px 8px;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        border-radius: 0px;
-        margin-bottom: 25px;
-        margin-top: 2px;
-        width: 100%;
-        box-sizing: border-box;
-        font-family: montserrat;
-        color: #2C3E50;
-        font-size: 16px;
-        letter-spacing: 1px;
-    }
-
-    #msform input:focus,
-    #msform textarea:focus {
-        -moz-box-shadow: none !important;
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
-        border: none;
-        font-weight: bold;
-        border-bottom: 2px solid skyblue;
-        outline-width: 0;
     }
 
     /*Blue Buttons*/
@@ -268,161 +239,224 @@ Product
         width: 100%;
         object-fit: cover;
     }
+
+    .title-card {
+        padding: 15px;
+        border: 1px solid black;
+        border-radius: 10px;
+        background-color: #F1F1F180;
+        margin: 10px;
+
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 800;
+        font-size: 20px;
+        line-height: 36px;
+
+        color: #31245C;
+    }
+
+    .title-katalog{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 21px;
+
+        color: rgba(53, 40, 95, 0.9);
+    }
+    .img-katalog{
+        padding: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    }
+    .color-primary{
+        color: #31245C !important;
+    }
+    .color-primary2{
+        color: #35285FE5 !important;
+    }
 </style>
 @endpush
 
 @section('content')
-<!-- MultiStep Form -->
-<div class="container-fluid" id="grad1">
-    <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2><strong>Sign Up Your User Account</strong></h2>
-                <p>Fill all form field to go to next step</p>
-                <div class="row">
-                    <div class="col-md-12 mx-0">
-                        <form id="msform">
-                            <!-- fieldsets -->
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Cek Keranjang Belanja Kamu</h2>
-                                </div>
+<div class="m-3">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 mx-0">
+                <form id="msform">
+                    <!-- fieldsets -->
+                    <fieldset>
+                        <div class="title-card text-left">
+                            <img src="{{ asset('img/cart.png')}}" alt="" width="50">
+                            Cek Keranjang Belanja Kamu
+                        </div>
 
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Harga</th>
-                                            <th>Jumlah</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $item)
-                                            <tr>
-                                                <td>{{ $item->product->title ?? null }}</td>
-                                                <td>{{ $item->product->price ?? null }}</td>
-                                                <td>
-                                                    <input type="number" class="form-control" value="1">
-                                                </td>
-                                                <td>
-                                                    {{ $item->product->price ?? null }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <input type="button" name="next" class="next action-button" value="Next Step" />
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Personal Information</h2>
-                                    <input type="text" name="fname" placeholder="First Name" />
-                                    <input type="text" name="lname" placeholder="Last Name" />
-                                    <input type="text" name="phno" placeholder="Contact No." />
-                                    <input type="text" name="phno_2" placeholder="Alternate Contact No." />
-                                </div>
-                                <input type="button" name="previous" class="previous action-button-previous"
-                                    value="Previous" />
-                                <input type="button" name="next" class="next action-button" value="Next Step" />
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Payment Information</h2>
-                                    <div class="radio-group">
-                                        <div class='radio' data-value="credit"><img
-                                                src="https://i.imgur.com/XzOzVHZ.jpg" width="200px" height="100px">
+                        <table class="table table-hover m-3 color-primary">
+                            <thead>
+                                <tr>
+                                    <th class="fw-bold text-left">Product</th>
+                                    <th class="fw-bold">Harga</th>
+                                    <th class="fw-bold">Jumlah</th>
+                                    <th class="fw-bold">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="color-primary2">
+                                @php
+                                    $total = 0;
+                                @endphp
+                                @foreach ($data as $item)
+                                <tr>
+                                    <td class="text-left pl-3">
+                                        <div class="title-katalog">
+                                            {{ $item->katalog->title ?? null }}
                                         </div>
-                                        <div class='radio' data-value="paypal"><img
-                                                src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px">
-                                        </div>
-                                        <br>
-                                    </div>
-                                    <label class="pay">Card Holder Name*</label>
-                                    <input type="text" name="holdername" placeholder="" />
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <label class="pay">Card Number*</label>
-                                            <input type="text" name="cardno" placeholder="" />
-                                        </div>
-                                        <div class="col-3">
-                                            <label class="pay">CVC*</label>
-                                            <input type="password" name="cvcpwd" placeholder="***" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <label class="pay">Expiry Date*</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <select class="list-dt" id="month" name="expmonth">
-                                                <option selected>Month</option>
-                                                <option>January</option>
-                                                <option>February</option>
-                                                <option>March</option>
-                                                <option>April</option>
-                                                <option>May</option>
-                                                <option>June</option>
-                                                <option>July</option>
-                                                <option>August</option>
-                                                <option>September</option>
-                                                <option>October</option>
-                                                <option>November</option>
-                                                <option>December</option>
-                                            </select>
-                                            <select class="list-dt" id="year" name="expyear">
-                                                <option selected>Year</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="button" name="previous" class="previous action-button-previous"
-                                    value="Previous" />
-                                <input type="button" name="make_payment" class="next action-button" value="Confirm" />
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title text-center">Success !</h2>
-                                    <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-3">
-                                            <img src="https://img.icons8.com/color/96/000000/ok--v2.png"
-                                                class="fit-image">
-                                        </div>
-                                    </div>
-                                    <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-7 text-center">
-                                            <h5>You Have Successfully Signed Up</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
+                                        <img class="img-katalog" src="{{ asset('storage/'.$item->katalog->image) }}" alt="" width="70">
+                                    </td>
+                                    <td>Rp {{  number_format($item->katalog->price, 2) ?? null }}</td>
+                                    <td width="150px">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group input-group-button">
+                                                    <div class="input-group-prepend minus">
+                                                        <button class="btn btn-primary" type="button">-</button>
+                                                    </div>
+                                                    <input type="number" name="qty" value="{{ $item->qty }}" class="form-control qty" placeholder="Both side addons">
 
-                            <!-- progressbar -->
+                                                    <input type="hidden" name="id" value="{{ $item->id }}">
+                                                    <input type="hidden" name="price" value="{{ $item->price }}">
+                                                    <input type="hidden" name="total" value="{{ $item->qty * $item->katalog->price }}">
+                                                    <div class="input-group-append plus">
+                                                        <button class="btn btn-primary" type="button">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td id="total{{ $item->id }}" class="total">
+                                        Rp {{  number_format($item->qty * $item->katalog->price, 2, ',', '.') ?? null }}
+                                    </td>
+                                    @php
+                                        $total += $item->qty * $item->katalog->price;
+                                    @endphp
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr class="color-primary2">
+                                    <th class="text-left" colspan="3">Total</th>
+                                    <td id="totalAll">
+                                        Rp {{  number_format($total, 2, ',', '.') ?? null }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <input type="button" name="next" class="next action-button" value="Next Step" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title">Personal Information</h2>
+                            <input type="text" name="fname" placeholder="First Name" />
+                            <input type="text" name="lname" placeholder="Last Name" />
+                            <input type="text" name="phno" placeholder="Contact No." />
+                            <input type="text" name="phno_2" placeholder="Alternate Contact No." />
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                        <input type="button" name="next" class="next action-button" value="Next Step" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title">Payment Information</h2>
+                            <div class="radio-group">
+                                <div class='radio' data-value="credit"><img src="https://i.imgur.com/XzOzVHZ.jpg"
+                                        width="200px" height="100px">
+                                </div>
+                                <div class='radio' data-value="paypal"><img src="https://i.imgur.com/jXjwZlj.jpg"
+                                        width="200px" height="100px">
+                                </div>
+                                <br>
+                            </div>
+                            <label class="pay">Card Holder Name*</label>
+                            <input type="text" name="holdername" placeholder="" />
                             <div class="row">
-                                {{-- BUTTON BACK --}}
-                                <div class="col-md-2">
-                                    <button type="button" name="next" class="btn btn-info btn-rounded"
-                                        onclick="goBack()">Back</button>
+                                <div class="col-9">
+                                    <label class="pay">Card Number*</label>
+                                    <input type="text" name="cardno" placeholder="" />
                                 </div>
-                                <div class="col-md-8">
-                                    <ul id="progressbar">
-                                        <li class="active" id="account"><strong>Account</strong></li>
-                                        <li id="personal"><strong>Personal</strong></li>
-                                        <li id="payment"><strong>Payment</strong></li>
-                                        <li id="confirm"><strong>Finish</strong></li>
-                                    </ul>
-                                </div>
-                                {{-- BUTTON NEXT --}}
-                                <div class="col-md-2">
-                                    <button type="button" name="next" class="btn btn-info btn-rounded"
-                                        onclick="nextPrev(1)">Next</button>
+                                <div class="col-3">
+                                    <label class="pay">CVC*</label>
+                                    <input type="password" name="cvcpwd" placeholder="***" />
                                 </div>
                             </div>
-                        </form>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="pay">Expiry Date*</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="list-dt" id="month" name="expmonth">
+                                        <option selected>Month</option>
+                                        <option>January</option>
+                                        <option>February</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>
+                                        <option>July</option>
+                                        <option>August</option>
+                                        <option>September</option>
+                                        <option>October</option>
+                                        <option>November</option>
+                                        <option>December</option>
+                                    </select>
+                                    <select class="list-dt" id="year" name="expyear">
+                                        <option selected>Year</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                        <input type="button" name="make_payment" class="next action-button" value="Confirm" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title text-center">Success !</h2>
+                            <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5>You Have Successfully Signed Up</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- progressbar -->
+                    <div class="row">
+                        {{-- BUTTON BACK --}}
+                        <div class="col-md-2">
+                            <button type="button" name="next" class="btn btn-info btn-rounded"
+                                onclick="goBack()">Back</button>
+                        </div>
+                        <div class="col-md-8">
+                            <ul id="progressbar">
+                                <li class="active" id="account"><strong>Account</strong></li>
+                                <li id="personal"><strong>Personal</strong></li>
+                                <li id="payment"><strong>Payment</strong></li>
+                                <li id="confirm"><strong>Finish</strong></li>
+                            </ul>
+                        </div>
+                        {{-- BUTTON NEXT --}}
+                        <div class="col-md-2">
+                            <button type="button" name="next" class="btn btn-info btn-rounded"
+                                onclick="nextPrev(1)">Next</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -498,6 +532,60 @@ Product
             return false;
         })
         
+        $(document).on('input', '.qty', function() {
+            var $id = $(this).parent().find('[name="id"]');
+            var $qty = $(this).parent().find('[name="qty"]');
+            var $price = $(this).parent().find('[name="price"]');
+
+            var count = parseInt($qty.val());
+            count = (count < 1 || isNaN(count)) ? 1 : count;
+            $qty.val(count);
+            getTotal($id.val(), $price.val(), count);
+        });
+
+        $(document).on('click', '.plus', function() {
+            var $id = $(this).parent().find('[name="id"]');
+            var $qty = $(this).parent().find('[name="qty"]');
+            var $price = $(this).parent().find('[name="price"]');
+
+            var count = parseInt($qty.val()) + 1;
+            $qty.val(count);
+            getTotal($id.val(), $price.val(), count);
+        });
+
+        $(document).on('click', '.minus', function() {
+            var $id = $(this).parent().find('[name="id"]');
+            var $qty = $(this).parent().find('[name="qty"]');
+            var $price = $(this).parent().find('[name="price"]');
+            
+            var count = parseInt($qty.val()) - 1;
+            count = count < 1 ? 1 : count;
+            $qty.val(count);
+            getTotal($id.val(), $price.val(), count);
+        });
+
+        function getTotal(id, price, qty) {
+            var total = price * qty;
+            total = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(total);
+            $('#total'+id).html(total);
+
+            getTotalAll();
+        }
+
+        function getTotalAll() {
+            var total = 0;
+            $('.total').each(function() {
+                var valTotal = $(this).text().replace(/[^\d,.-]/g, '');
+
+                // Replace comma with empty string to remove it
+                valTotal = valTotal.replace('.', '');
+                console.log(valTotal);
+                // CONVERT TO INT
+                total += parseFloat(valTotal);
+            });
+            total = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(total);
+            $('#totalAll').html(total);
+        }
     });
 
     function nextPrev(n) {

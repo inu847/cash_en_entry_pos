@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Voucher;
-use App\Models\Bussiness;
-
-class VoucherController extends Controller
+use App\models\ProductInstruction;
+use App\models\Product;
+use App\models\Ingredient;
+class ProductInstructionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $data = Voucher::all();
+        $data = ProductInstruction::all();
 
-        return view('masterdata.voucher.list',compact('data'));
+        return view('masterdata.productInstruction.list',compact('data'));
     }
 
     /**
@@ -28,8 +28,9 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        $data = view('masterdata.voucher.create',[
-            'bussiness' => Bussiness::all(),
+        $data = view('masterdata.productInstruction.create',[
+            'product' => Product::all(),
+            'ingredient' => Ingredient::all(),
         ])->render();
         return $data;
     }
@@ -42,10 +43,13 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $create = Voucher::create($data);
-        return back()->with('success', 'Data berhasil ditambahkan');
-
+        {
+            $data = $request->all();
+            $create = ProductInstruction::create($data);
+            return back()->with('success', 'Data berhasil ditambahkan');
+    
+        }
+    
     }
 
     /**
@@ -56,9 +60,10 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
-        $data = view('masterdata.voucher.edit',[
-            'data' => Voucher::findOrFail($id),
-            'bussiness' => Bussiness::all(),
+        $data = view('masterdata.productInstruction.edit',[
+            'data' => ProductInstruction::findOrFail($id),
+            'product' => Product::all(),
+            'ingredient' => Ingredient::all(),
         ])->render();
         return $data;
     }
@@ -73,14 +78,14 @@ class VoucherController extends Controller
         $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('voucher', 'public');
+            $path = $file->store('productInstruction', 'public');
             $data['image'] = $path;
         }
 
         return $this->atomic(function () use ($data, $id) {
-            $update = Voucher::findOrFail($id)->update($data);
+            $update = ProductInstruction::findOrFail($id)->update($data);
             
-            return redirect()->route('voucher.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('productInstruction.index')->with('success', 'Data Berhasil di Ubah');
         });
     }
 
@@ -91,7 +96,7 @@ class VoucherController extends Controller
     {
         try {
             return $this->atomic(function () use ($id) {
-                $delete = Voucher::find($id)->delete();
+                $delete = ProductInstruction::find($id)->delete();
 
                 return response()->json([
                     'status' => true,
@@ -108,10 +113,9 @@ class VoucherController extends Controller
     public function storeValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
+            'instruction'     => 'required',
             'type'   => 'required',
-            'discount'   => 'required',
+            'product_id'   => 'required',
         ]);
 
         return $validate;
@@ -120,10 +124,9 @@ class VoucherController extends Controller
     public function updateValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
+            'instruction'     => 'required',
             'type'   => 'required',
-            'discount'   => 'required',
+            'product_id'   => 'required',
         ]);
 
         return $validate;

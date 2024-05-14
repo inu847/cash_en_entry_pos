@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Voucher;
-use App\Models\Bussiness;
+use App\Models\Katalog;
 
-class VoucherController extends Controller
+class KatalogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $data = Voucher::all();
+        $data = Katalog::all();
 
-        return view('masterdata.voucher.list',compact('data'));
+        return view('masterdata.katalog.list',compact('data'));
     }
 
     /**
@@ -28,10 +27,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        $data = view('masterdata.voucher.create',[
-            'bussiness' => Bussiness::all(),
-        ])->render();
-        return $data;
+        return view('masterdata.katalog.create');
     }
 
     /**
@@ -43,7 +39,12 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $create = Voucher::create($data);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('katalog', 'public');
+            $data['image'] = $path;
+        }
+        $create = Katalog::create($data);
         return back()->with('success', 'Data berhasil ditambahkan');
 
     }
@@ -56,11 +57,9 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
-        $data = view('masterdata.voucher.edit',[
-            'data' => Voucher::findOrFail($id),
-            'bussiness' => Bussiness::all(),
-        ])->render();
-        return $data;
+        $data = Katalog::findOrFail($id);
+
+        return view('masterdata.katalog.edit', compact('data'));
     }
 
     /**
@@ -73,14 +72,14 @@ class VoucherController extends Controller
         $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('voucher', 'public');
+            $path = $file->store('katalog', 'public');
             $data['image'] = $path;
         }
 
         return $this->atomic(function () use ($data, $id) {
-            $update = Voucher::findOrFail($id)->update($data);
+            $update = Katalog::findOrFail($id)->update($data);
             
-            return redirect()->route('voucher.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('katalog.index')->with('success', 'Data Berhasil di Ubah');
         });
     }
 
@@ -91,7 +90,7 @@ class VoucherController extends Controller
     {
         try {
             return $this->atomic(function () use ($id) {
-                $delete = Voucher::find($id)->delete();
+                $delete = Katalog::find($id)->delete();
 
                 return response()->json([
                     'status' => true,
@@ -108,10 +107,9 @@ class VoucherController extends Controller
     public function storeValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
+            'title'     => 'required',
             'type'   => 'required',
-            'discount'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
         return $validate;
@@ -120,10 +118,9 @@ class VoucherController extends Controller
     public function updateValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
+            'title'     => 'required',
             'type'   => 'required',
-            'discount'   => 'required',
+            'image' =>'file|mimes:svg,jpg,jpeg,png|max:2048',
         ]);
 
         return $validate;

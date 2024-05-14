@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'whyShouldWe')
+@section('title', 'productInstruction')
 @section('content')
 
 <div class="container-fluid">
@@ -9,8 +9,8 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Why Should We?</h5>
-						<span>View, delete and update products</span>
+						<h5>Product Instruction</h5>
+						<span>View, delete and update product Instruction</span>
 					</div>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Products</a>
+							<a href="#">Products Instruction</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,6 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
+						<a href="{{ route('productInstruction.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Product Instruction</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -108,13 +109,11 @@
 										<span class="custom-control-label">&nbsp;</span>
 									</label>
 								</th>
-								<th>Title</th>
-								<th>Description</th>
-								<th>Image</th>
-								<th>Status</th>
+								<th>Instruction</th>
 								<th>Type</th>
-								<th>Route</th>
-								<th>Action</th>
+								<th>Product Name</th>
+								<th>Ingredient Name</th>
+								<th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -126,15 +125,10 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
-									<td>{{ $item->title }}</td>
-									<td>{{ $item->description }}</td>
-									<td>
-										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
-
-									</td>
-									<td>{{ statusWhyShouldWe($item->status) }}</td>
-									<td>{{ typeWhyShouldWe($item->type) }}</td>
-									<td>{{ $item->route }}</td>
+									<td>{{ $item->instruction }}</td>
+									<td>{{ ProductIngType($item->type) }}</td>
+									<td>{{ $item->product->title }}</td>
+									<td>{{ $item->ingredient->name }}</td>
 									<td>
 										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
@@ -202,7 +196,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_update_dataLabel">Update Why Should We</h5>
+				<h5 class="modal-title" id="modal_update_dataLabel">Update Instruction</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body" id="formEdit">
@@ -226,7 +220,7 @@
 <script>
 	function edit(id) {
 		$.ajax({
-			url: '/whyShouldWe/'+id+'/edit',
+			url: '/productInstruction/'+id+'/edit',
 			type: 'GET',
 			success: function(data) {
 				$('#formEdit').html(data);
@@ -253,7 +247,7 @@
 					'_method': 'DELETE',
 				};
 				$.ajax({
-					url: '/whyShouldWe/'+id,
+					url: '/productInstruction/'+id,
 					type: 'POST', 
 					data : postForm,
 					dataType  : 'json',

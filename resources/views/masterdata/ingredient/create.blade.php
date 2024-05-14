@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Add voucher')
+@section('title', 'Add ingredient')
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">
@@ -8,7 +8,7 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-blue"></i>
                         <div class="d-inline">
-                            <h5>Add Voucher</h5>
+                            <h5>Add Ingredient</h5>
                             <span>Add new Banner in Master Data</span>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Add Banner</a>
+                                <a href="#">Add Ingredient</a>
                             </li>
                         </ol>
                     </nav>
@@ -31,36 +31,15 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="{{ route('voucher.store') }}" enctype="multipart/form-data">
+                        <form class="forms-sample" method="POST" action="{{ route('ingredient.store') }}" enctype="multipart/form-data">
                         @csrf
 
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="title">Code<span class="text-red">*</span></label>
-                                        <input id="code" type="text" class="form-control" name="code" value="" placeholder="Enter product code" required="">
+                                        <label for="name">Name<span class="text-red">*</span></label>
+                                        <input id="name" type="text" class="form-control" name="name" value="" placeholder="Enter product name" required="">
                                         <div class="help-block with-errors"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <textarea name="description" class="form-control html-editor h-205" rows="10"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                 <div class="form-group">
-                                        <label>Product image</label>
-                                        <input type="file" class="form-control" name="image">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Bussiness Name</label>
-                                        <select class="form-control" name="bussiness_id" >
-                                            <option selected="selected" value="" >Select Bussiness</option>
-                                            @foreach($bussiness as $value)
-                                                <option value="{{$value->id}}">{{$value->name}}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
 
                                     <div class="form-group">
@@ -71,7 +50,7 @@
                                                 <option value="2">Inactive</option>
                                         </select>
                                     </div>
-
+                                    
                                     <div class="form-group">
                                         <label>Type</label>
                                         <select class="form-control" name="type" >
@@ -82,34 +61,45 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="max_qty">Max-Qty<span class="text-red">*</span></label>
-                                        <input id="max_qty" type="number" class="form-control" name="max_qty" value="" placeholder="Enter Qty" required="">
+                                        <label for="qty">Qty<span class="text-red">*</span></label>
+                                        <input id="qty" type="number" class="form-control" name="qty" value="" placeholder="Enter Qty" required="">
                                         <div class="help-block with-errors"></div>
                                     </div>
+                                  </div>
 
+                                    
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Product image</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea name="description" class="form-control html-editor h-205" rows="10"></textarea>
+                                        </div>
                                 </div>
                                 <div class="col-sm-4">
-
                                     <div class="form-group">
-                                        <label for="discount">Discount<span class="text-red">*</span></label>
-                                        <input id="discount" type="number" class="form-control" name="discount" value="" placeholder="Enter Product Discount" required="">
+                                        <label for="price">Price<span class="text-red">*</span></label>
+                                        <input id="price" type="number" class="form-control" name="price" value="" placeholder="Enter Price" required="">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="tittle">Tittle<span class="text-red">*</span></label>
-                                        <input id="tittle" type="text" class="form-control" name="title" value="" placeholder="Enter Product Title" required="">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="expired-at">Expired At<span class="text-red">*</span></label>
-                                        <input id="expired-at" type="date" class="form-control" name="expired_at" value="" required="">
+                                        <label for="weight">Weight<span class="text-red">*</span></label>
+                                        <input id="weight" type="number" class="form-control" name="weight" value="" placeholder="Enter Product Weight" required="">
                                         <div class="help-block with-errors"></div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="started_at">Start At<span class="text-red">*</span></label>
-                                        <input id="started-at" type="date" class="form-control" name="start_at" value="" required="">
+                                        <label for="uom">Uom<span class="text-red">*</span></label>
+                                        <input id="uom" type="text" class="form-control" name="uom" value="" required="">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="note">Note<span class="text-red">*</span></label>
+                                        <input id="note" type="text" class="form-control" name="note" value="" required="">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="form-group text-right">
