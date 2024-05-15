@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Profile')
+@section('title', 'General Setting')
 @section('content')
     
 
@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <div class="text-center"> 
                             <img src="../img/user.jpg" class="rounded-circle" width="150" />
-                            <h4 class="card-title mt-10">{{ __('App Name')}}</h4>
+                            <h4 class="card-title mt-10">{{$data->app_name}}</h4>
                             <div class="row text-center justify-content-md-center">
                                 <div class="col-4"><a href="javascript:void(0)" class="link"><i class="ik ik-user"></i> <font class="font-medium">254</font></a></div>
                                 <div class="col-4"><a href="javascript:void(0)" class="link"><i class="ik ik-image"></i> <font class="font-medium">54</font></a></div>
@@ -47,11 +47,11 @@
                     <hr class="mb-0"> 
                     <div class="card-body"> 
                         <small class="text-muted d-block">{{ __('Email address')}} </small>
-                        <h6>johndoe@admin.com</h6> 
+                        <h6>{{$data->email}}</h6> 
                         <small class="text-muted d-block pt-10">{{ __('Phone')}}</small>
-                        <h6>(123) 456 7890</h6> 
+                        <h6>{{$data->phone}}</h6> 
                         <small class="text-muted d-block pt-10">{{ __('Address')}}</small>
-                        <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
+                        <h6>{{$data->addres}}</h6>
                         <div class="map-box">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d77.49085452149588!3d12.953959988118836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C+Karnataka!5e0!3m2!1sen!2sin!4v1542005497600" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div> 

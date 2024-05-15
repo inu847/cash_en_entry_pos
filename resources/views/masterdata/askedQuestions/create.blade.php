@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Add banner')
+@section('title', 'Add FAQ'){{-- ubah --}}
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">
@@ -8,8 +8,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-blue"></i>
                         <div class="d-inline">
-                            <h5>Add FAQ</h5>
-                            <span>Add new FAQ in Master Data</span>
+                            <h5>Add FAQ</h5>{{-- ubah --}}
+                            <span>Add new FAQ in Master Data</span>{{-- ubah --}}
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Add FAQ</a>
+                                <a href="#">Add FAQ</a>{{-- ubah --}}
                             </li>
                         </ol>
                     </nav>
@@ -37,7 +37,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="title">Question<span class="text-red">*</span></label>
-                                        <input id="title" type="text" class="form-control" name="question" value="" placeholder="Enter Question" required="">
+                                        <input id="title" type="text" class="form-control" name="question" value="" placeholder="Enter Question"{{-- ubah --}} required="">
                                     <div class="help-block with-errors"></div>
                                     <div class="form-group">
                                         <label>Status</label>
@@ -62,7 +62,7 @@
 
                                     <div class="form-group">
                                         <label for="sku">Answer<span class="text-red">*</span></label>
-                                        <input id="sku" type="text" class="form-control" name="answer" value="" placeholder="Enter Answer" required="">
+                                        <input id="sku" type="text" class="form-control" name="answer" value="" placeholder="Enter Answer"{{-- ubah --}} required="">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="form-group text-right">
@@ -74,6 +74,15 @@
                         </form>
                     </div>
                 </div>
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @elseif (session('danger'))
+                <div class="alert alert-danger">
+                    {{ session('danger') }}
+                </div>
+                @endif
             </div>
         </div>
     </div>

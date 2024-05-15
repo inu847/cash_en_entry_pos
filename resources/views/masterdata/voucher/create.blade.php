@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Add voucher')
+@section('title', 'Add Voucher')
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">
@@ -9,7 +9,7 @@
                         <i class="ik ik-headphones bg-blue"></i>
                         <div class="d-inline">
                             <h5>Add Voucher</h5>
-                            <span>Add new Banner in Master Data</span>
+                            <span>Add new voucher in Master Data</span>
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Add Banner</a>
+                                <a href="#">Add voucher</a>
                             </li>
                         </ol>
                     </nav>

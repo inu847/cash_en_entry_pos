@@ -9,8 +9,8 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Products</h5>
-						<span>View, delete and update products</span>
+						<h5>Banner</h5>
+						<span>View, delete and update banner</span>
 					</div>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Products</a>
+							<a href="#">Banner</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('banner.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Product</a>
+						<a href="{{ route('banner.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Banner</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">

@@ -10,7 +10,7 @@
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
 						<h5>Katalog</h5>
-						<span>View, delete and update</span>
+						<span>View, delete and update Katalog</span>
 					</div>
 				</div>
 			</div>

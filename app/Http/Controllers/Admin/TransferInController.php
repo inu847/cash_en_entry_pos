@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Voucher;
+use App\Models\Ingredient;
+use App\Models\Warehouse;
 use App\Models\Bussiness;
+use App\Models\Product;
+use App\Models\Stock;
+use Illuminate\Support\Facades\Auth;
 
-class VoucherController extends Controller
+class TransferInController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +20,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $data = Voucher::all();
+        $data = Stock::where('bussiness_id', Auth::user()->bussiness_id)->where('type',3)->get();
 
-        return view('masterdata.voucher.list',compact('data'));
+        return view('masterdata.stock.transferIn.list',compact('data'));
     }
 
     /**
@@ -28,8 +32,11 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        $data = view('masterdata.voucher.create',[
-            'bussiness' => Bussiness::all(),
+        $data = view('masterdata.stock.transferIn.create',[
+            'product' => Product::all(),
+            'ingredient' => Ingredient::all(),
+            'fromwarehouse' => Warehouse::all(),
+            'towarehouse' => Warehouse::all(),
         ])->render();
         return $data;
     }
@@ -43,9 +50,14 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $create = Voucher::create($data);
-        return back()->with('success', 'Data berhasil ditambahkan');
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('transferIn', 'public');
+            $data['image'] = $path;
+        }
 
+        $create = Stock::create($data);
+        return back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -56,9 +68,12 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
-        $data = view('masterdata.voucher.edit',[
-            'data' => Voucher::findOrFail($id),
-            'bussiness' => Bussiness::all(),
+        $data = view('masterdata.stock.transferIn.edit',[
+            'data' => Stock::findOrFail($id),
+            'product' => Product::all(),
+            'ingredient' => Ingredient::all(),
+            'fromwarehouse' => Warehouse::all(),
+            'towarehouse' => Warehouse::all(),
         ])->render();
         return $data;
     }
@@ -69,29 +84,29 @@ class VoucherController extends Controller
     public function update(Request $request, string $id)
     {
         $this->updateValidate($request);
-
-        $data = $request->all();
         if ($request->file('image')) {
             $file = $request->file('image');
-            $path = $file->store('voucher', 'public');
+            $path = $file->store('transferIn', 'public');
             $data['image'] = $path;
         }
 
+        $data = $request->all();
+
         return $this->atomic(function () use ($data, $id) {
-            $update = Voucher::findOrFail($id)->update($data);
+            $update = Stock::findOrFail($id)->update($data);
             
-            return redirect()->route('voucher.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('transferIn.index')->with('success', 'Data Berhasil di Ubah');
         });
     }
 
     /**
-     * Remove the specified resource from storage.
-     */
+     * Remove the specified resource from storage.  
+     */ 
     public function destroy($id)
     {
         try {
             return $this->atomic(function () use ($id) {
-                $delete = Voucher::find($id)->delete();
+                $delete = Stock::find($id)->delete();
 
                 return response()->json([
                     'status' => true,
@@ -108,10 +123,13 @@ class VoucherController extends Controller
     public function storeValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
+            'bussiness_id'     => 'required',
+            'pic'   => 'required',
+            'pic_phone'   => 'required',
+            'send_by'   => 'required',
+            'received_by'   => 'required',
             'type'   => 'required',
-            'discount'   => 'required',
+            'qty'   => 'required',
         ]);
 
         return $validate;
@@ -120,12 +138,13 @@ class VoucherController extends Controller
     public function updateValidate(Request $request)
     {
         $validate = $request->validate([
-            'code'     => 'required',
-            'status'   => 'required',
-            'type'   => 'required',
-            'discount'   => 'required',
+            'pic'   => 'required',
+            'pic_phone'   => 'required',
+            'send_by'   => 'required',
+            'received_by'   => 'required',
+            'qty'   => 'required',
         ]);
 
         return $validate;
     }
-}   
+}

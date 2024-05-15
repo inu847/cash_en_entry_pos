@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'katalogDetails')
+@section('title', 'Katalog Details')
 @section('content')
 
 <div class="container-fluid">
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('katalogDetails.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Details</a>
+						<a href="{{ route('katalogDetails.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Katalog Details</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">

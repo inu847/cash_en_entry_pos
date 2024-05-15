@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'whyShouldWe')
+@section('title', 'WhyShould  We')
 @section('content')
 
 <div class="container-fluid">

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Voucher')
+@section('title', 'Manage Table')
 @section('content')
 
 <div class="container-fluid">
@@ -9,8 +9,7 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Voucher</h5>
-						<span>View, delete and update Voucher</span>
+						<h5>Manage Table</h5>
 					</div>
 				</div>
 			</div>
@@ -21,7 +20,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Voucher</a>
+							<a href="#">Manage Table</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +32,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('voucher.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Voucher</a>
+						<a href="{{ route('manageTable.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Manage Table</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -109,17 +108,11 @@
 										<span class="custom-control-label">&nbsp;</span>
 									</label>
 								</th>
-								<th>Code</th>
-								<th>Bussiness</th>
+								<th>Number</th>
+								<th>Cpacity</th>
 								<th>Status</th>
-								<th>Type</th>
-								<th>Max Qty</th>
-								<th>Discount</th>
-								<th>Description</th>
-								<th>image</th>
-								<th>Title</th>
-								<th>Expired At</th>
-								<th>Started At</th>
+								<th>User Name</th>
+								<th>Bussiness Name</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -132,19 +125,11 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
-									<td>{{ $item->code }}</td>
-									<td>{{ $item->bussiness->name }}</td>
-									<td>{{ voucherStatus($item->status) }}</td>
-									<td>{{ voucherType($item->type) }}</td>
-									<td>{{ $item->max_qty }}</td>
-									<td>{{ $item->discount }}</td>
-									<td>{{ $item->description }}</td>
-									<td>
-										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
-									</td>
-									<td>{{ $item->title }}</td>
-									<td>{{ $item->expired_at }}</td>
-									<td>{{ $item->start_at }}</td>
+									<td>{{ $item->number }}</td>
+									<td>{{ $item->capacity }}</td>
+									<td>{{ tableStatus($item->status) }}</td>
+									<td>{{ $item->bussiness->name }}</td>	
+									<td>{{ $item->user->name }}</td>
 									<td>
 										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
@@ -212,7 +197,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_update_dataLabel">Update Voucher</h5>
+				<h5 class="modal-title" id="modal_update_dataLabel">Update Instruction</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body" id="formEdit">
@@ -236,7 +221,7 @@
 <script>
 	function edit(id) {
 		$.ajax({
-			url: '/voucher/'+id+'/edit',
+			url: '/manageTable/'+id+'/edit',
 			type: 'GET',
 			success: function(data) {
 				$('#formEdit').html(data);
@@ -263,7 +248,7 @@
 					'_method': 'DELETE',
 				};
 				$.ajax({
-					url: '/voucher/'+id,
+					url: '/manageTable/'+id,
 					type: 'POST', 
 					data : postForm,
 					dataType  : 'json',

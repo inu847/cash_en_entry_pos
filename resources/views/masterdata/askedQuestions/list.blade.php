@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'askedQuestions')
+@section('title', 'FAQ'){{-- ubah --}}
 @section('content')
 
 <div class="container-fluid">
@@ -9,8 +9,8 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Products</h5>
-						<span>View, delete and update products</span>
+						<h5>FAQ</h5>{{-- ubah --}}
+						<span>View, delete and update FAQ</span>
 					</div>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Products</a>
+							<a href="#">FAQ</a>{{-- ubah --}}
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('products.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Product</a>
+						<a href="{{ route('askedQuestions.create') }}"{{-- ubah --}} class="btn btn-sm btn-primary btn-rounded">Add FAQ</a>{{-- ubah --}}
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -197,7 +197,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_update_dataLabel">Update FAQ</h5>
+				<h5 class="modal-title" id="modal_update_dataLabel">Update FAQ</h5>{{-- ubah --}}
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body" id="formEdit">

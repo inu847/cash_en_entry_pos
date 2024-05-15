@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'ingredient')
+@section('title', 'Ingredient')
 @section('content')
 
 <div class="container-fluid">
@@ -10,7 +10,7 @@
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
 						<h5>Ingredient</h5>
-						<span>View, delete and update products</span>
+						<span>View, delete and update Ingredient</span>
 					</div>
 				</div>
 			</div>
@@ -137,7 +137,7 @@
 									<td>
 										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
 									</td>
-									<td>{{ $item->description }}</td>
+									<td>{!!$item->description!!}</td>
 									<td>{{ $item->qty }}</td>
 									<td>{{ $item->price }}</td>
 									<td>{{ $item->weight }}</td>

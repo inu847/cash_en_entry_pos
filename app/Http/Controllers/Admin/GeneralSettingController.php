@@ -15,7 +15,7 @@ class GeneralSettingController extends Controller
      */
     public function index()
     {
-        $data = GeneralSetting::all();
+        $data = GeneralSetting::first();
 
         return view('masterdata.generalSetting.list',compact('data'));
 
