@@ -12,12 +12,26 @@
 	<link rel="stylesheet" href="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 	<link rel="stylesheet" href="{{ asset('plugins/mohithg-switchery/dist/switchery.min.css') }}">
 	<style>
+		.topbar_menu {
+			top: 5px;
+			margin: 0px 20px;
+			font-size: 20px;
+
+		}
+
+		/* STICKY TOP WHEN SCROLL */
+		.sticky-top {
+			padding: 15px 50px !important;
+			background-color: rgba(255, 255, 255, 0.801) !important;
+		}
+
 		.list-thumbnail {
 			width: 100%;
 			height: 175px;
 			border-radius: 6px;
 		}
-		.badge-bestseller{
+
+		.badge-bestseller {
 			background-color: #68FE6E;
 			color: #fff;
 			font-size: 10px;
@@ -27,7 +41,8 @@
 			font-family: 'Poppins', sans-serif;
 			font-weight: 900;
 		}
-		.badge-discount{
+
+		.badge-discount {
 			background-color: #FF3030;
 			color: #fff;
 			font-size: 10px;
@@ -37,7 +52,8 @@
 			font-family: 'Poppins', sans-serif;
 			font-weight: 900;
 		}
-		.badge-add-product{
+
+		.badge-add-product {
 			background-color: #000000;
 			color: #fff;
 			font-size: 23px;
@@ -49,12 +65,14 @@
 			padding: 1px;
 			border-radius: 3px;
 		}
-		.badge-add-favorite{
+
+		.badge-add-favorite {
 			position: absolute;
 			right: 15px;
 			top: 7px;
 		}
-		.product-title{
+
+		.product-title {
 			font-family: 'Inter';
 			font-style: normal;
 			font-weight: 700;
@@ -62,14 +80,16 @@
 			line-height: 22px;
 			color: #000000;
 		}
-		.product-price{
+
+		.product-price {
 			font-family: 'Inter';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 16px;
 			line-height: 19px;
 		}
-		.badge-soldout{
+
+		.badge-soldout {
 			padding: 10px 0px;
 			width: 90%;
 		}
@@ -97,7 +117,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-sm-8 bg-white">
+				<div class="col-sm-7 bg-white">
 					<div class="customer-area">
 						<div class="row">
 							{{-- <div class="col-sm-6">
@@ -156,7 +176,7 @@
 												Best Seller
 											</div>
 
-											<img src="{{asset('img/fav.png')}}" class="badge-add-favorite" alt="">
+										<img src="{{asset('img/fav.png')}}" class="badge-add-favorite" alt="">
 
 										@elseif ($key % 2 == 1)
 											<div class="badge badge-discount">
@@ -168,21 +188,21 @@
 
 										<img src="{{asset('storage/'.$product['image'])}}" alt="{{$product['title']}}" class="list-thumbnail responsive border-0">
 									</div>
-									
+
 									<div class="row">
 										<div class="col-md-8">
 											<div class="product-title mb-2">
-												{{$product['title']}} 
+												{{$product['title']}}
 											</div>
 											@if($product['offer_price'])
-												<div class="product-price">
-													Rp.{{ number_format($product['offer_price'])}}
-												</div>
-												<div class="product-price text-muted">
-													<small>Rp.<s>{{number_format($product['regular_price'])}}</s></small>
-												</div>
+											<div class="product-price">
+												Rp.{{ number_format($product['offer_price'])}}
+											</div>
+											<div class="product-price text-muted">
+												<small>Rp.<s>{{number_format($product['regular_price'])}}</s></small>
+											</div>
 											@else
-												<span class="product-price"><span class="price-symbol">Rp.</span>{{ number_format($product['regular_price'])}}</span>
+											<span class="product-price"><span class="price-symbol">Rp.</span>{{ number_format($product['regular_price'])}}</span>
 											@endif
 										</div>
 
@@ -197,7 +217,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-3 bg-white product-cart-area">
+				<div class="col-sm-4 bg-white product-cart-area f1">
 					<div class="product-selection-area">
 						<div class="d-flex justify-content-between align-items-center">
 							<h5 class="mb-0 font-weight-bold"> Order Details</h6>
@@ -259,19 +279,19 @@
 									<select class="form-control select2" id="table_id" name="table_id">
 										<option selected="selected" value="">Select Table</option>
 										@foreach ($tables as $item)
-											<option value="{{ $item->id }}" {{ ($item->qty_available == 0 || $item->status == 3 || $item->status == 4) ? 'disabled' : '' }}>
-												{{ $item->number }}
+										<option value="{{ $item->id }}" {{ ($item->qty_available == 0 || $item->status == 3 || $item->status == 4) ? 'disabled' : '' }}>
+											{{ $item->number }}
 
-												@if ($item->status == 1)
-													<span class="badge badge-success">{{ "(Available $item->qty_available)" }}</span>
-												@elseif ($item->status == 2)
-													<span class="badge badge-warning">{{ "(Reserved $item->qty_available)" }}</span>
-												@elseif ($item->status == 3)
-													<span class="badge badge-danger">Occupied</span>
-												@else
-													<span class="badge badge-danger">Not Available</span>
-												@endif
-											</option>
+											@if ($item->status == 1)
+											<span class="badge badge-success">{{ "(Available $item->qty_available)" }}</span>
+											@elseif ($item->status == 2)
+											<span class="badge badge-warning">{{ "(Reserved $item->qty_available)" }}</span>
+											@elseif ($item->status == 3)
+											<span class="badge badge-danger">Occupied</span>
+											@else
+											<span class="badge badge-danger">Not Available</span>
+											@endif
+										</option>
 										@endforeach
 									</select>
 								</div>
@@ -360,7 +380,7 @@
 			} else {
 				cart[id] = {
 					name: product.title,
-					image: 'storage/'+product.image,
+					image: 'storage/' + product.image,
 					price: price,
 					quantity: 1,
 					subtotal: price,
@@ -396,14 +416,14 @@
 			var $cartTable = $('#product-cart'),
 				$cartTotal = $('#subtotal-products'),
 				$totalText = $('#total-bill');
-				$change = $('#change');
-				$total = $('#total-products');
-				$tax = $('#tax-products');
+			$change = $('#change');
+			$total = $('#total-products');
+			$tax = $('#tax-products');
 
 			var cartTotal = 0,
 				discount = $('#discount').val();
-				pay = $('#pay').val();
-				change = $('#change').val();
+			pay = $('#pay').val();
+			change = $('#change').val();
 
 			// Empty cart table
 			$cartTable.empty();
@@ -449,7 +469,7 @@
 			});
 
 			var total = cartTotal - discount;
-			tax = total * 0.1;
+			tax = total * 0.{{ \Auth::user()->bussiness->first()->tax}};
 			grandtotal = total + tax;
 			var change = pay - grandtotal;
 			// CONVERT TO CURENCY FORMAT IDR
@@ -481,7 +501,7 @@
 			$tax.text((tax_format));
 		}
 
-		function decrease(id){
+		function decrease(id) {
 			if (cart[id].quantity == 1) {
 				removeCartItem(id);
 			}
@@ -490,13 +510,13 @@
 			updateCartTable();
 		}
 
-		function increase(id){
+		function increase(id) {
 			cart[id].quantity++;
 			cart[id].subtotal = cart[id].price * cart[id].quantity;
 			updateCartTable();
 		}
 
-		function updateInvoice(){
+		function updateInvoice() {
 			// GET DATA ITEM FROM CART
 			var items = [];
 			for (var id in cart) {
@@ -505,19 +525,20 @@
 					items.push({
 						name: item.name,
 						price: item.price,
+						tax: 0.{{ \Auth::user()->bussiness->first()->tax}},
 						quantity: item.quantity,
 						subtotal: item.subtotal,
 						product_id: parseInt(id),
 					});
 				}
 			}
-			
+
 			var discount = $('#discount').val();
 			var customer_name = $('#customer_name').val();
 			var table_id = $('#table_id').val();
 			var note = $('#note').val();
 			var pay = $('#pay').val();
-			
+
 			// POST WITH AJAX
 			$.ajax({
 				url: "{{ route('pos.updateInvoice') }}",
@@ -526,10 +547,10 @@
 					_token: "{{ csrf_token() }}",
 					items: items,
 					discount: discount,
-					customer_name : customer_name,
-					table_id : table_id,
-					note : note,
-					pay : pay,
+					customer_name: customer_name,
+					table_id: table_id,
+					note: note,
+					pay: pay,
 				},
 				success: function(data) {
 					$('#detailInvoice').html(data);

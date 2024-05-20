@@ -68,6 +68,7 @@
                 @foreach($invoice_items as $key => $product)
                 @php
 
+                $tax = $product['tax'];
                 $subtotal = $product['quantity'] * ($product['price']);
                 $grandTotal += $subtotal;
                 @endphp
@@ -130,7 +131,7 @@
         <div class="table-responsive">
             @php
                 $grandTotal = $grandTotal - $detail_in['discount'];
-                $taxAmount = $grandTotal * 0.1;
+                $taxAmount = $grandTotal * $tax;
                 $grandTotalWithTax = $grandTotal + $taxAmount;
                 $change = $detail_in['pay'] - $grandTotalWithTax;
             @endphp
@@ -145,7 +146,7 @@
                         <td class="text-right">{{number_format($detail_in['discount'])}}</td>
                     </tr>
                     <tr>
-                        <th>Tax (10%)</th>
+                        <th>Tax ({{ \Auth::user()->bussiness->first()->tax}}%)</th>
                         <td class="text-right">{{number_format($taxAmount)}}</td>
                     </tr>
                     <tr>
