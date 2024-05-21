@@ -19,6 +19,7 @@ class PaymentController extends Controller
         return view('masterdata.payment.list', ['data' => $data]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

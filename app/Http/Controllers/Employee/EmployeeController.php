@@ -78,6 +78,16 @@ class EmployeeController extends Controller
         ])->render();
         return $data;
     }
+    public function editt(string $id)
+    {
+        $data = view('employee.employee.create',[
+            'user' => User::all(),
+            'bussiness' => Bussiness::all(),
+            'employee_position' => EmployeePosition::all(),
+            'employee_status' => EmployeeStatus::all(),
+        ])->render();
+        return $data;
+    }
 
     /**
      * Update the specified resource in storage.
