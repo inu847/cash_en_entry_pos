@@ -130,4 +130,11 @@ class WhyShouldWeController extends Controller
 
         return $validate;
     }
+
+    public function show($id)
+    {
+        $data = WhyShouldWe::findOrFail($id);
+
+        return view('masterdata.whyShouldWe.detail', compact('data'));
+    }
 }

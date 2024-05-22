@@ -121,4 +121,12 @@ class AskedQuestionsController extends Controller
 
         return $validate;
     }
+
+    public function show($id)
+    {
+        $data = AskedQuestions::findOrFail($id);
+
+        return view('masterdata.askedQuestions.detail', compact('data'));
+    }
+
 }

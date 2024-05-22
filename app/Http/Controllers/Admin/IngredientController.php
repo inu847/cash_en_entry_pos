@@ -127,4 +127,10 @@ class IngredientController extends Controller
 
         return $validate;
     }
+    public function show($id)
+    {
+        $data = Ingredient::findOrFail($id);
+
+        return view('masterdata.ingredient.detail', compact('data'));
+    }
 }

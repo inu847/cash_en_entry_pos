@@ -112,7 +112,6 @@
 								<th>Katalog Name</th>
 								<th>Name</th>
 								<th>Status</th>
-								<th>Description</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -128,9 +127,8 @@
 									<td>{{ $item->katalog->title }}</td>
 									<td>{{ $item->name }}</td>
 									<td>{{ katalogDeStatus($item->status) }}</td>
-									<td>{{ $item->description }}</td>
 									<td>
-										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
+										<a href="javascript::void(0)" onclick="detail({{ $item->id }})"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
 										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
@@ -177,6 +175,17 @@
 			success: function(data) {
 				$('#formEdit').html(data);
 				$('#modal_update_data').modal('show');
+				actionCloseModals();
+			}
+		})
+	}
+	function detail(id) {
+		$.ajax({
+			url: '/katalogDetails/'+id+,
+			type: 'GET',
+			success: function(data) {
+				$('#formDetail').html(data);
+				$('#modal_detail_data').modal('show');
 				actionCloseModals();
 			}
 		})
