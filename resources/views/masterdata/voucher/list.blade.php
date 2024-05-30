@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'voucher')
+@section('title', 'Voucher')
 @section('content')
 
 <div class="container-fluid">
@@ -10,7 +10,7 @@
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
 						<h5>Voucher</h5>
-						<span>View, delete and update products</span>
+						<span>View, delete and update Voucher</span>
 					</div>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Products</a>
+							<a href="#">Voucher</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('voucher.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Product</a>
+						<a href="{{ route('voucher.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Voucher</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -109,17 +109,14 @@
 										<span class="custom-control-label">&nbsp;</span>
 									</label>
 								</th>
+								<th>image</th>
 								<th>Code</th>
-								<th>Bussiness</th>
+								<th>Bussiness Name</th>
+								<th>Title</th>
 								<th>Status</th>
 								<th>Type</th>
 								<th>Max Qty</th>
 								<th>Discount</th>
-								<th>Description</th>
-								<th>image</th>
-								<th>Title</th>
-								<th>Expired At</th>
-								<th>Started At</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -132,21 +129,18 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
+									<td>
+										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
+									</td>
 									<td>{{ $item->code }}</td>
 									<td>{{ $item->bussiness->name }}</td>
+									<td>{{ $item->title }}</td>
 									<td>{{ voucherStatus($item->status) }}</td>
 									<td>{{ voucherType($item->type) }}</td>
 									<td>{{ $item->max_qty }}</td>
 									<td>{{ $item->discount }}</td>
-									<td>{{ $item->description }}</td>
 									<td>
-										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
-									</td>
-									<td>{{ $item->title }}</td>
-									<td>{{ $item->expired_at }}</td>
-									<td>{{ $item->start_at }}</td>
-									<td>
-										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
+										<a href="javascript::void(0)" onclick="detail({{ $item->id }})"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
 										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
@@ -158,56 +152,7 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade edit-layout-modal pr-0" id="productView" tabindex="-1" role="dialog" aria-labelledby="productViewLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="productViewLabel">Iphone 6</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-4">
-						<img src="../img/products/ipone-6.jpg" class="img-fluid" alt="">
-						<div class="other-images">
-							<div class="row">
-								<div class="col-sm-4">
-									<img src="../img/widget/p2.jpg" class="img-fluid" alt="">
-								</div>
-								<div class="col-sm-4">
-									<img src="../img/widget/p2.jpg" class="img-fluid" alt="">
-								</div>
-								<div class="col-sm-4">
-									<img src="../img/widget/p2.jpg" class="img-fluid" alt="">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-8">
-						<p>
-						</p>
-						<div class="badge badge-pill badge-dark">Electronics</div>
-						<div class="badge badge-pill badge-dark">Accesories &amp; Gadgets</div>
-						<p></p>
-						<h3 class="text-danger">
-							$ 1234
-							<del class="text-muted f-16">$ 1250</del>
-						</h3>
-						<p class="text-green">Purchase Price: $ 1000</p>
-						<p>Apple iPhone 6 smartphone. Announced Sep 2014. Features 4.7″ display, Apple A8 chipset, 8 MP primary camera, 1.2 MP front camera, 1810 mAh</p>
-						<p>In Stock: 100</p>
-						<p>Spplier: PZ Tech</p>
-					</div>
-				</div>
-				<h5><strong>Sales</strong></h5>
-				<div id="line_chart" class="chart-shadow"></div>
-				</div>
-			</div>
-		</div>
 	</div>
-</div>
-
 <div class="modal fade" id="modal_update_data" tabindex="-1" role="dialog" aria-labelledby="modal_update_dataLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
@@ -216,6 +161,19 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body" id="formEdit">
+			...
+			</div>
+		</div>
+	</div>
+</div>	
+<div class="modal fade" id="modal_detail_data" tabindex="-1" role="dialog" aria-labelledby="modal_detail_dataLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_detail_dataLabel">Detail</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body" id="formDetail">
 			...
 			</div>
 		</div>
@@ -241,6 +199,17 @@
 			success: function(data) {
 				$('#formEdit').html(data);
 				$('#modal_update_data').modal('show');
+				actionCloseModals();
+			}
+		})
+	}
+	function detail(id) {
+		$.ajax({
+			url: '/voucher/'+id,
+			type: 'GET',
+			success: function(data) {
+				$('#formDetail').html(data);
+				$('#modal_detail_data').modal('show');
 				actionCloseModals();
 			}
 		})

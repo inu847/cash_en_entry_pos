@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Add Product Instruction')
+@section('title', 'Add Manage Table')
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">
@@ -8,8 +8,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-blue"></i>
                         <div class="d-inline">
-                            <h5>Add Product Instruction</h5>
-                            <span>Add new Instruction in Master Data</span>
+                            <h5>Manage Table</h5>
+                            <span>Managemen Data Table</span>
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Add Instruction</a>
+                                <a href="#">Managemen Data</a>
                             </li>
                         </ol>
                     </nav>
@@ -31,42 +31,50 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="{{ route('productInstruction.store') }}" enctype="multipart/form-data">
+                        <form class="forms-sample" method="POST" action="{{ route('manageTable.store') }}" enctype="multipart/form-data">
                         @csrf
 
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="instruction">Instruction<span class="text-red">*</span></label>
-                                        <input id="instruction" type="text" class="form-control" name="instruction" value="" placeholder="Enter product code" required="">
+                                        <label for="number">Number<span class="text-red">*</span></label>
+                                        <input id="number" type="number" class="form-control" name="number" value="" placeholder="Enter number" required="">
                                         <div class="help-block with-errors"></div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Type</label>
-                                        <select class="form-control" name="type" >
-                                            <option selected="selected" value="" >Select type</option>
-                                                <option value="1">Required</option>
-                                                <option value="2">Optional</option>
+                                        <label for="capacity">Capacity<span class="text-red">*</span></label>
+                                        <input id="capacity" type="number" class="form-control" name="capacity" value="" placeholder="Enter number" required="">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select class="form-control" name="status" >
+                                            <option selected="selected" value="" >Select Status</option>
+                                                <option value="1">Available</option>
+                                                <option value="2">Reserved</option>
+                                                <option value="3">Occupied</option>
+                                                <option value="">Unavailable</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Product Name</label>
-                                        <select class="form-control" name="product_id" >
-                                            <option selected="selected" value="" >Select Product</option>
-                                            @foreach($product as $value)
-                                                <option value="{{$value->id}}">{{$value->title}}</option>
+                                        <label>Bussiness Name</label>
+                                        <select class="form-control" name="bussiness_id" >
+                                            <option selected="selected" value="" >Select Bussiness Name</option>
+                                            @foreach($bussiness as $value)
+                                                <option value="{{$value->id}}">{{$value->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Ingredient Name</label>
-                                        <select class="form-control" name="ingredient_id" >
-                                            <option selected="selected" value="" >Select Ingredient</option>
-                                            @foreach($ingredient as $value)
+                                        <label>User</label>
+                                        <select class="form-control" name="user_id" >
+                                            <option selected="selected" value="" >Select User Name</option>
+                                            @foreach($user as $value)
                                                 <option value="{{$value->id}}">{{$value->name}}</option>
                                             @endforeach
                                         </select>

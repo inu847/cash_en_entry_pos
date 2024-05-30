@@ -6,7 +6,7 @@
 
                 <div class="form-group">
                     <label for="title">Questions<span class="text-red">*</span></label>
-                    <input id="title" type="text" class="form-control" name="question" value="{{ $data->question }}" placeholder="Enter question" required="">
+                    <input id="title" type="text" class="form-control" name="question" value="{{ $data->question }}" placeholder="Enter question"{{-- ubah --}} required="">
                 <div class="help-block with-errors"></div>
 
                 </div>
@@ -29,7 +29,7 @@
 
                 <div class="form-group">
                     <label for="sku">Answer<span class="text-red">*</span></label>
-                    <input id="sku" type="text" class="form-control" name="answer" value="{{ $data->answer }}" placeholder="Enter Answer" required="">
+                    <input id="sku" type="text" class="form-control" name="answer" value="{{ $data->answer }}" placeholder="Enter Answer" {{-- ubah --}} required="">
                     <div class="help-block with-errors"></div>
                 </div>
 

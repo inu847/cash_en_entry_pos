@@ -128,4 +128,10 @@ class VoucherController extends Controller
 
         return $validate;
     }
-}
+    public function show($id)
+    {
+        $data = Voucher::findOrFail($id);
+
+        return view('masterdata.voucher.detail', compact('data'));
+    }
+}   

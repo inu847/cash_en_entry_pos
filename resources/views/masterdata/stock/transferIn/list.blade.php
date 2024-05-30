@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'banner')
+@section('title', 'Transfer Stock')
 @section('content')
 
 <div class="container-fluid">
@@ -9,8 +9,8 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Products</h5>
-						<span>View, delete and update products</span>
+						<h5>Transfer Stock</h5>
+						<span>View, delete and update Transfer Stock</span>
 					</div>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Products</a>
+							<a href="#">Transfer Stock</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('whyShouldWe.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Product</a>
+						<a href="{{ route('transferIn.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Transfer Stock</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -109,13 +109,17 @@
 										<span class="custom-control-label">&nbsp;</span>
 									</label>
 								</th>
-								<th>Tittle</th>
-								<th>File</th>
-								<th>Status</th>
-								<th>Type</th>
-								<th>URL</th>
-								<th>Description</th>
-								<th>Action</th>
+								<th>Product Name</th>
+								<th>Ingredient</th>
+								<th>Qty</th>
+								<th>Image</th>
+								<th>PIC</th>
+								<th>PIC Phone</th>
+								<th>Send By</th>
+								<th>Received By</th>
+								<th>From Warehouse</th>
+								<th>To Warehouse</th>
+								<th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -127,18 +131,23 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
-									<td>{{ $item->title }}</td>
+									<td>{{ $item->product->title }}</td>
+									<td>{{ $item->ingredient->name }}</td>
+									<td>{{ $item->qty }}</td>
 									<td>
-										<img src="{{ asset('storage/'.$item->file) }}" class="table-user-thumb" alt="">
-									</td>									
-									<td>{{ status($item->status) }}</td>
-									<td>{{ typeBanner($item->type) }}</td>
-									<td>{{ $item->url }}</td>
-									<td>{{ $item->description }}</td>
+										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
+									</td>
+									<td>{{ $item->pic }}</td>
+									<td>{{ $item->pic_phone }}</td>
+									<td>{{ $item->send_by }}</td>
+									<td>{{ $item->received_by }}</td>
+									<td>{{ $item->fromwarehouse->name }}</td>
+									<td>{{ $item->towarehouse->name }}</td>
+
 									<td>
-										<a href="#productView" data-toggle="modal" data-target="#productView"><i class="ik ik-eye f-16 mr-15"></i></a>
-										<a href="#"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
-										<a href="{{route('banner.destroy', [$item->id])}}"><i class="ik ik-trash-2 f-16 text-red"></i></a>
+										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
+										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
+										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
 								</tr>
 							@endforeach
@@ -149,63 +158,76 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade edit-layout-modal pr-0" id="productView" tabindex="-1" role="dialog" aria-labelledby="productViewLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+
+<div class="modal fade" id="modal_update_data" tabindex="-1" role="dialog" aria-labelledby="modal_update_dataLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="productViewLabel">Iphone 6</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h5 class="modal-title" id="modal_update_dataLabel">Update Instruction</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-4">
-						<img src="../img/products/ipone-6.jpg" class="img-fluid" alt="">
-						<div class="other-images">
-							<div class="row">
-								<div class="col-sm-4">
-									<img src="../img/widget/p2.jpg" class="img-fluid" alt="">
-								</div>
-								<div class="col-sm-4">
-									<img src="../img/widget/p2.jpg" class="img-fluid" alt="">
-								</div>
-								<div class="col-sm-4">
-									<img src="../img/widget/p2.jpg" class="img-fluid" alt="">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-8">
-						<p>
-						</p>
-						<div class="badge badge-pill badge-dark">Electronics</div>
-						<div class="badge badge-pill badge-dark">Accesories &amp; Gadgets</div>
-						<p></p>
-						<h3 class="text-danger">
-							$ 1234
-							<del class="text-muted f-16">$ 1250</del>
-						</h3>
-						<p class="text-green">Purchase Price: $ 1000</p>
-						<p>Apple iPhone 6 smartphone. Announced Sep 2014. Features 4.7″ display, Apple A8 chipset, 8 MP primary camera, 1.2 MP front camera, 1810 mAh</p>
-						<p>In Stock: 100</p>
-						<p>Spplier: PZ Tech</p>
-					</div>
-				</div>
-				<h5><strong>Sales</strong></h5>
-				<div id="line_chart" class="chart-shadow"></div>
-
+			<div class="modal-body" id="formEdit">
+			...
 			</div>
 		</div>
 	</div>
+</div>	
+@endsection
+@push('script')
+<script src="{{ asset('plugins/amcharts/amcharts.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/gauge.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/serial.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/themes/light.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/animate.min.js') }}"></script>
+<script src="{{ asset('plugins/amcharts/pie.js') }}"></script>
+<script src="{{ asset('plugins/ammap3/ammap/ammap.js') }}"></script>
+<script src="{{ asset('plugins/ammap3/ammap/maps/js/usaLow.js') }}"></script>
+<script src="{{ asset('js/product.js') }}"></script>
 
-	@push('script')
-	<script src="{{ asset('plugins/amcharts/amcharts.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/gauge.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/serial.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/themes/light.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/animate.min.js') }}"></script>
-	<script src="{{ asset('plugins/amcharts/pie.js') }}"></script>
-	<script src="{{ asset('plugins/ammap3/ammap/ammap.js') }}"></script>
-	<script src="{{ asset('plugins/ammap3/ammap/maps/js/usaLow.js') }}"></script>
-	<script src="{{ asset('js/product.js') }}"></script>
-	@endpush
-	@endsection
+<script>
+	function edit(id) {
+		$.ajax({
+			url: '/transferIn/'+id+'/edit',
+			type: 'GET',
+			success: function(data) {
+				$('#formEdit').html(data);
+				$('#modal_update_data').modal('show');
+				actionCloseModals();
+			}
+		})
+	}
+
+	function confirmDelete(event, id) {
+		event.preventDefault();
+		Swal.fire({
+			title: 'Are you sure?',
+			text: 'You will not be able to recover this record!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			cancelButtonText: 'No, cancel!',
+			reverseButtons: true
+		}).then((result) => {
+			if (result.isConfirmed) {
+				var postForm = {
+					'_token': '{{ csrf_token() }}',
+					'_method': 'DELETE',
+				};
+				$.ajax({
+					url: '/transferIn/'+id,
+					type: 'POST', 
+					data : postForm,
+					dataType  : 'json',
+				})
+				.done(function(data) {
+					Swal.fire('Deleted!', data['message'], 'success');
+					location.reload();
+				})
+				.fail(function() {
+					Swal.fire('Error!', 'An error occurred while deleting the record.', 'error');
+				});
+			}
+		});
+	}
+</script>
+@endpush

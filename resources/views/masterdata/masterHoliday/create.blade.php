@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Add masterHoliday')
+@section('title', 'Add Master Holiday')
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">

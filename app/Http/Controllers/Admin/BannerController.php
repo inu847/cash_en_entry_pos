@@ -128,4 +128,11 @@ class BannerController extends Controller
 
         return $validate;
     }
+
+    public function show($id)
+    {
+        $data = banner::findOrFail($id);
+
+        return view('masterdata.banner.detail', compact('data'));
+    }
 }

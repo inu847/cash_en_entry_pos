@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Add katalogDetails')
+@section('title', 'Add Katalog Details')
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">

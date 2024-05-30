@@ -263,5 +263,35 @@ function katalogDeStatus($status)
             return 'inactive';
             break;     
         }
+    }
+function tableStatus($status)
+{
+    switch ($status) {
+        case 1:
+            return 'Available';
+            break;
+        case 2:
+            return 'Reserved';
+            break;     
+        case 3:
+            return 'Occupied';
+            break;     
+        case 4:
+            return 'Unavailable';
+            break;     
+        }
+
 }
+function StockType($type)
+{
+    switch ($type) {
+        case 1:
+            return 'Stock In';
+            break;
+        case 2:
+            return 'Stock Out';
+            break;     
+        }
+}
+
 ?>

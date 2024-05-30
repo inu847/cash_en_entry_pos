@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Katalog Details')
+@section('title', 'Stock In')
 @section('content')
 
 <div class="container-fluid">
@@ -9,8 +9,8 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Katalog Details</h5>
-						<span>View, delete and update Katalog Details</span>
+						<h5>Stock In</h5>
+						<span>View, delete and update stock in</span>
 					</div>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Katalog Details</a>
+							<a href="#">Stock In</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('katalogDetails.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Katalog Details</a>
+						<a href="{{ route('stockIn.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Stock</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -57,32 +57,22 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<input type="text" class="form-control column_filter" id="col0_filter" placeholder="Title" data-column="0">
+												<input type="text" class="form-control column_filter" id="col0_filter" placeholder="Product Name" data-column="0">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="text" class="form-control column_filter" id="col1_filter" placeholder="Price" data-column="1">
+												<input type="text" class="form-control column_filter" id="col1_filter" placeholder="Ingredient" data-column="1">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="text" class="form-control column_filter" id="col2_filter" placeholder="SKU" data-column="2">
+												<input type="text" class="form-control column_filter" id="col2_filter" placeholder="Image" data-column="2">
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<input type="text" class="form-control column_filter" id="col3_filter" placeholder="Qty" data-column="3">
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<input type="text" class="form-control column_filter" id="col4_filter" placeholder="Category" data-column="4">
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<input type="text" class="form-control column_filter" id="col5_filter" placeholder="Tag" data-column="5">
 											</div>
 										</div>
 									</div>
@@ -109,9 +99,14 @@
 										<span class="custom-control-label">&nbsp;</span>
 									</label>
 								</th>
-								<th>Katalog Name</th>
-								<th>Name</th>
-								<th>Status</th>
+								<th>Product Name</th>
+								<th>Ingredient</th>
+								<th>Qty</th>
+								<th>PIC</th>
+								<th>PIC Phone</th>
+								<th>Image</th>
+								<th>Send By</th>
+								<th>Received By</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -124,11 +119,18 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
-									<td>{{ $item->katalog->title }}</td>
-									<td>{{ $item->name }}</td>
-									<td>{{ katalogDeStatus($item->status) }}</td>
+									<td>{{ $item->product->title }}</td>
+									<td>{{ $item->ingredient->name }}</td>
+									<td>{{ $item->qty }}</td>
+									<td>{{ $item->pic }}</td>
+									<td>{{ $item->pic_phone }}</td>
 									<td>
-										<a href="javascript::void(0)" onclick="detail({{ $item->id }})"><i class="ik ik-eye f-16 mr-15"></i></a>
+										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
+									</td>
+									<td>{{ $item->send_by }}</td>
+									<td>{{ $item->received_by }}</td>
+									<td>
+										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
 										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
@@ -146,7 +148,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_update_dataLabel">Update Details</h5>
+				<h5 class="modal-title" id="modal_update_dataLabel">Update Stock In</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body" id="formEdit">
@@ -170,22 +172,11 @@
 <script>
 	function edit(id) {
 		$.ajax({
-			url: '/katalogDetails/'+id+'/edit',
+			url: '/stockIn/'+id+'/edit',
 			type: 'GET',
 			success: function(data) {
 				$('#formEdit').html(data);
 				$('#modal_update_data').modal('show');
-				actionCloseModals();
-			}
-		})
-	}
-	function detail(id) {
-		$.ajax({
-			url: '/katalogDetails/'+id+,
-			type: 'GET',
-			success: function(data) {
-				$('#formDetail').html(data);
-				$('#modal_detail_data').modal('show');
 				actionCloseModals();
 			}
 		})
@@ -208,7 +199,7 @@
 					'_method': 'DELETE',
 				};
 				$.ajax({
-					url: '/katalogDetails/'+id,
+					url: '/stockIn/'+id,
 					type: 'POST', 
 					data : postForm,
 					dataType  : 'json',

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'masterHoliday')
+@section('title', 'Master Holiday')
 @section('content')
 
 <div class="container-fluid">
@@ -10,7 +10,7 @@
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
 						<h5>Master Holiday</h5>
-						<span>View, delete and update products</span>
+						<span>View, delete and update Master Holiday</span>
 					</div>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('masterHoliday.create') }}" class="btn btn-sm btn-primary btn-rounded">Add</a>
+						<a href="{{ route('masterHoliday.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Master Holiday</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
