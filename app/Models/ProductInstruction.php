@@ -19,5 +19,4 @@ class ProductInstruction extends Model
     {
         return $this->belongsTo(Ingredient::class, 'ingredient_id');
     }
-
 }

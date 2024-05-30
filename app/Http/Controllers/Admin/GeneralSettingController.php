@@ -15,7 +15,7 @@ class GeneralSettingController extends Controller
      */
     public function index()
     {
-        $data = GeneralSetting::all();
+        $data = GeneralSetting::first();
 
         return view('masterdata.generalSetting.list',compact('data'));
 
@@ -74,10 +74,15 @@ class GeneralSettingController extends Controller
         $this->updateValidate($request);
 
         $data = $request->all();
-        if ($request->file('file')) {
-            $file = $request->file('file');
-            $path = $file->store('banner', 'public');
-            $data['file'] = $path;
+        if ($request->file('logo')) {
+            $file = $request->file('logo');
+            $path = $file->store('generalSetting', 'public');
+            $data['logo'] = $path;
+        }
+        if ($request->file('favicon')) {
+            $file = $request->file('favicon');
+            $path = $file->store('generalSetting', 'public');
+            $data['favicon'] = $path;
         }
 
         return $this->atomic(function () use ($data, $id) {
@@ -90,10 +95,13 @@ class GeneralSettingController extends Controller
     {
         $validate = $request->validate([
             'app_name'     => 'required',
-            'logo'   => 'required',
-            'favicon'   => 'required',
             'phone'   => 'required',
             'email'   => 'required',
+            'facebook'   => 'required',
+            'twitter'   => 'required',
+            'instagram'   => 'required',
+            'whatsapp'   => 'required',
+            'map'   => 'required',
         ]);
 
         return $validate;

@@ -18,7 +18,7 @@
 	    		<!-- yeild contents here -->
 	    		@yield('content')
 	    	</div>
-
+			
 	    	<!-- initiate chat section-->
 	    	@include('include.chat')
 
@@ -34,5 +34,6 @@
 
 	<!-- initiate scripts-->
 	@include('include.script')	
+	@stack('script')
 </body>
 </html>

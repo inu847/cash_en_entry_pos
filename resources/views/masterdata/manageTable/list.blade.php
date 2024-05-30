@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Katalog Details')
+@section('title', 'Manage Table')
 @section('content')
 
 <div class="container-fluid">
@@ -9,8 +9,7 @@
 				<div class="page-header-title">
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
-						<h5>Katalog Details</h5>
-						<span>View, delete and update Katalog Details</span>
+						<h5>Manage Table</h5>
 					</div>
 				</div>
 			</div>
@@ -21,7 +20,7 @@
 							<a href="/dashboard"><i class="ik ik-home"></i></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="#">Katalog Details</a>
+							<a href="#">Manage Table</a>
 						</li>
 					</ol>
 				</nav>
@@ -33,7 +32,7 @@
 			<div class="card">
 				<div class="card-header row">
 					<div class="col col-sm-2">
-						<a href="{{ route('katalogDetails.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Katalog Details</a>
+						<a href="{{ route('manageTable.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Manage Table</a>
 					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
@@ -109,9 +108,11 @@
 										<span class="custom-control-label">&nbsp;</span>
 									</label>
 								</th>
-								<th>Katalog Name</th>
-								<th>Name</th>
+								<th>Number</th>
+								<th>Cpacity</th>
 								<th>Status</th>
+								<th>User Name</th>
+								<th>Bussiness Name</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -124,11 +125,13 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
-									<td>{{ $item->katalog->title }}</td>
-									<td>{{ $item->name }}</td>
-									<td>{{ katalogDeStatus($item->status) }}</td>
+									<td>{{ $item->number }}</td>
+									<td>{{ $item->capacity }}</td>
+									<td>{{ tableStatus($item->status) }}</td>
+									<td>{{ $item->bussiness->name }}</td>	
+									<td>{{ $item->user->name }}</td>
 									<td>
-										<a href="javascript::void(0)" onclick="detail({{ $item->id }})"><i class="ik ik-eye f-16 mr-15"></i></a>
+										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
 										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
@@ -146,7 +149,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_update_dataLabel">Update Details</h5>
+				<h5 class="modal-title" id="modal_update_dataLabel">Update Instruction</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body" id="formEdit">
@@ -170,22 +173,11 @@
 <script>
 	function edit(id) {
 		$.ajax({
-			url: '/katalogDetails/'+id+'/edit',
+			url: '/manageTable/'+id+'/edit',
 			type: 'GET',
 			success: function(data) {
 				$('#formEdit').html(data);
 				$('#modal_update_data').modal('show');
-				actionCloseModals();
-			}
-		})
-	}
-	function detail(id) {
-		$.ajax({
-			url: '/katalogDetails/'+id+,
-			type: 'GET',
-			success: function(data) {
-				$('#formDetail').html(data);
-				$('#modal_detail_data').modal('show');
 				actionCloseModals();
 			}
 		})
@@ -208,7 +200,7 @@
 					'_method': 'DELETE',
 				};
 				$.ajax({
-					url: '/katalogDetails/'+id,
+					url: '/manageTable/'+id,
 					type: 'POST', 
 					data : postForm,
 					dataType  : 'json',

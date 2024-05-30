@@ -9,7 +9,7 @@
                         <i class="ik ik-headphones bg-blue"></i>
                         <div class="d-inline">
                             <h5>Add Ingredient</h5>
-                            <span>Add new Banner in Master Data</span>
+                            <span>Add new ingredient in Master Data</span>
                         </div>
                     </div>
                 </div>

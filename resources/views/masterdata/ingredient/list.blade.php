@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'ingredient')
+@section('title', 'Ingredient')
 @section('content')
 
 <div class="container-fluid">
@@ -10,7 +10,7 @@
 					<i class="ik ik-headphones bg-green"></i>
 					<div class="d-inline">
 						<h5>Ingredient</h5>
-						<span>View, delete and update products</span>
+						<span>View, delete and update Ingredient</span>
 					</div>
 				</div>
 			</div>
@@ -113,12 +113,10 @@
 								<th>Status</th>
 								<th>Type</th>
 								<th>Image</th>
-								<th>description</th>
 								<th>Qty</th>
 								<th>Price</th>
 								<th>Weight</th>
 								<th>Uom</th>
-								<th>Note</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -137,14 +135,12 @@
 									<td>
 										<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
 									</td>
-									<td>{{ $item->description }}</td>
 									<td>{{ $item->qty }}</td>
 									<td>{{ $item->price }}</td>
 									<td>{{ $item->weight }}</td>
 									<td>{{ $item->uom }}</td>
-									<td>{{ $item->note }}</td>
 									<td>
-										<a href="#detailView" data-toggle="modal" data-target="#detailView"><i class="ik ik-eye f-16 mr-15"></i></a>
+										<a href="javascript::void(0)" onclick="detail({{ $item->id }})"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
 										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
@@ -172,6 +168,21 @@
 		</div>
 	</div>
 </div>	
+
+<div class="modal fade" id="modal_detail_data" tabindex="-1" role="dialog" aria-labelledby="modal_detail_dataLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_detail_dataLabel">Detail</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body" id="formDetail">
+			...
+			</div>
+		</div>
+	</div>
+</div>	
+
 @endsection
 @push('script')
 <script src="{{ asset('plugins/amcharts/amcharts.js') }}"></script>
@@ -192,6 +203,17 @@
 			success: function(data) {
 				$('#formEdit').html(data);
 				$('#modal_update_data').modal('show');
+				actionCloseModals();
+			}
+		})
+	}
+	function detail(id) {
+		$.ajax({
+			url: '/ingredient/'+id,
+			type: 'GET',
+			success: function(data) {
+				$('#formDetail').html(data);
+				$('#modal_detail_data').modal('show');
 				actionCloseModals();
 			}
 		})
