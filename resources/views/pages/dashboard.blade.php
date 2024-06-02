@@ -18,7 +18,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{ __('2,563')}}</h4>
+                                <h4 class="mb-0">{{$jumlah_product}}</h4>
                                 <p class="mb-0">{{ __('Products')}}</p>
                             </div>
                             <div class="col-4 text-right">
@@ -34,7 +34,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{ __('3,612')}}</h4>
+                                <h4 class="mb-0">{{$jumlah_order}}</h4>
                                 <p class="mb-0">{{ __('Orders')}}</p>
                             </div>
                             <div class="col-4 text-right">
@@ -50,7 +50,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{ __('865')}}</h4>
+                                <h4 class="mb-0">{{$jumlah_customers}}</h4>
                                 <p class="mb-0">{{ __('Customers')}}</p>
                             </div>
                             <div class="col-4 text-right">
@@ -66,7 +66,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{ __('35,500')}}</h4>
+                                <h4 class="mb-0">{{$jumlah_terjual}}</h4>
                                 <p class="mb-0">{{ __('Sales')}}</p>
                             </div>
                             <div class="col-4 text-right">
@@ -95,7 +95,7 @@
                         <h3>{{ __('Sales Difference')}}</h3>
                     </div>
                     <div class="card-block text-center">
-                        <div id="sale-diff" class="chart-shadow"></div>
+                        <div id="sale-diff" class="chart-shadow">46</div>
                     </div>
                 </div>
             </div>

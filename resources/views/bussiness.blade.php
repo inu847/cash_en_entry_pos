@@ -201,12 +201,69 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label class="d-block">Bussiness Image</label>
-                            <input type="file" name="image" class="form-control">
+                            <label class="d-block">Bussiness Logo</label>
+                            <input type="file" name="logo" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="d-block">Bussiness Name</label>
-                            <input type="text" name="name" value="{{ $item->name }}" class="form-control" placeholder="Enter bussiness Title">
+                            <input type="text" name="name" value="{{ $item->name }}" class="form-control" placeholder="Enter bussiness Name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Email</label>
+                            <input type="text" name="email" value="{{ $item->email }}" class="form-control" placeholder="Enter bussiness Email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Phone</label>
+                            <input type="text" name="phone" value="{{ $item->phone }}" class="form-control" placeholder="Enter bussiness Phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Website</label>
+                            <input type="text" name="website" value="{{ $item->website }}" class="form-control" placeholder="Enter bussiness Website">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Facebook</label>
+                            <input type="text" name="facebook" value="{{ $item->facebook }}" class="form-control" placeholder="Enter bussiness Facebook">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Instagram</label>
+                            <input type="text" name="instagram" value="{{ $item->instagram }}" class="form-control" placeholder="Enter bussiness Instagram">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Address</label>
+                            <input type="text" name="addres" value="{{ $item->addres }}" class="form-control" placeholder="Enter bussiness Addres">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Wifi Password</label>
+                            <input type="text" name="wifi_password" value="{{ $item->wifi_password }}" class="form-control" placeholder="Enter Wifi Password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Custom Domain</label>
+                            <input type="text" name="custom_doamin" value="{{ $item->custom_doamin }}" class="form-control" placeholder="Customize Domain">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Sub Domain</label>
+                            <input type="text" name="sub_domain" value="{{ $item->sub_domain }}" class="form-control" placeholder="Enter Sub Domain">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="d-block">Tax</label>
+                            <div class="row">
+                                <div class="col-9">
+                            <input type="number" name="tax" value="{{ $item->tax }}" class="form-control" placeholder="Enter bussiness Tax">
+                                </div>
+                                <div class="col-3">
+                            <input type="text" name="tax" disable value="{{ $item->tax }}" class="form-control" placeholder="%">
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="form-group">
@@ -220,11 +277,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="d-block">Status</label>
+                            <label class="d-block">Type</label>
+                            <select name="status" class="form-control select3 ">
+                                <option selected="selected" value="" data-select2-id="3">Select Type</option>
+                                <option value="1" {{ ($item->status == 1) ? 'selected' : '' }}>Standart</option>
+                                <option value="2" {{ ($item->status == 2) ? 'selected' : '' }}>FoodCourt</option>
+                                <option value="2" {{ ($item->status == 3) ? 'selected' : '' }}>Retail</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block">Status Tax</label>
                             <select name="status" class="form-control select2 ">
-                                <option selected="selected" value="" data-select2-id="3">Select bussiness</option>
-                                <option value="1" {{ ($item->status == 1) ? 'selected' : '' }}>Active</option>
-                                <option value="2" {{ ($item->status == 2) ? 'selected' : '' }}>Inactive</option>
+                                <option selected="selected" value="" data-select2-id="3">Select Status Tax</option>
+                                <option value="1" {{ ($item->status == 1) ? 'selected' : '' }}>Non tax</option>
+                                <option value="2" {{ ($item->status == 2) ? 'selected' : '' }}>Tax</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -235,5 +301,6 @@
             </div>
         </div>
     </div>
+</div>
 @endforeach
 @endsection

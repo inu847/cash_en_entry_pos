@@ -1,4 +1,4 @@
-<header class="header-top" header-theme="light">
+<header class="header-top colored">
     <div class="container-fluid">
         <div class="d-flex justify-content-between">
             <div class="top-menu d-flex align-items-center">

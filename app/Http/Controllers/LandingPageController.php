@@ -4,11 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Katalog;
+use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class LandingPageController extends Controller
 {
+
+    public function dashboardd()
+    {
+        $jumlah_product = Product::count();
+        $jumlah_order = Order::count();
+        $jumlah_terjual = Order::sum('total_qty');
+        $jumlah_customers = Order::count('name');
+        return view('pages.dashboard',compact('jumlah_product','jumlah_order','jumlah_terjual','jumlah_customers'));
+
+    }
+
+
     public function index()
     {
         return view('front.home');
