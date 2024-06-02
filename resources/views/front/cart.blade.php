@@ -323,8 +323,6 @@ Product
                             <img src="{{ asset('img/cart.png')}}" alt="" width="50">
                             Cek Keranjang Belanja Kamu
                         </div>
-                        <a type="button" class="btn btn-primary" href="{{ url('/order/invoice/8')}}">ppppppppp</a>
-
                         <table class="table table-hover m-3 color-primary">
                             <thead>
                                 <tr>
@@ -527,6 +525,7 @@ Product
                                 <li class="active" id="service"><strong>service</strong></li>
                                 <li id="payment"><strong>Payment</strong></li>
                                 <li id="checkout"><strong>Checkout</strong></li>
+                                
                             </ul>
                         </div>
                         {{-- BUTTON NEXT --}}

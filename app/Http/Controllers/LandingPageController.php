@@ -72,14 +72,14 @@ class LandingPageController extends Controller
 
                 $crateOrderDetail = OrderDetail::create($katalog_detail);
             }
-            
-            return redirect('/product')->with('success', 'Order Berhasil di Buat');
+            $id = $createorder->id;
+            return redirect('/order/invoice/'.$id)->with('success', 'Order Berhasil di Buat');
         });
     }
     public function invoice(string $id)
     {
         $data = order::findOrFail($id);
-        $order_detail = OrderDetail::where("order_id",8)->get();
+        $order_detail = OrderDetail::where("order_id",$id)->get();
 
         return view('front.components.invoice', compact('data','order_detail'));
     }

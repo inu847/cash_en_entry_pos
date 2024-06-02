@@ -12,7 +12,6 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 
 
