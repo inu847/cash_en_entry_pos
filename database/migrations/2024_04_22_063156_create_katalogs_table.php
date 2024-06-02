@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->integer('price');
             $table->string('image');
             $table->integer('status')->comment('1 = active, 2 = inactive');
             $table->integer('type')->nullable()->comment('1 = product, 2 = service');

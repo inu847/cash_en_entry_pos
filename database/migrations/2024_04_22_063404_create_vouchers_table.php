@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->date('expired_at')->nullable();
             $table->date('start_at')->nullable();
+            $table->unsignedBigInteger('bussiness_id')->index()->nullable()->comment('optional field jika voucher di gunakan di bussiness maka ada potongan produk');
             $table->timestamps();
         });
     }

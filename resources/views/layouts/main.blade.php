@@ -4,6 +4,7 @@
 	<title>@yield('title','') | Cash N Entry</title>
 	<!-- initiate head with meta tags, css and script -->
 	@include('include.head')
+	@yield('css')
 
 </head>
 <body id="app" >
@@ -18,7 +19,7 @@
 	    		<!-- yeild contents here -->
 	    		@yield('content')
 	    	</div>
-
+			
 	    	<!-- initiate chat section-->
 	    	@include('include.chat')
 
@@ -34,5 +35,6 @@
 
 	<!-- initiate scripts-->
 	@include('include.script')	
+	@stack('script')
 </body>
 </html>

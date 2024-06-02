@@ -25,6 +25,8 @@ return new class extends Migration
             $table->integer('weight')->nullable();
             $table->string('uom')->nullable();
             $table->string('note')->nullable();
+            $table->unsignedBigInteger('child')->index()->nullable()->comment('jika product tersebut mempunyai bahan pokok pembuatnya');
+            $table->unsignedBigInteger('product_id')->index()->nullable();
             $table->unsignedBigInteger('warehouse_id')->index()->nullable();
             $table->timestamps();
         });

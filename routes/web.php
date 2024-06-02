@@ -6,11 +6,15 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +26,8 @@ use App\Http\Controllers\PermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */ 
-Route::get('/', function () { return view('home'); })->name('home');
+Route::get('/', [LandingPageController::class,'index'])->name('front.home');
+Route::resource('cart', CartController::class);
 
 
 Route::get('login', [LoginController::class,'showLoginForm'])->name('login');
@@ -42,10 +47,9 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/logout', [LoginController::class,'logout']);
 	Route::get('/clear-cache', [HomeController::class,'clearCache']);
 
-	// dashboard route  
-	Route::get('/dashboard', function () { 
-		return view('pages.dashboard'); 
-	})->name('dashboard');
+	// dashboard route
+	Route::get('/dashboard', [LandingPageController::class,'dashboardd'])->name('dashboard');
+
 
 	//only those have manage_user permission will get access
 	Route::group(['middleware' => 'can:manage_user'], function(){
@@ -80,15 +84,18 @@ Route::group(['middleware' => 'auth'], function(){
 
 	// get permissions
 	Route::get('get-role-permissions-badge', [PermissionController::class,'getPermissionBadgeByRole']);
-
 	// Basic demo routes
 	include('modules/demo.php');
 	// Inventory routes
 	include('modules/inventory.php');
+	// Employee routes
+	include('modules/employee.php');
 	// Accounting routes
 	include('modules/accounting.php');
 	// User Management routes
 	include('modules/user.php');
+	// Banner routes
+	include('modules/masterData.php');
 
 	// ROUTE RESOURCE
 	Route::resource('product-category', ProductCategoryController::class);
@@ -98,6 +105,8 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/register', function () { return view('auth.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
 
-
-// Landingpage
+Route::get('/order/invoice/{id}', [LandingPageController::class,'invoice'])->name('order.invoice');
+Route::post('order/store', [LandingPageController::class,'store'])->name('order.store');
+Route::get('/paymentt', [LandingPageController::class,'payment'])->name('payment.payment');
 Route::get('/product', [LandingPageController::class,'product'])->name('front.product');
+Route::post('/product/detail', [LandingPageController::class,'productDetail'])->name('front.productDetail');

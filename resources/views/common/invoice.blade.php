@@ -1,39 +1,63 @@
 
 <div class="row invoice-info">
-    <div class="col-sm-12">
+    {{-- <div class="col-sm-12">
         <h4 class="text-right">Invoice {{ '#'.$detail_in['invoice_code'] }}</h4>
-    </div>
+    </div> --}}
     <div class="col-sm-3  invoice-col">
         From
-        <address>
-            <strong> Bussiness : </strong> {{ $bussiness->name }} Phone: {{ $bussiness->phone }}<br>Email: {{ $bussiness->email }}
-        </address>
+        <table>
+            <tr>
+                <th width="70px">Bussiness</th>
+                <td width="10px">:</td>
+                <td>{{ $bussiness->name }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>:</td>
+                <td>{{ $bussiness->phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>:</td>
+                <td>{{ $bussiness->email }}</td>
+            </tr>
+        </table>
     </div>
     <div class="col-sm-3 invoice-col">
         To
-        <address>
-            <strong>{{ $detail_in['customer_name'] }}</strong><br>Table : {{ $detail_in['table_name'] }}<br>Note: {{ $detail_in['note'] }}
-        </address>
+        <table>
+            <tr>
+                <th colspan="3">{{ $detail_in['customer_name'] }}</th>
+            </tr>
+            <tr>
+                <th width="50px">Table</th>
+                <td width="10px">:</td>
+                <td>{{ $detail_in['table_name'] }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>:</td>
+                <td>{{ $detail_in['note'] }}</td>
+            </tr>
+        </table>
     </div>
+    <hr>
     <div class="col-sm-3 invoice-col text-right">
-        <b>Issue Date:</b> {{ now()->format('Y-m-d H:i:s') }}<br>
-        <b>Bussiness Address:</b> {{ $bussiness->address }}
-    </div>
-    <div class="col-sm-3 invoice-col text-right">
-        {!! \DNS2D::getBarcodeHTML(strtoupper($detail_in['invoice_code']), 'QRCODE', 3.5, 3.5) !!}
+        {{-- IMAGE BUSSINESS --}}
+        <img src="{{ asset('storage/'.$bussiness->logo) }}" alt="" width="100px">
     </div>
 </div>
 
 <div class="row">
     <div class="col-12 table-responsive">
         <table class="table table-hover">
-            <thead>
+            <thead style="background-color: #31245C;">
                 <tr>
-                    <th class="wp-10">SL</th>
-                    <th class="wp-40">Product</th>
-                    <th class="wp-20">Unit Price</th>
-                    <th class="wp-15">Qty</th>
-                    <th class="wp-15 text-right">Sub Total</th>
+                    <th class="wp-10 text-white font-weigh-bold">SL</th>
+                    <th class="wp-40 text-white font-weigh-bold">Product</th>
+                    <th class="wp-20 text-white font-weigh-bold">Unit Price</th>
+                    <th class="wp-15 text-white font-weigh-bold">Qty</th>
+                    <th class="wp-15 text-right text-white font-weigh-bold">Sub Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +68,7 @@
                 @foreach($invoice_items as $key => $product)
                 @php
 
+                $tax = $product['tax'];
                 $subtotal = $product['quantity'] * ($product['price']);
                 $grandTotal += $subtotal;
                 @endphp
@@ -106,7 +131,7 @@
         <div class="table-responsive">
             @php
                 $grandTotal = $grandTotal - $detail_in['discount'];
-                $taxAmount = $grandTotal * 0.1;
+                $taxAmount = $grandTotal * $tax;
                 $grandTotalWithTax = $grandTotal + $taxAmount;
                 $change = $detail_in['pay'] - $grandTotalWithTax;
             @endphp
@@ -121,7 +146,7 @@
                         <td class="text-right">{{number_format($detail_in['discount'])}}</td>
                     </tr>
                     <tr>
-                        <th>Tax (10%)</th>
+                        <th>Tax ({{ \Auth::user()->bussiness->first()->tax}}%)</th>
                         <td class="text-right">{{number_format($taxAmount)}}</td>
                     </tr>
                     <tr>
