@@ -2145,9 +2145,9 @@ p { font-size: 14px; }
     color: #dcdcdc;
     background: none;
 }
-.wrapper .page-wrap .app-sidebar.colored .sidebar-header { background-color: #272d36; }
-.wrapper .page-wrap .app-sidebar.colored .sidebar-header .header-brand { color: #ffffff; }
-.wrapper .page-wrap .app-sidebar.colored .sidebar-content { background-color: #1e1e2d }
+.wrapper .page-wrap .app-sidebar.colored .sidebar-header { background-color: #33245b; }
+.wrapper .page-wrap .app-sidebar.colored .sidebar-header .header-brand { color: #33245b; }
+.wrapper .page-wrap .app-sidebar.colored .sidebar-content { background-color: #33245b }
 .wrapper .page-wrap .app-sidebar.colored .sidebar-content .nav-container .navigation-main .nav-item { border-color: rgba(243, 243, 243, 0.15); }
 .wrapper .page-wrap .app-sidebar.colored .sidebar-content .nav-container .navigation-main .nav-item a { color: #ccd3e4; }
 .wrapper .page-wrap .app-sidebar.colored .sidebar-content .nav-container .navigation-main .nav-item a i { color: #525c71; }

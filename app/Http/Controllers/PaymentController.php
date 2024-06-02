@@ -154,4 +154,4 @@ class PaymentController extends Controller
 
         return $validate;
     }
-}
+}   

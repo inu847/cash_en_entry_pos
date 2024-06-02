@@ -36,6 +36,49 @@
                         <a href="{{ route('emPosition.index') }}" class="menu-item {{ ($segment1 == 'emPosition' && $segment2 == '') ? 'active' : '' }}">{{ __('List Position')}}</a>
                     </div>
                 </div>
+                <div class="nav-item {{ ($segment1 == 'emStatus') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Status')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emStatus.create') }}" class="menu-item {{ ($segment1 == 'emStatus' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Status')}}</a>
+                        <a href="{{ route('emStatus.index') }}" class="menu-item {{ ($segment1 == 'emStatus' && $segment2 == '') ? 'active' : '' }}">{{ __('List Status')}}</a>
+                    </div>
+                </div>
+                <div class="nav-item {{ ($segment1 == 'emLevel') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Level')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emLevel.create') }}" class="menu-item {{ ($segment1 == 'emLevel' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Level')}}</a>
+                        <a href="{{ route('emLevel.index') }}" class="menu-item {{ ($segment1 == 'emLevel' && $segment2 == '') ? 'active' : '' }}">{{ __('List level')}}</a>
+                    </div>
+                </div>
+                <div class="nav-item {{ ($segment1 == 'emSalary') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Salary')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emSalary.create') }}" class="menu-item {{ ($segment1 == 'emSalary' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Salary')}}</a>
+                        <a href="{{ route('emSalary.index') }}" class="menu-item {{ ($segment1 == 'emSalary' && $segment2 == '') ? 'active' : '' }}">{{ __('List Salary')}}</a>
+                    </div>
+                </div>
+                <div class="nav-item {{ ($segment1 == 'emLoan') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Loan')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emLoan.create') }}" class="menu-item {{ ($segment1 == 'emLoan' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Loan')}}</a>
+                        <a href="{{ route('emLoan.index') }}" class="menu-item {{ ($segment1 == 'emLoan' && $segment2 == '') ? 'active' : '' }}">{{ __('List Loan')}}</a>
+                    </div>
+                </div>
+                <div class="nav-item {{ ($segment1 == 'emAttendance') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Attendace')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emAttendance.create') }}" class="menu-item {{ ($segment1 == 'emAttendance' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Attendance')}}</a>
+                        <a href="{{ route('emAttendance.index') }}" class="menu-item {{ ($segment1 == 'emAttendance' && $segment2 == '') ? 'active' : '' }}">{{ __('List Attendance')}}</a>
+                    </div>
+                </div>
+
+                <div class="nav-item {{ ($segment1 == 'emWorkingH') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Working Hour')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emWorkingH.create') }}" class="menu-item {{ ($segment1 == 'emWorkingH' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Working Hour')}}</a>
+                        <a href="{{ route('emWorkingH.index') }}" class="menu-item {{ ($segment1 == 'emWorkingH' && $segment2 == '') ? 'active' : '' }}">{{ __('List Working Hour')}}</a>
+                    </div>
+                </div>
 
 
                 <!-- end employee pages -->

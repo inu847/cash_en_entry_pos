@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Employee;
+use App\Models\Employee\Employee;
 use App\Models\User;
 use App\Models\Bussiness;
-use App\Models\EmployeePosition;
-use App\Models\EmployeeStatus;
+use App\Models\Employee\EmployeePosition;
+use App\Models\Employee\EmployeeStatus;
 
 class EmployeeController extends Controller
 {
