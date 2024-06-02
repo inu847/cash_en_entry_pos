@@ -12,6 +12,9 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -102,5 +105,8 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/register', function () { return view('auth.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
 
+Route::get('/order/invoice/{id}', [LandingPageController::class,'invoice'])->name('order.invoice');
+Route::post('order/store', [LandingPageController::class,'store'])->name('order.store');
+Route::get('/paymentt', [LandingPageController::class,'payment'])->name('payment.payment');
 Route::get('/product', [LandingPageController::class,'product'])->name('front.product');
 Route::post('/product/detail', [LandingPageController::class,'productDetail'])->name('front.productDetail');

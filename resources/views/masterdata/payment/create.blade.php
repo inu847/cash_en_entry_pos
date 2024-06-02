@@ -65,6 +65,7 @@
                                         <select class="form-control" name="type" required>
                                             <option value="1" selected>Cash</option>
                                             <option value="2">Transfer</option>
+                                            <option value="3">Ewallet</option>
                                         </select>
                                     </div>
                                     <div class="form-group">

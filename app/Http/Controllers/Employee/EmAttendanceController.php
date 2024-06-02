@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use App\Models\Employee\EmployeeAttendance;
 use App\Models\Employee\Employee;

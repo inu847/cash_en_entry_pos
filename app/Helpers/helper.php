@@ -109,6 +109,25 @@ use Illuminate\Support\Facades\Bus;
                 break;     }
     }
 
+    // order
+    function statusOrder($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'Pending';
+                break;
+            case 2:
+                return 'Process';
+                break;
+            case 2:
+                return 'Success';
+                break;
+            case 2:
+                return 'Cancle';
+                break;
+            }
+    }
+    
     function statusPayment($value)
     {
         switch ($value) {
@@ -128,6 +147,9 @@ use Illuminate\Support\Facades\Bus;
                 break;
             case 2:
                 return 'Transfer';
+                break;
+            case 3:
+                return 'Ewallet';
                 break;
             }
     }

@@ -7,7 +7,10 @@
 	@include('include.head')
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('plugins/summernote/dist/summernote-bs4.css') }}">
+	<link rel="stylesheet" href="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+	<link rel="stylesheet" href="{{ asset('plugins/mohithg-switchery/dist/switchery.min.css') }}">
 	<style>
 		.topbar_menu {
 			top: 5px;
@@ -90,23 +93,14 @@
 			padding: 10px 0px;
 			width: 90%;
 		}
-
-		.no-border{
-			border: none;
-			border-radius: 25px;
-		}
-
-		.border1{
-			border: 2px solid;
-			border-radius: 25px;
-		}
-
-		.f1{
-			font-family: "Poppins";
-			font-weight: bold;
+		.form-control {
+			border: 2px solid #000;
+			padding: 0 10px;
+			background-color: #fff;
+			border-radius: 20px;
 		}
 	</style>
-</head>
+</head> 
 
 <body id="app">
 	<div class="wrapper">
@@ -126,22 +120,46 @@
 				<div class="col-sm-7 bg-white">
 					<div class="customer-area">
 						<div class="row">
+							{{-- <div class="col-sm-6">
+								<div class="form-group">
+									<input type="text" name="product" class="form-control" placeholder="Search products" style="border-radius: 6px;">
+								</div>
+							</div> --}}
+							<div class="col-sm-6">
+                                <form class="sample-form">
+                                    <div class="form-group">
+                                        <label for="">{{ __('Multiple select box using select 2')}} </label>
+                                        <select class="form-control select2" multiple="multiple">
+                                            <option value="cheese">{{ __('Cheese')}}</option>
+                                            <option value="tomatoes">{{ __('Tomatoes')}}</option>
+                                            <option value="mozarella">{{ __('Mozzarella')}}</option>
+                                            <option value="mushrooms">{{ __('Mushrooms')}}</option>
+                                            <option value="pepperoni" selected>{{ __('Pepperoni')}}</option>
+                                            <option value="onions">{{ __('Onions')}}</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
 							<div class="col-sm-3">
 								<div class="form-group">
-									<select class="form-control select2" name="warehouse">
-										<option selected="selected" value="">Select Warehouse</option>
+									<select class="form-control select2" name="warehouse" style="border-radius: 6px;">
+										<option selected="selected" value=""> Select Category</option>
 										@foreach ($warehouse as $item)
-										<option value="{{ $item->id }}">{{ $item->name }}</option>
+											<option value="{{ $item->id }}">{{ $item->name }}</option>
 										@endforeach
 									</select>
 								</div>
 							</div>
-							<div class="col-sm-9">
+							<div class="col-sm-3">
 								<div class="form-group">
-									<input type="text" name="product" class="form-control" placeholder="Search products">
+									<select class="form-control select2" name="warehouse" style="border-radius: 6px;">
+										<option selected="selected" value="">Select Warehouse</option>
+										@foreach ($warehouse as $item)
+											<option value="{{ $item->id }}">{{ $item->name }}</option>
+										@endforeach
+									</select>
 								</div>
 							</div>
-
 						</div>
 
 						<div class="row pos-products layout-wrap" id="layout-wrap">
@@ -150,21 +168,21 @@
 							@foreach($products as $key => $product)
 							<div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-2 list-item list-item-grid p-2">
 								<div class="mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}">
-									{{-- <div class="card mb-1 pos-product-card" data-info="{{ htmlentities(json_encode($product)) }}"> --}}
 									<div class="mb-2">
-										{{-- <div class="d-flex card-img"> --}}
-										@if ($key % 2 == 0)
-										<div class="badge badge-bestseller">
-											Best Seller
-										</div>
+
+										{{-- BADGE PRODUCT --}}
+										{{-- @if ($key % 2 == 0)
+											<div class="badge badge-bestseller">
+												Best Seller
+											</div>
 
 										<img src="{{asset('img/fav.png')}}" class="badge-add-favorite" alt="">
 
 										@elseif ($key % 2 == 1)
-										<div class="badge badge-discount">
-											20%
-										</div>
-										@endif
+											<div class="badge badge-discount">
+												20%
+											</div>
+										@endif --}}
 
 										<i class="ik ik-plus badge-add-product"></i>
 
@@ -187,9 +205,11 @@
 											<span class="product-price"><span class="price-symbol">Rp.</span>{{ number_format($product['regular_price'])}}</span>
 											@endif
 										</div>
-										<div class="col-md-4">
+
+										{{-- SOLD OUT --}}
+										{{-- <div class="col-md-4">
 											<img src="{{asset('img/sold.png')}}" alt="" class="badge-soldout">
-										</div>
+										</div> --}}
 									</div>
 								</div>
 							</div>
@@ -200,10 +220,10 @@
 				<div class="col-sm-4 bg-white product-cart-area f1">
 					<div class="product-selection-area">
 						<div class="d-flex justify-content-between align-items-center">
-							<h5 class="mb-0"> Order Details</h6>
+							<h5 class="mb-0 font-weight-bold"> Order Details</h6>
 								<i class="text-danger ik ik-refresh-ccw cursor-pointer font-15" onclick="cleartCart()"></i>
 						</div>
-						<hr>
+						<hr style="border: 2px solid #000">
 						<div id="product-cart" class="product-cart mb-3">
 							<!-- Uncomment to preview original cart html
 							====================================================
@@ -221,23 +241,24 @@
 								</div>
 							</div> -->
 						</div>
-							<div class="d-flex justify-content-between font-15 align-items-center my-2">
-								<span>Total</span>
+						<div class="box-shadow p-3">
+							<div class="d-flex justify-content-between font-15 align-items-center">
+								<span class="font-weight-bold">Total</span>
 								<strong id="total-products">0.00</strong>
 							</div>
-							<div class="d-flex justify-content-between font-15 align-items-center my-2">
-								<span>Tax {{ \Auth::user()->bussiness->first()->tax}}%</span>
+							<div class="d-flex justify-content-between font-15 align-items-center">
+								<span class="font-weight-bold">Tax</span>
 								<strong id="tax-products">0.00</strong>
 							</div>
-							<div class="d-flex justify-content-between font-15 align-items-center">
-								<span>Discount</span>
+							<div class="d-flex justify-content-between font-15 align-items-center mb-5">
+								<span class="font-weight-bold">Discount</span>
 								<input class="form-control font-15 text-right" style="width: 150px;" id="discount">
 							</div>
-							<div class="d-flex justify-content-between font-15 align-items-center">
-								<span>Pay</span>
+							<div class="d-flex justify-content-between font-15 align-items-center" style="margin-bottom: 20px;">
+								<span class="font-weight-bold">Pay</span>
 								<input class="form-control font-15 text-right" style="width: 150px;" id="pay">
 							</div>
-							<div class="d-flex justify-content-between font-20 align-items-center mt-2">
+							<div class="d-flex justify-content-between font-20 align-items-center">
 								<b>Total</b>
 								<b id="total-bill">0.00</b>
 							</div>
@@ -245,7 +266,9 @@
 								<b>Change</b>
 								<b id="change">0.00</b>
 							</div>
-							<hr>
+							<hr style="border: 2px solid #000">
+						</div>
+						<div class="box-shadow p-3 mb-3">
 							<label class="d-block">Customer Information</label>
 							<div class="d-block">
 								<div class="form-group">
@@ -276,8 +299,9 @@
 									<textarea type="text" id="note" name="note" class="form-control h-82px" placeholder="Note"></textarea>
 								</div>
 							</div>
-						<div class="box">
-							<button class="btn btn-danger btn-checkout btn-pos-checkout" onclick="updateInvoice()">PLACE ORDER</button>
+						</div>
+						<div class="box-shadow p-3">
+							<button class="btn btn-primary btn-checkout btn-pos-checkout" onclick="updateInvoice()" style="background-color: #31245C;">PLACE ORDER</button>
 						</div>
 					</div>
 
@@ -292,22 +316,31 @@
 	<div class="modal fade edit-layout-modal pr-0 " id="InvoiceModal" role="dialog" aria-labelledby="InvoiceModalLabel" aria-hidden="true">
 		<div class="modal-dialog mw-70" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="InvoiceModalLabel">Preview Invoice</h5>
+				<div class="modal-header text-white" style="background-color: #31245C; border-bottom: none; padding: 10px 30px 0px;">
+					<div class="modal-title" id="InvoiceModalLabel" style="font-size: 24px;font-weight: 600;">Preview Invoice</div>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" style="background-color: #31245C;padding: 20px 0px;">
 					<form action="{{ route('invoice.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
-						<div class="card-header">
-							<h3 class="d-block w-100">{{ \Auth::user()->bussiness->first()->name ?? '-' }}<small class="float-right">{{ \Auth::user()->name }}</small></h3>
+						<div class="card-header text-white" style="padding: 0px 1.25rem 0.75rem;">
+							<div class="row">
+								<div class="col-md-6">
+									<a href="javascript:void(0)" class="btn btn-primary" style="background-color: #723DDA;font-size: 24px;font-weight: 600;padding: 0px 20px;height: unset;">{{ \Auth::user()->bussiness->first()->name ?? '-' }}</a>
+								</div>
+								<div class="col-md-6 text-right">
+									<a href="javascript:void(0)" class="btn btn-primary" style="background-color: #723DDA;font-size: 24px;font-weight: 600;padding: 0px 20px;height: unset;">{{ \Auth::user()->name }}</a>
+								</div>
+							</div>
 						</div>
-						<div class="card-body">
-							<div id="detailInvoice"></div>
-							<div class="row no-print">
-								<div class="col-12">
-									<button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-									<button type="button" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Generate PDF</button>
+						<div class="card-body" style="border: 1px solid #fff;background-color: #fff;padding: 20px 50px;border-radius: 34px;">
+							<div style="border: 1px solid #fff; background-color: #fff">
+								<div id="detailInvoice"></div>
+								<div class="row no-print">
+									<div class="col-12">
+										<button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+										<button type="button" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Generate PDF</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -319,6 +352,15 @@
 	<!-- initiate scripts-->
 	<script src="{{ asset('all.js') }}"></script>
 	<script src="{{ asset('dist/js/theme.js') }}"></script>
+
+	<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('plugins/mohithg-switchery/dist/switchery.min.js') }}"></script>
+      
+    <script src="{{ asset('js/form-advanced.js') }}"></script>
+	
 	<script>
 		const parser = new DOMParser();
 
@@ -397,24 +439,25 @@
 						style: 'currency',
 						currency: 'IDR'
 					});
-					var $tr = `<div class="d-flex justify-content-between position-relative">
+					var $tr =
+
+							`<div class="d-flex justify-content-between position-relative">
+								<i class="text-red ik ik-x-circle cart-remove cursor-pointer" onclick="removeCartItem(${id})"></i>
 								<div class="cart-image-holder">
 									<img src="${item.image}">
 								</div>
-								<div class="w-100 p-2">
-								<div class="d-flex justify-content-between">
-								<h5 class="mt-3 cart-item-title">${item.name}</h5>
-								<div class="d-flex justify-content-between mt-2">
-									<div class="border1">
-										<button type="button" class="btn btn-sm btn-outline-primary no-border" onclick="decrease(${id})">-</button>
-										<span class="text-muted" style="line-height: 30px;">${item.quantity}x</span>
-										<button type="button" class="btn btn-sm btn-outline-primary no-border" onclick="increase(${id})">+</button>
-									</div>           
-										<span class="text-black font-weight-bold cart-item-price mt-1">${item.subtotal_format}</span>
-									</div>           
+								<div class="w-100 p-2" style="margin: auto;">
+									<div class="d-flex justify-content-between">
+										<h5 class="mb-2 cart-item-title" style="margin: auto 0px;">${item.name}</h5>
+										<div style="border: 1px solid #000;border-radius: 20px;">
+											<button type="button" class="btn btn-sm btn-outline-primary" style="border: none;color: black;padding: 5px;font-weight: 900;" onclick="decrease(${id})">-</button>
+											<span class="text-muted" style="line-height: 30px;padding: 0px 5px;color: #000 !important;font-weight: 900;">${item.quantity}</span>
+											<button type="button" class="btn btn-sm btn-outline-primary" style="border: none;color: black;padding: 5px;font-weight: 900;" onclick="increase(${id})">+</button>
+										</div>
+										<span class="font-weight-bold cart-item-price">${item.subtotal_format}</span>
+									</div>
 								</div>
-								</div>
-							</div>`;
+							</div>`
 					$cartTable.append($tr);
 					cartTotal += item.subtotal;
 				}

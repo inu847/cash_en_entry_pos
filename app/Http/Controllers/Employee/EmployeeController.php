@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Employee\Employee;
 use App\Models\User;
 use App\Models\Bussiness;
-use App\Models\EmployeePosition;
-use App\Models\EmployeeStatus;
+use App\Models\Employee\EmployeePosition;
+use App\Models\Employee\EmployeeStatus;
 
 class EmployeeController extends Controller
 {
@@ -71,6 +71,16 @@ class EmployeeController extends Controller
         $isi = employee::findOrFail($id);
         $data = view('employee.employee.edit',[
             'data' => $isi,
+            'user' => User::all(),
+            'bussiness' => Bussiness::all(),
+            'employee_position' => EmployeePosition::all(),
+            'employee_status' => EmployeeStatus::all(),
+        ])->render();
+        return $data;
+    }
+    public function editt(string $id)
+    {
+        $data = view('employee.employee.create',[
             'user' => User::all(),
             'bussiness' => Bussiness::all(),
             'employee_position' => EmployeePosition::all(),

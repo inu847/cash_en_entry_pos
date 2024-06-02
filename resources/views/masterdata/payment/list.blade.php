@@ -144,9 +144,9 @@
 									<img src="{{ asset('storage/'.$item->image) }}" class="table-user-thumb" alt="">
 								</td>
 								<td>{{ $item->name }}</td>
-								<td>{{ $item->status }}</td>
+								<td>{{ statusPayment($item->status) }}</td>
 								<td>
-									{{ $item->type }}
+									{{ typePayment($item->type) }}
 								</td>
 								<td>{{ $item->no_rekening }}</td>
 								<td>

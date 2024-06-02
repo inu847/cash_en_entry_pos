@@ -26,6 +26,7 @@
                     <select class="form-control" name="type" required>
                         <option value="1" {{ ($data->type == 1) ? 'selected' : '' }}>Cash</option>
                         <option value="2" {{ ($data->type == 2) ? 'selected' : '' }}>Transfer</option>
+                        <option value="3" {{ ($data->type == 3) ? 'selected' : '' }}>Ewallet</option>
                     </select>
                 </div>
                 <div class="form-group">
