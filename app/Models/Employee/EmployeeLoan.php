@@ -1,16 +1,21 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Employee;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeePosition extends Model
+class EmployeeLoan extends Model
 {
     use HasFactory;
-    protected $table = 'employee_positions';
+    protected $table = 'employee_loans';
     protected $guarded =[];
 
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
+    }
 
     public function bussiness()
     {

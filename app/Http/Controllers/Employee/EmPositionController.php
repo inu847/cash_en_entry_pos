@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\EmployeePosition;
+use App\Models\Employee\EmployeePosition;
 use App\Models\Bussiness;
 
 class EmPositionController extends Controller

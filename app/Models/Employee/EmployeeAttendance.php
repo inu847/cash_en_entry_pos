@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Employee;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Bussiness;
+use App\Models\Employee\Employee;
 
-class EmployeeLoan extends Model
+class EmployeeAttendance extends Model
 {
     use HasFactory;
-    protected $table = 'employee_loans';
+    protected $table = 'employee_attendances';
     protected $guarded =[];
-
 
     public function employee()
     {

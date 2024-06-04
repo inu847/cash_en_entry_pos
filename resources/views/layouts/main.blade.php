@@ -4,6 +4,7 @@
 	<title>@yield('title','') | Cash N Entry</title>
 	<!-- initiate head with meta tags, css and script -->
 	@include('include.head')
+	@yield('css')
 
 </head>
 <body id="app" >

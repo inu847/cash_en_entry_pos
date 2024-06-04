@@ -316,4 +316,39 @@ function StockType($type)
         }
 }
 
+function SalaryType($type)
+{
+    switch  ($type) {
+        case 1:
+            return 'Basic';
+            break;
+        case 2:
+            return 'Bonus';
+            break;
+        case 3:
+            return 'Allowance';
+            break;
+        case 4:
+            return 'Deduction';
+            break;
+        case 5:
+            return 'Over Time';
+            break;
+    }
+}
+function statusAttendance($status)
+{
+    switch ($status) {
+        case 1:
+            return 'On Time';
+            break;
+        case 2:
+            return 'Half Day';
+            break;     
+        
+        case 3:
+            return 'Zero Wage';
+            break;  
+    }   
+}
 ?>

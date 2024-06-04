@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Employee;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Employee;
+use App\Models\Employee\EmployeeAttendance;
+use App\Models\Employee\Employee;
+use App\Models\Bussiness;
 
 class EmAttendanceController extends Controller
 {
@@ -15,7 +16,9 @@ class EmAttendanceController extends Controller
      */
     public function index()
     {
-        //
+        $data = EmployeeAttendance::all();
+
+        return view('employee.attendance.list', compact('data'));
     }
 
     /**
@@ -25,7 +28,11 @@ class EmAttendanceController extends Controller
      */
     public function create()
     {
-        //
+        $data = view('employee.attendance.create',[
+            'bussiness' => Bussiness::all(),
+            'employee' => Employee::all(),
+        ])->render();
+        return $data;
     }
 
     /**
@@ -36,7 +43,19 @@ class EmAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if ($request->file('clock_in_photo')) {
+            $file = $request->file('clock_in_photo');
+            $path = $file->store('attendace', 'public');
+            $data['clock_in_photo'] = $path;
+        }
+        if ($request->file('clock_out_photo')) {
+            $file = $request->file('clock_out_photo');
+            $path = $file->store('attendace', 'public');
+            $data['clock_out_photo'] = $path;
+        }
+        $create = EmployeeAttendance::create($data);
+        return back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -47,7 +66,9 @@ class EmAttendanceController extends Controller
      */
     public function show($id)
     {
-        //
+        
+            $data = EmployeeAttendance::findOrFail($id);
+            return view('employee.attendance.detail', compact('data'));
     }
 
     /**
@@ -58,7 +79,13 @@ class EmAttendanceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $isi = EmployeeAttendance::findOrFail($id);
+        $data = view('employee.attendance.edit',[
+            'data' => $isi,
+            'bussiness' => Bussiness::all(),
+            'employee' => Employee::all(),
+        ])->render();
+        return $data;
     }
 
     /**
@@ -70,7 +97,25 @@ class EmAttendanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->updateValidate($request);
+
+        $data = $request->all();
+        if ($request->file('clock_in_photo')) {
+            $file = $request->file('clock_in_photo');
+            $path = $file->store('attendace', 'public');
+            $data['clock_in_photo'] = $path;
+        }
+        if ($request->file('clock_out_photo')) {
+            $file = $request->file('clock_out_photo');
+            $path = $file->store('attendace', 'public');
+            $data['clock_out_photo'] = $path;
+        }
+
+        return $this->atomic(function () use ($data, $id) {
+            $update = EmployeeAttendance::findOrFail($id)->update($data);
+            
+            return redirect()->route('emAttendance.index')->with('success', 'Data Berhasil di Ubah');
+        });
     }
 
     /**
@@ -81,6 +126,38 @@ class EmAttendanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            return $this->atomic(function () use ($id) {
+                $delete = EmployeeAttendance::find($id)->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data Berhasil Dihapus!',
+                ]);
+            });
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Gagal Dihapus!',
+            ]);
+        }
     }
-}
+    public function storeValidate(Request $request)
+    {
+        $validate = $request->validate([
+            //
+        ]);
+
+        return $validate;
+    }
+
+    public function updateValidate(Request $request)
+    {
+        $validate = $request->validate([
+            //
+        ]);
+
+        return $validate;
+    }
+
+    }

@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Employee;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Bussiness;
+
 
 class Employee extends Model
 {
@@ -19,7 +21,7 @@ class Employee extends Model
 
     public function bussiness()
     {
-        return $this->belongsTo(Bussiness::class, 'bussiness_id', 'id');
+        return $this->belongsTo(bussiness::class, 'bussiness_id', 'id');
     }
 
     public function employee_position()
