@@ -35,6 +35,9 @@
 					<div class="col col-sm-2">
 						<a href="{{ route('emLoan.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Employee Loan</a>
 					</div>
+					<div class="col col-sm-2">
+						<a class="btn btn-primary" href="{{ URL('/repaymentpdf/pdf') }}">Export to PDF</a>
+					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
 							<div class="dropdown d-inline-block">
@@ -113,8 +116,10 @@
 								<th>Loan Date</th>
 								<th>Employe Name</th>
 								<th>Bussiness Name</th>
-								<th>Status</th>
-								<th>Platform</th>
+								<th>Loan Status</th>
+								<th>Repayment Status</th>
+								<th>Repayment Type</th>
+								<th>Repayment Term</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -127,11 +132,14 @@
 											<span class="custom-control-label">&nbsp;</span>
 										</label>
 									</td>
+									<td>{{ $item->loan_number }}</td>
+									<td>{{ $item->loan_date }}</td>
 									<td>{{ $item->employee->name }}</td>
 									<td>{{ $item->bussiness->name }}</td>
-									<td>{{ statusAttendance($item->status) }}</td>
-									<td>{{ $item->date }}</td>
-									<td>{{ ($item->platform) }}</td>
+									<td>{{ loanStatus($item->loan_status) }}</td>
+									<td>{{ repaymentStatus($item->repayment_status) }}</td>
+									<td>{{ repaymentType($item->repayment_type) }}</td>
+									<td>{{ repaymentTerm($item->repayment_term) }}</td>
 									<td>
 										<a href="javascript::void(0)" onclick="detail({{ $item->id }})"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
@@ -188,7 +196,7 @@
 	<script>
 		function edit(id) {
 			$.ajax({
-				url: '/emAttendance/'+id+'/edit',
+				url: '/emLoan/'+id+'/edit',
 				type: 'GET',
 				success: function(data) {
 					$('#formEdit').html(data);
@@ -199,7 +207,7 @@
 		}
 		function detail(id) {
 		$.ajax({
-			url: '/emAttendance/'+id,
+			url: '/emLoan/'+id,
 			type: 'GET',
 			success: function(data) {
 				$('#formDetail').html(data);

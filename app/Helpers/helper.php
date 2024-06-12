@@ -351,4 +351,58 @@ function statusAttendance($status)
             break;  
     }   
 }
+function repaymentType($type)
+{
+    switch ($type) {
+        case 1:
+            return 'Full Payment';
+            break;
+        case 2:
+            return 'Installment';
+            break;
+    }
+}
+function repaymentTerm($term)
+{
+    switch ($term) {
+        case 1:
+            return 'Weekly';
+            break;
+        case 2:
+            return 'Monthly';
+            break;
+    }
+}
+function repaymentStatus($status)
+{
+    switch ($status) {
+        case 1:
+            return 'None';
+            break;
+        case 2:
+            return 'On Going';
+            break;
+        case 3:
+            return 'Paid';
+            break;
+        case 4:
+            return 'Canceled';
+            break;
+    }
+}
+function loanStatus($status)
+{
+    switch ($status) {
+        case 1:
+            return 'Waiting Approval';
+            break;
+        case 2:
+            return 'Approved';
+            break;
+        case 3:
+            return 'Rejected';
+            break;
+    }
+}
+
 ?>

@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\KatalogController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/Masterdata', function () { return view('masterdata.dashboard'); });
+
 // RESOURCES
 Route::resource('banner', BannerController::class);
 Route::resource('askedQuestions', AskedQuestionsController::class);

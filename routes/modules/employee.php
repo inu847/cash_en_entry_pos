@@ -22,3 +22,4 @@ Route::resource('emLoan', EmLoanController::class);
 Route::resource('emStatus', EmStatusController::class);
 Route::resource('emSalary', EmSalaryController::class);
 Route::resource('emWorkingH', EmWorkingHoursController::class);
+Route::get('/repaymentpdf/pdf', [EmLoanController::class, 'createPDF']);

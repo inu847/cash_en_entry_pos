@@ -64,6 +64,13 @@
                         <a href="{{ route('emLoan.index') }}" class="menu-item {{ ($segment1 == 'emLoan' && $segment2 == '') ? 'active' : '' }}">{{ __('List Loan')}}</a>
                     </div>
                 </div>
+                <div class="nav-item {{ ($segment1 == 'emWorkingH') ? 'active open' : '' }} has-sub">
+                    <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Working Hour')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('emWorkingH.create') }}" class="menu-item {{ ($segment1 == 'emWorkingH' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Working Hour')}}</a>
+                        <a href="{{ route('emWorkingH.index') }}" class="menu-item {{ ($segment1 == 'emWorkingH' && $segment2 == '') ? 'active' : '' }}">{{ __('List Working Hour')}}</a>
+                    </div>
+                </div>
                 <div class="nav-item {{ ($segment1 == 'emAttendance') ? 'active open' : '' }} has-sub">
                     <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Attendace')}}</span></a>
                     <div class="submenu-content">
@@ -75,11 +82,10 @@
                 <div class="nav-item {{ ($segment1 == 'emWorkingH') ? 'active open' : '' }} has-sub">
                     <a href="#"><i class="ik ik-headphones"></i><span>{{ __('Employee Working Hour')}}</span></a>
                     <div class="submenu-content">
-                        <a href="{{ route('emWorkingH.create') }}" class="menu-item {{ ($segment1 == 'emWorkingH' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Working Hour')}}</a>
+                          <a href="{{ route('emWorkingH.create') }}" class="menu-item {{ ($segment1 == 'emWorkingH' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add Working Hour')}}</a>
                         <a href="{{ route('emWorkingH.index') }}" class="menu-item {{ ($segment1 == 'emWorkingH' && $segment2 == '') ? 'active' : '' }}">{{ __('List Working Hour')}}</a>
                     </div>
                 </div>
-
 
                 <!-- end employee pages -->
 

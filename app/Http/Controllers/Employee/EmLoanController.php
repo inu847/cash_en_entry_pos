@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Employee;
+use Illuminate\View\View;
+use App\Models\Employee\EmployeeLoan;
+use App\Models\Employee\Employee;
+use App\Models\Bussiness;
+use PDF;
 
 class EmLoanController extends Controller
 {
@@ -15,9 +19,20 @@ class EmLoanController extends Controller
      */
     public function index()
     {
-        //
+        $data = EmployeeLoan::all();
+
+        return view('employee.loan.list',compact('data'));
     }
 
+    public function createPDF()
+    {
+                // retreive all records from db
+                $data = EmployeeLoan::all();
+                $html= PDF::loadView('employee.loan.repaymentpdf', compact('data'));
+        
+                 return $html->download('Document.pdf');
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +40,11 @@ class EmLoanController extends Controller
      */
     public function create()
     {
-        //
+        $data = view('employee.loan.create',[
+            'bussiness' => Bussiness::all(),
+            'employee' => Employee::all(),
+        ])->render();
+        return $data;
     }
 
     /**
@@ -36,7 +55,15 @@ class EmLoanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('position', 'public');
+            $data['image'] = $path;
+        }
+        $create = EmployeeLoan::create($data);
+        return back()->with('success', 'Data berhasil ditambahkan');
+
     }
 
     /**
@@ -47,7 +74,11 @@ class EmLoanController extends Controller
      */
     public function show($id)
     {
-        //
+                
+        $data = EmployeeLoan::findOrFail($id);
+
+        return view('employee.loan.detail', compact('data'));
+
     }
 
     /**
@@ -58,7 +89,14 @@ class EmLoanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $isi = EmployeeLoan::findOrFail($id);
+        $data = view('employee.loan.edit',[
+            'data' => $isi,
+            'bussiness' => Bussiness::all(),
+            'employee' => Employee::all(),
+        ])->render();
+        return $data;
+
     }
 
     /**
@@ -70,7 +108,20 @@ class EmLoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->updateValidate($request);
+
+        $data = $request->all();
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $path = $file->store('position', 'public');
+            $data['image'] = $path;
+        }
+
+        return $this->atomic(function () use ($data, $id) {
+            $update = EmployeeLoan::findOrFail($id)->update($data);
+            
+            return redirect()->route('emLoan.index')->with('success', 'Data Berhasil di Ubah');
+        });
     }
 
     /**
@@ -81,6 +132,46 @@ class EmLoanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            return $this->atomic(function () use ($id) {
+                $delete = EmployeeLoan::find($id)->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data Berhasil Dihapus!',
+                ]);
+            });
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Gagal Dihapus!',
+            ]);
+        }
     }
+    public function storeValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'bussiness_id'   => 'required',
+            'employee_id'   => 'required',
+            'loan_amount'     => 'required',
+            'loan_status'   => 'required',
+            'repayment_status'   => 'required',
+        ]);
+
+        return $validate;
+    }
+
+    public function updateValidate(Request $request)
+    {
+        $validate = $request->validate([
+            'bussiness_id'   => 'required',
+            'employee_id'   => 'required',
+            'loan_amount'     => 'required',
+            'loan_status'   => 'required',
+            'repayment_status'   => 'required',
+        ]);
+
+        return $validate;
+    }
+
 }

@@ -51,7 +51,7 @@ class LandingPageController extends Controller
 
         return view('front.components.modals_product', ['data' => $data]);
     }
-}
+
 
     public function payment()
     {
@@ -97,3 +97,4 @@ class LandingPageController extends Controller
 
         return view('front.components.invoice', compact('data','order_detail'));
     }
+}
