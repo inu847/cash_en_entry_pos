@@ -24,4 +24,9 @@ class EmployeeLoan extends Model
         return $this->belongsTo(Bussiness::class, 'bussiness_id', 'id');
     }
 
+    public function repayment()
+    {
+        return $this->hasMany(EmployeeLoanRepayment::class);
+    }
+
 }

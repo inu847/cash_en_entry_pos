@@ -35,9 +35,6 @@
 					<div class="col col-sm-2">
 						<a href="{{ route('emLoan.create') }}" class="btn btn-sm btn-primary btn-rounded">Add Employee Loan</a>
 					</div>
-					<div class="col col-sm-2">
-						<a class="btn btn-primary" href="{{ URL('/repaymentpdf/pdf') }}">Export to PDF</a>
-					</div>
 					<div class="col col-sm-1">
 						<div class="card-options d-inline-block">
 							<div class="dropdown d-inline-block">
@@ -143,6 +140,7 @@
 									<td>
 										<a href="javascript::void(0)" onclick="detail({{ $item->id }})"><i class="ik ik-eye f-16 mr-15"></i></a>
 										<a href="javascript::void(0)" onclick="edit({{ $item->id }})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
+										<a href="{{URL('/repaymentpdf/pdf/'.$item->id)}}"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
 										<a href="javascript::void(0)" onclick="confirmDelete(event, {{ $item->id }})"><i class="ik ik-trash-2 f-16 text-red"></i></a>
 									</td>
 								</tr>
@@ -214,6 +212,12 @@
 				$('#modal_detail_data').modal('show');
 				actionCloseModals();
 			}
+		})
+	}
+		function pdf(id) {
+		$.ajax({
+			url: '/repaymentpdf/pdf/'+id,
+			type: 'GET',
 		})
 	}
 

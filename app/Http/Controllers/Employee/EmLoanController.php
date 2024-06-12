@@ -8,7 +8,7 @@ use Illuminate\View\View;
 use App\Models\Employee\EmployeeLoan;
 use App\Models\Employee\Employee;
 use App\Models\Bussiness;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EmLoanController extends Controller
 {
@@ -24,13 +24,11 @@ class EmLoanController extends Controller
         return view('employee.loan.list',compact('data'));
     }
 
-    public function createPDF()
+    public function createPDF($id)
     {
-                // retreive all records from db
-                $data = EmployeeLoan::all();
-                $html= PDF::loadView('employee.loan.repaymentpdf', compact('data'));
-        
-                 return $html->download('Document.pdf');
+        // retreive all records from db
+        $data = EmployeeLoan::find($id)->repayment()->get();
+        return Pdf::loadView('employee.loan.repaymentpdf',compact('data'))->stream();
         
     }
     /**

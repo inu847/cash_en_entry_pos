@@ -405,4 +405,28 @@ function loanStatus($status)
     }
 }
 
+function repaymentStatusl($status)
+{
+    switch ($status) {
+        case 1:
+            return 'Pending';
+            break;
+        case 2:
+            return 'Verified';
+            break;
+    }
+}
+function sourceRepayment($source)
+{
+    switch ($source) {
+        case 1:
+            return 'Payroll';
+            break;
+        case 2:
+            return 'Others';
+            break;
+    }
+}
+
+
 ?>

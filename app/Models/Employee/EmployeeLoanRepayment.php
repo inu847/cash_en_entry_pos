@@ -2,6 +2,8 @@
 
 namespace App\Models\Employee;
 
+use App\Models\payroll;
+use App\Models\Bussiness;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,9 +19,9 @@ class EmployeeLoanRepayment extends Model
         return $this->belongsTo(EmployeeLoan::class, 'employee_loan_id', 'id');
     }
     
-    public function payroll()
+    public function pay()
     {
-        return $this->belongsTo(Payroll::class, 'payroll_id', 'id');
+        return $this->belongsTo(payroll::class, 'payroll_id', 'id');
     }
 
     public function bussiness()
